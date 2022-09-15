@@ -1,0 +1,64 @@
+//------------- Variables --------------//
+
+$black: #15161a;
+$white: #f0f5f5;
+$orange: #DE8002;
+$blue: #326e7c;
+$brown: #aa9377;
+$ligthbrown: #d6d0be;
+
+//-------------- Mixins ---------------//
+
+@mixin text($f, $lh) {
+  font-size: $f;
+  line-height: $lh;
+}
+
+@mixin size($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+@mixin mobile {
+  @media screen and (max-width: 425px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: 769px) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media screen and (max-width: 1025px) {
+    @content;
+  }
+}
+
+//-------------- Extends ---------------//
+
+%Btn {
+}
+
+%BtnContained {
+  &:hover {
+  }
+  &:active {
+  }
+}
+
+%BtnOutlined {
+  &:hover {
+  }
+  &:active {
+  }
+}
+
+%Roboto {
+  font-family: "Roboto";
+}
+
+%Text {
+}
