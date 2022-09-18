@@ -73,14 +73,14 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
             </ToolTip>
           ))}
         </div>
-        <div className={s.buttonWrapper}>
-          <ToolTip title={"Log Out"} state={showBar} >
+        <ToolTip title={"Log Out"} state={showBar}>
+          <div className={s.buttonWrapper}>
             <button className={showBar ? s.button : s.button + " " + s.hide}>
               <FontAwesomeIcon icon={faRightFromBracket} />
               <span>Log Out</span>
             </button>
-          </ToolTip>
-        </div>
+          </div>
+        </ToolTip>
       </div>
     </>
   );

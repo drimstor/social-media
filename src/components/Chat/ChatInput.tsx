@@ -1,7 +1,12 @@
 import React from "react";
 import s from "./Chat.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFile, faFileImage } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFile,
+  faFileImage,
+  faPaperPlane,
+} from "@fortawesome/free-solid-svg-icons";
+import ToolTip from "../Helpers/ToolTip";
 
 export default function ChatInput() {
   return (
@@ -9,14 +14,23 @@ export default function ChatInput() {
       <form>
         <input type="text" placeholder="Type something..." />
         <input type="file" id="file2" />
+
         <label htmlFor="file2">
-          <FontAwesomeIcon icon={faFile} />
+          <ToolTip title={"Add file"} reverse>
+            <FontAwesomeIcon icon={faFile} />
+          </ToolTip>
         </label>
+
         <input type="file" id="photo" />
         <label htmlFor="photo">
-          <FontAwesomeIcon icon={faFileImage} />
+          <ToolTip title={"Add photo"} reverse>
+            <FontAwesomeIcon icon={faFileImage} />
+          </ToolTip>
         </label>
-        <button className="button">Send</button>
+
+        <button className="button">
+          <span>Send</span> <FontAwesomeIcon icon={faPaperPlane} />
+        </button>
       </form>
     </div>
   );

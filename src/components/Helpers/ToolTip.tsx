@@ -6,23 +6,37 @@ interface ToolTipProps {
   children: React.ReactNode;
   title: string;
   state?: boolean;
+  reverse?: boolean;
 }
 
-export default function ToolTip({ children, title, state }: ToolTipProps) {
+export default function ToolTip({
+  children,
+  title,
+  state,
+  reverse,
+}: ToolTipProps) {
   // Тултипы
   const tooltipTarget = React.useRef<HTMLDivElement>(null);
   // Показать тултип
   const isHovering = useHover(tooltipTarget);
   return (
     <>
-      <div
-        className={
-          !state && isHovering ? s.tooltip + " " + s.tooltipShow : s.tooltip
-        }
-      >
-        {title}
+      <div ref={tooltipTarget} style={{ position: "relative" }}>
+        <div
+          className={
+            !state && isHovering
+              ? reverse
+                ? s.tooltip + " " + s.tooltipShow + " " + s.tooltipReverse
+                : s.tooltip + " " + s.tooltipShow
+              : reverse
+              ? s.tooltip + " " + s.tooltipReverse
+              : s.tooltip
+          }
+        >
+          {title}
+        </div>
+        {children}
       </div>
-      <div ref={tooltipTarget}>{children}</div>
     </>
   );
 }

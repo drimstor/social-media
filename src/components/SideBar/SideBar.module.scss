@@ -1,5 +1,22 @@
 @import "../../styles/helpers.scss";
 
+.tooltip.tooltipReverse {
+  position: fixed;
+  left: auto;
+  top: auto;
+  margin-top: -32px;
+  margin-left: -32px;
+  text-align: center;
+  min-width: 70px;
+
+  &::before {
+    left: 43%;
+    bottom: -8px;
+    font-size: 9px;
+    transform: rotate(180deg);
+  }
+}
+
 .tooltip {
   padding: 3px 8px;
   position: absolute;
@@ -30,8 +47,8 @@
 }
 
 .tooltip.tooltipShow {
-  visibility: visible;
-  opacity: 1;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .toggler {
@@ -40,7 +57,7 @@
   height: 28px;
   background: $pink;
   right: 22px;
-  top: 85px;
+  top: 105px;
   border-radius: 50%;
   opacity: 0.4;
   cursor: pointer;
@@ -95,7 +112,8 @@
     align-items: center;
     gap: 15px;
     margin-left: 9px;
-    margin-bottom: 150px;
+    margin-bottom: 85px;
+    overflow: hidden;
 
     h1 {
       font-size: 45px;
@@ -121,7 +139,7 @@
   }
 
   .sidebarWrapper {
-    overflow: hidden;
+    // overflow: hidden;
     padding-bottom: 100px;
 
     .sidebarElement {
@@ -140,6 +158,7 @@
       .elementWrapper {
         display: flex;
         transition: all 0.2s;
+        overflow: hidden;
       }
       svg {
         font-size: 25px;

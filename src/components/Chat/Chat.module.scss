@@ -150,13 +150,14 @@
     .controlPanel {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 30px;
 
       svg {
         font-size: 23px;
         color: $pink;
         transition: all 0.3s;
         cursor: pointer;
+        position: relative;
 
         &:hover {
           opacity: 0.7;
@@ -222,6 +223,10 @@
       padding-left: 35px;
     }
 
+    label {
+      position: relative;
+    }
+
     label svg {
       font-size: 25px;
       color: $pink;
@@ -241,6 +246,11 @@
       height: 50px;
       @extend %BtnO;
       width: auto;
+      padding: 0 15px;
+
+      svg {
+        font-size: 20px;
+      }
     }
   }
 }
