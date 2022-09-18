@@ -1,11 +1,12 @@
 //------------- Variables --------------//
 
-$black: #15161a;
-$white: #f0f5f5;
-$orange: #DE8002;
-$blue: #326e7c;
-$brown: #aa9377;
-$ligthbrown: #d6d0be;
+$black: #1f2024;
+$white: #f3f5ed;
+$pink: #e45169;
+$blue: #728b9a;
+$grey: #3d4e55;
+$darkgrey: #2b373b;
+$lightgrey: #757575;
 
 //-------------- Mixins ---------------//
 
@@ -40,24 +41,60 @@ $ligthbrown: #d6d0be;
 //-------------- Extends ---------------//
 
 %Btn {
+  cursor: pointer;
+  width: 100%;
+  border-radius: 5px;
+  height: 60px;
+  font-size: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  @extend %f3;
+  transition: all 0.3s;
 }
 
-%BtnContained {
+%BtnC {
+  background: $pink;
+  border: 1px solid $black;
+  color: $black;
+  position: relative;
+
   &:hover {
+    opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 0.5;
+    transform: scale(0.97);
+  }
+}
+
+%BtnO {
+  background: transparent;
+  border: 2px solid $pink;
+  color: $pink;
+
+  &:hover {
+    box-shadow: 0px 1px 13px 1px rgba(228, 81, 105, 0.4);
   }
   &:active {
+    transform: scale(0.97);
   }
 }
 
-%BtnOutlined {
-  &:hover {
-  }
-  &:active {
-  }
+%f1 {
+  font-family: "Comfortaa";
 }
 
-%Roboto {
-  font-family: "Roboto";
+%f2 {
+  font-family: "Century Gothic";
+}
+
+%f3 {
+  font-family: "Sci Auralieph";
+}
+
+%fontTitle {
+  font-family: "Overmuch";
 }
 
 %Text {

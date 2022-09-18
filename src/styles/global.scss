@@ -6,7 +6,26 @@
 }
 
 body {
-    color: $black;
+  color: $lightgrey;  
+}
+
+ul li {
+  display: block;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: $pink;
+  transition: all 0.3s;
+
+  &:hover {
+    color: #e45169b4;
+  }
+}
+
+button.button {
+  @extend %Btn;
 }
 
 html[data-theme="dark"] {

@@ -1,0 +1,218 @@
+@import "../../styles/helpers.scss";
+
+.tooltip {
+  padding: 3px 8px;
+  position: absolute;
+  left: 82px;
+  margin-top: 17px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(3px);
+  @extend %f1;
+  border: 1px solid $grey;
+  border-radius: 5px;
+  color: $black;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.1s;
+  z-index: 5;
+  white-space: nowrap;
+
+  &::before {
+    content: "\25B2";
+    position: absolute;
+    color: $grey;
+    left: -8px;
+    top: 5px;
+    font-size: 9px;
+    transform: rotate(-90deg);
+  }
+}
+
+.tooltip.tooltipShow {
+  visibility: visible;
+  opacity: 1;
+}
+
+.toggler {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background: $pink;
+  right: 22px;
+  top: 85px;
+  border-radius: 50%;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 2;
+
+  .tooltip {
+    margin-top: 3px;
+    left: 65px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:active {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  span {
+    display: block;
+    transition: all 0.3s;
+    width: 28px;
+    height: 28px;
+  }
+  span:after {
+    content: "\276F";
+    color: $black;
+    font-size: 22px;
+    padding-left: 9px;
+    display: inline-block;
+    margin-top: -2px;
+  }
+}
+
+.sidebar {
+  width: 250px;
+  min-width: 70px;
+  max-width: 250px;
+  height: 100vh;
+  background: $black;
+  padding: 25px 0px 6px 6px;
+  position: relative;
+  transition: all 0.4s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .title {
+    color: $pink;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 9px;
+    margin-bottom: 150px;
+
+    h1 {
+      font-size: 45px;
+      letter-spacing: 2px;
+      @extend %fontTitle;
+      margin-left: 1px;
+    }
+
+    span {
+      display: inline-block;
+      font-size: 38px;
+      margin-top: 7px;
+      margin-left: -15px;
+      letter-spacing: 3px;
+      @extend %f3;
+      font-family: "f Farso";
+    }
+
+    svg {
+      font-size: 35px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .sidebarWrapper {
+    overflow: hidden;
+    padding-bottom: 100px;
+
+    .sidebarElement {
+      padding: 15px 5px;
+      @extend %f1;
+      color: $pink;
+      width: 100%;
+      border-bottom-left-radius: 35px;
+      border-top-left-radius: 35px;
+      padding-left: 15px;
+      position: relative;
+      transition: color 0.05s;
+      margin: 15px 0;
+      cursor: pointer;
+
+      .elementWrapper {
+        display: flex;
+        transition: all 0.2s;
+      }
+      svg {
+        font-size: 25px;
+        width: 25px;
+        margin-right: 23px;
+      }
+
+      &:active {
+        .elementWrapper {
+          transform: scale(0.95);
+          color: rgb(52, 67, 73);
+        }
+      }
+    }
+
+    .sidebarElement.active {
+      background: $blue;
+      color: $black;
+      box-shadow: 5px 0px 3px 1px rgba(34, 60, 80, 0.3) inset;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: -40px;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border-radius: 50%;
+        box-shadow: 28px 28px 0 10px $blue;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: -40px;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border-radius: 50%;
+        box-shadow: 28px -28px 0 10px $blue;
+      }
+    }
+  }
+  .buttonWrapper {
+    overflow: hidden;
+  }
+  .button {
+    @extend %Btn;
+    @extend %BtnC;
+    width: calc(100% - 6px);
+    display: block;
+    position: relative;
+    bottom: 0;
+    svg {
+      position: absolute;
+      left: 17px;
+      top: 16px;
+    }
+    span {
+      position: absolute;
+      left: 25px;
+      top: 15px;
+      margin-left: 35px;
+      transition: all 0.4s;
+      white-space: nowrap;
+      z-index: 0;
+    }
+  }
+  .button.hide {
+    span {
+      color: transparent;
+    }
+  }
+}
