@@ -1,6 +1,7 @@
 import React from "react";
 import useHover from "../../hooks/useHover";
 import s from "../SideBar/SideBar.module.scss";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 interface SideBarElementProps {
   item: Obj;
@@ -22,12 +23,14 @@ export default function SideBarElement({
 
   const hoverOnElement = useHover(barElement);
 
+  const matches = useMediaQuery("(max-width: 425px)");
+
   return (
     <div
       ref={barElement}
       className={
         selectElement === item.title || hoverOnElement
-          ? s.active + " " + s.sidebarElement
+          ? (matches ? s.select : s.active) + " " + s.sidebarElement
           : s.sidebarElement
       }
       onClick={() => onClick(item.title)}

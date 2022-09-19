@@ -1,26 +1,44 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState } from "react";
 
-const useMediaQuery = (queryInput: string) => {
-  const [targetReached, setTargetReached] = React.useState(false)
+function useMediaQuery(query: string): boolean {
+  const getMatches = (query: string): boolean => {
+    // Prevents SSR issues
+    if (typeof window !== "undefined") {
+      return window.matchMedia(query).matches;
+    }
+    return false;
+  };
 
-  const updateTarget = React.useCallback((e: any) => {
-    if (e.matches) setTargetReached(true)
-    else setTargetReached(false)
-  }, [])
+  const [matches, setMatches] = useState<boolean>(getMatches(query));
+
+  function handleChange() {
+    setMatches(getMatches(query));
+  }
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const media = window.matchMedia(queryInput)
-      media.addEventListener('change', updateTarget)
+    const matchMedia = window.matchMedia(query);
 
-      // Check on mount (callback is not called until a change occurs)
-      if (media.matches) setTargetReached(true)
+    // Triggered at the first client-side load and if query changes
+    handleChange();
 
-      return () => media.removeEventListener('change', updateTarget)
+    // Listen matchMedia
+    if (matchMedia.addListener) {
+      matchMedia.addListener(handleChange);
+    } else {
+      matchMedia.addEventListener("change", handleChange);
     }
-  }, [])
 
-  return targetReached
+    return () => {
+      if (matchMedia.removeListener) {
+        matchMedia.removeListener(handleChange);
+      } else {
+        matchMedia.removeEventListener("change", handleChange);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
+
+  return matches;
 }
 
-export default useMediaQuery
+export default useMediaQuery;

@@ -2,6 +2,7 @@ import React from "react";
 import s from "./SideBar.module.scss";
 import SideBarElement from "./SideBarElement";
 import ToolTip from "../Helpers/ToolTip";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -45,6 +46,8 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
     setSelectElement(index);
   };
 
+  const matches = useMediaQuery("(max-width: 425px)");
+
   return (
     <>
       <div className={s.sidebar} style={{ width: showBar ? "250px" : "70px" }}>
@@ -55,23 +58,31 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
             />
           </ToolTip>
         </div>
-
+        <div className={s.title}>
+          <FontAwesomeIcon icon={faCubes} /> <h1>Chat</h1>
+          <span>ik</span>
+        </div>
         <div className={s.sidebarWrapper}>
-          <div className={s.title}>
-            <FontAwesomeIcon icon={faCubes} /> <h1>Chat</h1>
-            <span>ik</span>
-          </div>
-
-          {SideBarList.map((item, index) => (
-            <ToolTip title={item.title} state={showBar} key={index}>
+          {SideBarList.map((item, index) =>
+            !matches ? (
+              <ToolTip title={item.title} state={showBar} key={index}>
+                <SideBarElement
+                  key={index}
+                  onClick={() => handleClickOnElement(item.title)}
+                  selectElement={selectElement}
+                  item={item}
+                />
+              </ToolTip>
+            ) : (
               <SideBarElement
                 key={index}
                 onClick={() => handleClickOnElement(item.title)}
                 selectElement={selectElement}
                 item={item}
               />
-            </ToolTip>
-          ))}
+            )
+          )}
+          <div className={s.indicator} />
         </div>
         <ToolTip title={"Log Out"} state={showBar}>
           <div className={s.buttonWrapper}>

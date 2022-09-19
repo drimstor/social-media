@@ -64,6 +64,10 @@
   transition: all 0.3s;
   z-index: 2;
 
+  @include mobile {
+    display: none;
+  }
+
   .tooltip {
     margin-top: 3px;
     left: 65px;
@@ -93,6 +97,8 @@
   }
 }
 
+// -------------------- //
+
 .sidebar {
   width: 250px;
   min-width: 70px;
@@ -106,14 +112,27 @@
   flex-direction: column;
   justify-content: space-between;
 
+  @include mobile {
+    width: 100% !important;
+    max-width: none;
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+  }
+
   .title {
     color: $pink;
     display: flex;
     align-items: center;
     gap: 15px;
     margin-left: 9px;
-    margin-bottom: 85px;
     overflow: hidden;
+
+    @include mobile {
+      display: none;
+    }
 
     h1 {
       font-size: 45px;
@@ -138,9 +157,67 @@
     }
   }
 
+  .sidebarElement:nth-child(1).select ~ .indicator {
+    left: 13px;
+  }
+  .sidebarElement:nth-child(2).select ~ .indicator {
+    left: 27.2%;
+  }
+  .sidebarElement:nth-child(3).select ~ .indicator {
+    left: 50.55%;
+  }
+  .sidebarElement:nth-child(4).select ~ .indicator {
+    left: 74.3%;
+  }
+
+  .indicator {
+    display: none;
+    position: absolute;
+    left: 13px;
+    width: 70px;
+    height: 70px;
+    background: $pink;
+    border-radius: 50%;
+    top: -50%;
+    border: 6px solid $blue;
+    transition: 0.5s all;
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: 4px;
+      width: 20px;
+      height: 20px;
+      left: -20px;
+      border-top-right-radius: 20px;
+      box-shadow: 1px -10px 0 0 $blue;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 4px;
+      width: 20px;
+      height: 20px;
+      right: -20px;
+      border-top-left-radius: 20px;
+      box-shadow: -1px -10px 0 0 $blue;
+    }
+
+    @include mobile {
+      display: block;
+    }
+  }
+
   .sidebarWrapper {
-    // overflow: hidden;
     padding-bottom: 100px;
+
+    @include mobile {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+    }
 
     .sidebarElement {
       padding: 15px 5px;
@@ -155,21 +232,81 @@
       margin: 15px 0;
       cursor: pointer;
 
+      &.select {
+        svg {
+          transform: translateY(-44px);
+          color: $black;
+        }
+        h2 {
+          color: $pink;
+          opacity: 1;
+          transform: translateY(10px);
+        }
+      }
+
+      @include mobile {
+        padding: 0;
+        margin: 0;
+      }
+
       .elementWrapper {
         display: flex;
         transition: all 0.2s;
         overflow: hidden;
+
+        @include mobile {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 75px;
+          height: 75px;
+          padding: 0;
+          text-align: center;
+          overflow: visible;
+        }
       }
       svg {
         font-size: 25px;
         width: 25px;
         margin-right: 23px;
+        position: relative;
+        z-index: 5;
+
+        @include mobile {
+          margin-right: 0;
+          color: $lightgrey;
+          font-size: 32px;
+          width: 32px;
+          height: 32px;
+          min-height: 32px;
+          margin-top: 23px;
+          margin-bottom: 70px;
+          transition: 0.5s all;
+          position: relative;
+          z-index: 1;
+        }
+      }
+
+      h2 {
+        @include mobile {
+          transition: 0.5s all;
+          color: $lightgrey;
+          font-size: 13px;
+          position: absolute;
+          bottom: 30px;
+          opacity: 0;
+          transform: translateY(25px);
+        }
       }
 
       &:active {
         .elementWrapper {
           transform: scale(0.95);
           color: rgb(52, 67, 73);
+
+          @include mobile {
+            transform: none;
+          }
         }
       }
     }
@@ -206,6 +343,10 @@
   }
   .buttonWrapper {
     overflow: hidden;
+
+    @include mobile {
+      display: none;
+    }
   }
   .button {
     @extend %Btn;

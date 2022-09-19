@@ -20,23 +20,21 @@ export default function ToolTip({
   // Показать тултип
   const isHovering = useHover(tooltipTarget);
   return (
-    <>
-      <div ref={tooltipTarget} style={{ position: "relative" }}>
-        <div
-          className={
-            !state && isHovering
-              ? reverse
-                ? s.tooltip + " " + s.tooltipShow + " " + s.tooltipReverse
-                : s.tooltip + " " + s.tooltipShow
-              : reverse
-              ? s.tooltip + " " + s.tooltipReverse
-              : s.tooltip
-          }
-        >
-          {title}
-        </div>
-        {children}
+    <div ref={tooltipTarget} style={{ position: "relative" }}>
+      <div
+        className={
+          !state && isHovering
+            ? reverse
+              ? s.tooltip + " " + s.tooltipShow + " " + s.tooltipReverse
+              : s.tooltip + " " + s.tooltipShow
+            : reverse
+            ? s.tooltip + " " + s.tooltipReverse
+            : s.tooltip
+        }
+      >
+        {title}
       </div>
-    </>
+      {children}
+    </div>
   );
 }
