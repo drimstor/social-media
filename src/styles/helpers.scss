@@ -1,12 +1,19 @@
 //------------- Variables --------------//
 
-$black: #1f2024;
-$white: #f3f5ed;
-$pink: #e45169;
-$blue: #728b9a;
-$grey: #3d4e55;
-$darkgrey: #2b373b;
-$lightgrey: #757575;
+$black: var(--color1);
+$white: var(--color2);
+$pink: var(--color3);
+$blue: var(--color4);
+$grey: var(--color5);
+$darkgrey: var(--color6);
+$lightgrey: var(--color7);
+$nigthgrey: var(--color8);
+
+$background: var(--background);
+$mainColor: var(--mainColor);
+$input: var(--input);
+$monoChrome: var(--monoChrome);
+$monoChromeReverse: var(--monoChromeReverse);
 
 //-------------- Mixins ---------------//
 
@@ -70,11 +77,11 @@ $lightgrey: #757575;
 
 %BtnO {
   background: transparent;
-  border: 2px solid $pink;
-  color: $pink;
+  border: 2px solid $mainColor;
+  color: $mainColor;
 
   &:hover {
-    box-shadow: 0px 1px 13px 1px rgba(228, 81, 105, 0.4);
+    box-shadow: 0px 1px 13px -2px $mainColor;
   }
   &:active {
     transform: scale(0.97);
@@ -95,7 +102,4 @@ $lightgrey: #757575;
 
 %fontTitle {
   font-family: "Overmuch";
-}
-
-%Text {
 }

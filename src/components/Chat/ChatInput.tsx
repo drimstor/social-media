@@ -28,7 +28,7 @@ export default function ChatInput() {
           </ToolTip>
         </label>
 
-        <button className="button">
+        <button>
           <span>Send</span> <FontAwesomeIcon icon={faPaperPlane} />
         </button>
       </form>

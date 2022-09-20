@@ -17,22 +17,48 @@
   }
 }
 
+.sidebarSwitch {
+  position: absolute;
+  bottom: 75px;
+  margin-left: 4px;
+
+  @include mobile {
+    display: none;
+  }
+  .tooltip {
+    left: 74px;
+  }
+}
+
+.sidebarTooltip {
+  @include mobile {
+    display: none;
+  }
+  .buttonWrapper {
+    overflow: hidden;
+  }
+  .tooltip {
+    margin-top: 18px;
+    left: 77px;
+  }
+}
+
 .tooltip {
   padding: 3px 8px;
   position: absolute;
-  left: 82px;
-  margin-top: 17px;
+  left: 63px;
+  margin-top: 4px;
   font-size: 12px;
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(3px);
   @extend %f1;
   border: 1px solid $grey;
   border-radius: 5px;
-  color: $black;
+  color: #1f2024;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.1s;
-  z-index: 5;
+  z-index: 3;
   white-space: nowrap;
 
   &::before {
@@ -97,7 +123,7 @@
   }
 }
 
-// -------------------- //
+// ---------------------------- //
 
 .sidebar {
   width: 250px;
@@ -157,66 +183,19 @@
     }
   }
 
-  .sidebarElement:nth-child(1).select ~ .indicator {
-    left: 13px;
-  }
-  .sidebarElement:nth-child(2).select ~ .indicator {
-    left: 27.2%;
-  }
-  .sidebarElement:nth-child(3).select ~ .indicator {
-    left: 50.55%;
-  }
-  .sidebarElement:nth-child(4).select ~ .indicator {
-    left: 74.3%;
-  }
-
-  .indicator {
-    display: none;
-    position: absolute;
-    left: 13px;
-    width: 70px;
-    height: 70px;
-    background: $pink;
-    border-radius: 50%;
-    top: -50%;
-    border: 6px solid $blue;
-    transition: 0.5s all;
-
-    &::before {
-      content: "";
-      position: absolute;
-      bottom: 4px;
-      width: 20px;
-      height: 20px;
-      left: -20px;
-      border-top-right-radius: 20px;
-      box-shadow: 1px -10px 0 0 $blue;
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 4px;
-      width: 20px;
-      height: 20px;
-      right: -20px;
-      border-top-left-radius: 20px;
-      box-shadow: -1px -10px 0 0 $blue;
-    }
-
-    @include mobile {
-      display: block;
-    }
-  }
-
   .sidebarWrapper {
     padding-bottom: 100px;
+    position: relative;
 
     @include mobile {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0 10px;
+    }
+
+    .sidebarElement.active {
+      color: $black;
     }
 
     .sidebarElement {
@@ -228,19 +207,36 @@
       border-top-left-radius: 35px;
       padding-left: 15px;
       position: relative;
-      transition: color 0.05s;
+      transition: all 0.3s;
       margin: 15px 0;
       cursor: pointer;
+
+      @media screen and (min-width: 426px) {
+        &:active {
+          svg {
+            transform: scale(0.8);
+          }
+          h2 {
+            transform: scaleY(0.9);
+          }
+        }
+        &:hover {
+          svg,
+          h2 {
+            opacity: 0.6;
+          }
+        }
+      }
 
       &.select {
         svg {
           transform: translateY(-44px);
-          color: $black;
+          color: $monoChromeReverse;
         }
         h2 {
           color: $pink;
           opacity: 1;
-          transform: translateY(10px);
+          transform: translateY(15px);
         }
       }
 
@@ -251,7 +247,7 @@
 
       .elementWrapper {
         display: flex;
-        transition: all 0.2s;
+        transition: all 0.005s;
         overflow: hidden;
 
         @include mobile {
@@ -265,16 +261,18 @@
           overflow: visible;
         }
       }
+
       svg {
         font-size: 25px;
         width: 25px;
         margin-right: 23px;
         position: relative;
-        z-index: 5;
+        z-index: 2;
+        transition: 0.3s all;
 
         @include mobile {
           margin-right: 0;
-          color: $lightgrey;
+          color: rgba(255, 255, 255, 0.572);
           font-size: 32px;
           width: 32px;
           height: 32px;
@@ -282,12 +280,14 @@
           margin-top: 23px;
           margin-bottom: 70px;
           transition: 0.5s all;
-          position: relative;
-          z-index: 1;
         }
       }
 
       h2 {
+        position: relative;
+        z-index: 2;
+        transition: 0.3s all;
+
         @include mobile {
           transition: 0.5s all;
           color: $lightgrey;
@@ -295,26 +295,96 @@
           position: absolute;
           bottom: 30px;
           opacity: 0;
-          transform: translateY(25px);
-        }
-      }
-
-      &:active {
-        .elementWrapper {
-          transform: scale(0.95);
-          color: rgb(52, 67, 73);
-
-          @include mobile {
-            transform: none;
-          }
+          transform: translateY(30px);
         }
       }
     }
 
-    .sidebarElement.active {
-      background: $blue;
-      color: $black;
+    .sidebarElement:nth-child(1).select ~ .indicator {
+      left: 13px;
+    }
+    .sidebarElement:nth-child(2).select ~ .indicator {
+      left: 27%;
+    }
+    .sidebarElement:nth-child(3).select ~ .indicator {
+      left: 50.55%;
+    }
+    .sidebarElement:nth-child(4).select ~ .indicator {
+      left: 74.3%;
+    }
+
+    .indicator {
+      display: none;
+      position: absolute;
+      left: 13px;
+      width: 70px;
+      height: 70px;
+      background: $mainColor;
+      border-radius: 50%;
+      top: -53%;
+      border: 6px solid $background;
+      transition: 0.5s all;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 4px;
+        width: 20px;
+        height: 20px;
+        left: -20px;
+        border-top-right-radius: 20px;
+        box-shadow: 1px -10px 0 0 $background;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 4px;
+        width: 20px;
+        height: 20px;
+        right: -20px;
+        border-top-left-radius: 20px;
+        box-shadow: -1px -10px 0 0 $background;
+      }
+
+      @include mobile {
+        display: block;
+      }
+    }
+
+    .sidebarElement:nth-child(1).active ~ .desktopIndicator {
+      top: 0;
+    }
+
+    .sidebarElement:nth-child(2).active ~ .desktopIndicator {
+      top: 18%;
+    }
+
+    .sidebarElement:nth-child(3).active ~ .desktopIndicator {
+      top: 35.5%;
+    }
+
+    .sidebarElement:nth-child(4).active ~ .desktopIndicator {
+      top: 53.5%;
+    }
+
+    .desktopIndicator {
+      background: $background;
+      height: 57px;
+      z-index: 1;
+      padding: 15px 5px;
+      width: 100%;
+      border-bottom-left-radius: 35px;
+      border-top-left-radius: 35px;
+      padding-left: 15px;
+      position: absolute;
+      transition: top 0.5s !important;
+      margin: 15px 0;
       box-shadow: 5px 0px 3px 1px rgba(34, 60, 80, 0.3) inset;
+
+      @include mobile {
+        display: none;
+      }
 
       &::after {
         content: "";
@@ -325,7 +395,7 @@
         height: 40px;
         background: transparent;
         border-radius: 50%;
-        box-shadow: 28px 28px 0 10px $blue;
+        box-shadow: 28px 28px 0 10px $background;
       }
 
       &::before {
@@ -337,17 +407,11 @@
         height: 40px;
         background: transparent;
         border-radius: 50%;
-        box-shadow: 28px -28px 0 10px $blue;
+        box-shadow: 28px -28px 0 10px $background;
       }
     }
   }
-  .buttonWrapper {
-    overflow: hidden;
 
-    @include mobile {
-      display: none;
-    }
-  }
   .button {
     @extend %Btn;
     @extend %BtnC;

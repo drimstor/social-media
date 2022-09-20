@@ -4,13 +4,13 @@ import SideBar from "../components/SideBar/SideBar";
 import s from "../styles/Home.module.scss";
 
 export default function Home() {
-   // Раскрыть сайдбар
-   const [showBar, setShowBar] = React.useState<boolean>(false);
+  // Раскрыть сайдбар
+  const [showBar, setShowBar] = React.useState<boolean>(false);
 
   return (
     <div className={s.body}>
-     <SideBar showBar={showBar} setShowBar={setShowBar} />
-     <Chat showBar={showBar} />
+      <SideBar showBar={showBar} setShowBar={setShowBar} />
+      <Chat showBar={showBar} />
     </div>
   );
 }

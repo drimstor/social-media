@@ -2,7 +2,7 @@ import React from "react";
 import s from "./SideBar.module.scss";
 import SideBarElement from "./SideBarElement";
 import ToolTip from "../Helpers/ToolTip";
-import useMediaQuery from "../../hooks/useMediaQuery";
+import useTheme from "../../hooks/useTheme";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,6 +13,7 @@ import {
   faRightFromBracket,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import Switch from "../Switch/Switch";
 
 const SideBarList = [
   {
@@ -42,48 +43,54 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
   // Табы
   const [selectElement, setSelectElement] = React.useState<string>("Chats");
 
-  const handleClickOnElement: (index: any) => void = (index) => {
+  const handleClickOnElement: (index: string) => void = (index) => {
     setSelectElement(index);
   };
 
-  const matches = useMediaQuery("(max-width: 425px)");
+  // Тема
+  const { theme, setTheme } = useTheme();
+
+  const handleThemeClick = (value: string) => {
+    value ? setTheme("light") : setTheme("dark");
+  };
 
   return (
-    <>
-      <div className={s.sidebar} style={{ width: showBar ? "250px" : "70px" }}>
-        <div className={s.toggler} onClick={() => setShowBar(!showBar)}>
-          <ToolTip title={showBar ? "Hide" : "Show"}>
-            <span
-              style={{ transform: showBar ? "rotate(180deg)" : "rotate(0deg)" }}
-            />
-          </ToolTip>
-        </div>
-        <div className={s.title}>
-          <FontAwesomeIcon icon={faCubes} /> <h1>Chat</h1>
-          <span>ik</span>
-        </div>
-        <div className={s.sidebarWrapper}>
-          {SideBarList.map((item, index) =>
-            !matches ? (
-              <ToolTip title={item.title} state={showBar} key={index}>
-                <SideBarElement
-                  key={index}
-                  onClick={() => handleClickOnElement(item.title)}
-                  selectElement={selectElement}
-                  item={item}
-                />
-              </ToolTip>
-            ) : (
-              <SideBarElement
-                key={index}
-                onClick={() => handleClickOnElement(item.title)}
-                selectElement={selectElement}
-                item={item}
-              />
-            )
-          )}
-          <div className={s.indicator} />
-        </div>
+    <div className={s.sidebar} style={{ width: showBar ? "250px" : "70px" }}>
+      <div className={s.toggler} onClick={() => setShowBar(!showBar)}>
+        <ToolTip title={showBar ? "Hide" : "Show"}>
+          <span
+            style={{ transform: showBar ? "rotate(180deg)" : "rotate(0deg)" }}
+          />
+        </ToolTip>
+      </div>
+      <div className={s.title}>
+        <FontAwesomeIcon icon={faCubes} /> <h1>Chat</h1>
+        <span>ik</span>
+      </div>
+      <div className={s.sidebarWrapper}>
+        {SideBarList.map((item, index) => (
+          <SideBarElement
+            key={index}
+            onClick={() => handleClickOnElement(item.title)}
+            selectElement={selectElement}
+            item={item}
+            showBar={showBar}
+          />
+        ))}
+        <div className={s.indicator} />
+        <div className={s.desktopIndicator} />
+      </div>
+
+      <div className={s.sidebarSwitch}>
+        <ToolTip
+          title={theme === "dark" ? "Light mode" : "Dark mode"}
+          state={showBar}
+        >
+          <Switch handleThemeClick={handleThemeClick} />
+        </ToolTip>
+      </div>
+
+      <div className={s.sidebarTooltip}>
         <ToolTip title={"Log Out"} state={showBar}>
           <div className={s.buttonWrapper}>
             <button className={showBar ? s.button : s.button + " " + s.hide}>
@@ -93,6 +100,6 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
           </div>
         </ToolTip>
       </div>
-    </>
+    </div>
   );
 }

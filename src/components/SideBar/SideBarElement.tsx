@@ -1,12 +1,13 @@
 import React from "react";
-import useHover from "../../hooks/useHover";
 import s from "../SideBar/SideBar.module.scss";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import ToolTip from "../Helpers/ToolTip";
 
 interface SideBarElementProps {
   item: Obj;
   onClick: (item: string) => void;
   selectElement: string;
+  showBar?: boolean;
 }
 
 type Obj = {
@@ -18,26 +19,23 @@ export default function SideBarElement({
   item,
   onClick,
   selectElement,
+  showBar,
 }: SideBarElementProps) {
-  const barElement = React.useRef<HTMLDivElement>(null);
-
-  const hoverOnElement = useHover(barElement);
-
   const matches = useMediaQuery("(max-width: 425px)");
-
   return (
     <div
-      ref={barElement}
       className={
-        selectElement === item.title || hoverOnElement
+        selectElement === item.title
           ? (matches ? s.select : s.active) + " " + s.sidebarElement
           : s.sidebarElement
       }
       onClick={() => onClick(item.title)}
     >
-      <div className={s.elementWrapper}>
-        {item.icon} <h2>{item.title}</h2>
-      </div>
+      <ToolTip title={item.title} state={showBar}>
+        <div className={s.elementWrapper}>
+          {item.icon} <h2>{item.title}</h2>
+        </div>
+      </ToolTip>
     </div>
   );
 }

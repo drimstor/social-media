@@ -1,6 +1,7 @@
 import React from "react";
 import useHover from "../../hooks/useHover";
 import s from "../SideBar/SideBar.module.scss";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 interface ToolTipProps {
   children: React.ReactNode;
@@ -19,11 +20,13 @@ export default function ToolTip({
   const tooltipTarget = React.useRef<HTMLDivElement>(null);
   // Показать тултип
   const isHovering = useHover(tooltipTarget);
+  // Только десктоп
+  const matches = useMediaQuery("(max-width: 425px)");
   return (
     <div ref={tooltipTarget} style={{ position: "relative" }}>
       <div
         className={
-          !state && isHovering
+          !matches && !state && isHovering
             ? reverse
               ? s.tooltip + " " + s.tooltipShow + " " + s.tooltipReverse
               : s.tooltip + " " + s.tooltipShow
