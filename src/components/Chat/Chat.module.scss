@@ -141,11 +141,12 @@
   .users {
     height: 100%;
     background: $grey;
-    padding-bottom: 250px;
+
 
     @include mobile {
       background: $background;
-      // overflow-y: scroll;
+      padding-bottom: 150px;
+      overflow-y: scroll;
     }
 
     > div {
