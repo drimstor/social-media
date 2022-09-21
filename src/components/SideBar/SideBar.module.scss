@@ -136,7 +136,7 @@
   background: $black;
   padding: 25px 0px 6px 6px;
   position: relative;
-  transition: width 0.4s ease-out, background 0.4s ease-out;;
+  transition: width 0.4s ease-out, background 0.4s ease-out;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -215,7 +215,7 @@
       margin: 15px 0;
       cursor: pointer;
 
-      @media screen and (min-width: 426px) {
+      @include noMobile {
         &:active {
           svg {
             transform: scale(0.8);

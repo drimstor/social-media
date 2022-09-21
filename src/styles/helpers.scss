@@ -45,6 +45,12 @@ $monoChromeReverse: var(--monoChromeReverse);
   }
 }
 
+@mixin noMobile {
+  @media screen and (min-width: 426px) {
+    @content;
+  }
+}
+
 //-------------- Extends ---------------//
 
 %Btn {
