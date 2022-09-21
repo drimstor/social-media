@@ -40,6 +40,7 @@
 
     @include mobile {
       padding: 10px;
+      padding-top: 0;
     }
 
     svg {
@@ -51,7 +52,7 @@
       transition: all 0.2s;
 
       @include mobile {
-        top: 30px;
+        top: 21px;
         left: 35px;
       }
     }
@@ -111,7 +112,6 @@
     color: $pink;
     text-align: center;
     font-size: 25px;
-    margin-left: -15px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -122,12 +122,15 @@
       border-bottom: 1px solid $black;
       position: fixed;
       top: 0;
-      left: calc(50% - 87px);
+      left: 0px;
+      z-index: 2;
+      width: 100vw;
     }
 
     .navTitle {
       display: flex;
       gap: 15px;
+      margin-left: -40px;
 
       svg {
         font-size: 35px;
