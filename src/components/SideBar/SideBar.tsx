@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCog,
   faComments,
-  faCubes,
+  faEarth,
   faQuestionCircle,
   faRightFromBracket,
   faUserCircle,
@@ -60,7 +60,7 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
         </ToolTip>
       </div>
       <div className={s.title}>
-        <FontAwesomeIcon icon={faCubes} /> <h1>Chat</h1>
+        <FontAwesomeIcon icon={faEarth} /> <h1>Chat</h1>
         <span>ik</span>
       </div>
       <div className={s.sidebarWrapper}>
