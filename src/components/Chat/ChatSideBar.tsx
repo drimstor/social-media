@@ -5,6 +5,7 @@ import ChatsUser from "./ChatsUser";
 import iUsers from "../../types/iUsers";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 interface ChatSideBarProps {
   users: iUsers[];
@@ -13,6 +14,7 @@ interface ChatSideBarProps {
 }
 
 function ChatSideBar({ users, setSelectChat, selectChat }: ChatSideBarProps) {
+  const matches = useMediaQuery("(max-width: 425px)");
   return (
     <div className={s.sidebar}>
       <ChatNavBar />
@@ -24,7 +26,7 @@ function ChatSideBar({ users, setSelectChat, selectChat }: ChatSideBarProps) {
         {users.map((user, index) => (
           <div
             style={{
-              background: selectChat === index ? "rgba(0, 0, 0, 0.22)" : "",
+              background: selectChat === index && !matches ? "rgba(0, 0, 0, 0.22)" : "",
             }}
             key={index}
             onClick={() => setSelectChat(index)}
