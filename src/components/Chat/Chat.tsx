@@ -13,13 +13,21 @@ const users: iUsers[] = [
     message: "Dolorum voluptates voluptatem?",
   },
   {
+    avatar: avatar2,
+    name: "Bill Gates",
+    message: "Hi!",
+  },
+  {
     name: "User Name",
     message: "Text message",
   },
   {
-    avatar: avatar2,
-    name: "Bill Gates",
-    message: "Hi!",
+    name: "User Name",
+    message: "Text message",
+  },
+  {
+    name: "User Name",
+    message: "Text message",
   },
   {
     name: "User Name",

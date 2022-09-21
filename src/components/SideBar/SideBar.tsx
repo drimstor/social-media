@@ -73,7 +73,10 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
             showBar={showBar}
           />
         ))}
-        <div className={s.indicator} />
+        <div className={s.indicator}>
+          {" "}
+          <div className={s.indicatorChild}></div>{" "}
+        </div>
         <div className={s.desktopIndicator} />
       </div>
 
