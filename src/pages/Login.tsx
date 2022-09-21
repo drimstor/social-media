@@ -1,14 +1,12 @@
 import React from "react";
 import s from "../styles/authentication.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEnvelope,
-  faLock,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import BackdropLayout from "../components/Layouts/BackdropLayout";
 
 export default function Login() {
   return (
-    <div className={s.backdrop}>
+    <BackdropLayout>
       <div className={s.formWrapper}>
         <h1>Login</h1>
 
@@ -30,6 +28,6 @@ export default function Login() {
           You don't have an account? <a href="/register">Register</a>
         </p>
       </div>
-    </div>
+    </BackdropLayout>
   );
 }

@@ -85,12 +85,12 @@
         text-transform: capitalize;
         background: rgba(255, 255, 255, 0.266);
         @extend %f2;
-        color: $monoChromeReverse;
+        color: #e1eae6;
         border-radius: 5px;
         transition: all 0.2s;
 
         &::placeholder {
-          color: $monoChromeReverse;
+          color: #e1eae6;
         }
         &:hover {
           border: 1px solid $lightgrey;
@@ -140,4 +140,11 @@
       }
     }
   }
+}
+
+
+.switch {
+  position: fixed;
+  bottom: 15px;
+  left: calc(50% - 25px);
 }

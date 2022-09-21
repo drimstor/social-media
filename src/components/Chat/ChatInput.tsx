@@ -10,7 +10,7 @@ import ToolTip from "../Helpers/ToolTip";
 
 export default function ChatInput() {
   return (
-    <div className={s.input}>
+    <div className={s.MainInput}>
       <form>
         <input type="text" placeholder="Type something..." />
         <input type="file" id="file2" />

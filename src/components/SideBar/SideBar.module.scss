@@ -23,7 +23,10 @@
   margin-left: 4px;
 
   @include mobile {
-    display: none;
+    bottom: auto;
+    top: 37px;
+    position: fixed;
+    right: 15px;
   }
   .tooltip {
     left: 74px;
@@ -133,7 +136,7 @@
   background: $black;
   padding: 25px 0px 6px 6px;
   position: relative;
-  transition: all 0.4s ease-out;
+  transition: width 0.4s ease-out;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -141,11 +144,12 @@
   @include mobile {
     width: 100% !important;
     max-width: none;
-    height: 80px;
+    height: 90px;
     position: fixed;
     bottom: 0;
     left: 0;
     padding: 0;
+    border-top: 10px solid $background;
   }
 
   .title {
@@ -323,7 +327,7 @@
       border-radius: 50%;
       top: -53%;
       border: 6px solid $background;
-      transition: 0.5s all;
+      transition: 0.5s left;
 
       &::before {
         content: "";

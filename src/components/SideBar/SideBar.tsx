@@ -3,6 +3,7 @@ import s from "./SideBar.module.scss";
 import SideBarElement from "./SideBarElement";
 import ToolTip from "../Helpers/ToolTip";
 import useTheme from "../../hooks/useTheme";
+import Switch from "../Switch/Switch";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,7 +14,6 @@ import {
   faRightFromBracket,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import Switch from "../Switch/Switch";
 
 const SideBarList = [
   {
@@ -48,11 +48,7 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
   };
 
   // Тема
-  const { theme, setTheme } = useTheme();
-
-  const handleThemeClick = (value: string) => {
-    value ? setTheme("light") : setTheme("dark");
-  };
+  const { theme, handleThemeClick } = useTheme();
 
   return (
     <div className={s.sidebar} style={{ width: showBar ? "250px" : "70px" }}>

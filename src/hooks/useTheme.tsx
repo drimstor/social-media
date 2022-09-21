@@ -7,7 +7,11 @@ function useTheme() {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
-  return { theme, setTheme };
+  const handleThemeClick = (value: string) => {
+    value ? setTheme("light") : setTheme("dark");
+  };
+
+  return { theme, setTheme, handleThemeClick };
 }
 
 export default useTheme;

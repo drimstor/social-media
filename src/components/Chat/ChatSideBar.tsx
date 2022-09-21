@@ -17,14 +17,14 @@ function ChatSideBar({ users, setSelectChat, selectChat }: ChatSideBarProps) {
     <div className={s.sidebar}>
       <ChatNavBar />
       <form>
-        <FontAwesomeIcon icon={faMagnifyingGlass} />
         <input type="text" placeholder="Search" />
+        <FontAwesomeIcon icon={faMagnifyingGlass} />
       </form>
       <div className={s.users}>
         {users.map((user, index) => (
           <div
             style={{
-              background: selectChat === index ? "rgba(0, 0, 0, 0.3)" : "",
+              background: selectChat === index ? "rgba(0, 0, 0, 0.22)" : "",
             }}
             key={index}
             onClick={() => setSelectChat(index)}

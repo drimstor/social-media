@@ -9,8 +9,8 @@ export default function Home() {
 
   return (
     <div className={s.body}>
-      <SideBar showBar={showBar} setShowBar={setShowBar} />
       <Chat showBar={showBar} />
+      <SideBar showBar={showBar} setShowBar={setShowBar} />
     </div>
   );
 }

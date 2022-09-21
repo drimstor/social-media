@@ -37,7 +37,7 @@ export default function Chat({ showBar }: { showBar: boolean }) {
   return (
     <div
       className={s.chat}
-      style={{ width: showBar ? "calc(100% - 318px)" : "calc(100% - 135px)" }}
+      style={{ width: showBar ? "calc(100% - 345px)" : "calc(100vw - 165px)" }}
     >
       <ChatSideBar
         selectChat={selectChat}

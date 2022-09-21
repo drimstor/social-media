@@ -8,10 +8,11 @@ import {
   faLockOpen,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import BackdropLayout from "../components/Layouts/BackdropLayout";
 
 export default function Register() {
   return (
-    <div className={s.backdrop}>
+    <BackdropLayout>
       <div className={s.formWrapper}>
         <h1>Registration</h1>
 
@@ -47,6 +48,6 @@ export default function Register() {
           You do have an account? <a href="/login">Login</a>
         </p>
       </div>
-    </div>
+    </BackdropLayout>
   );
 }
