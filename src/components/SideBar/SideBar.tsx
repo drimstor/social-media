@@ -43,12 +43,12 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
   // Табы
   const [selectElement, setSelectElement] = React.useState<string>("Chats");
 
-  const handleClickOnElement: (index: string) => void = (index) => {
+  const handleClickOnElement = (index: string) => {
     setSelectElement(index);
   };
 
   // Тема
-  const { theme, handleThemeClick } = useTheme();
+  const { theme, handleChangeTheme } = useTheme();
 
   return (
     <div className={s.sidebar} style={{ width: showBar ? "250px" : "70px" }}>
@@ -59,10 +59,12 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
           />
         </ToolTip>
       </div>
+
       <div className={s.title}>
         <FontAwesomeIcon icon={faEarth} /> <h1>Chat</h1>
         <span>ik</span>
       </div>
+
       <div className={s.sidebarWrapper}>
         {SideBarList.map((item, index) => (
           <SideBarElement
@@ -82,7 +84,7 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
           title={theme === "dark" ? "Light mode" : "Dark mode"}
           state={showBar}
         >
-          <Switch handleThemeClick={handleThemeClick} />
+          <Switch themeValue={theme} handleChangeTheme={handleChangeTheme} />
         </ToolTip>
       </div>
 

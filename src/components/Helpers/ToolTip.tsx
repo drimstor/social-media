@@ -19,9 +19,9 @@ export default function ToolTip({
   // Тултипы
   const tooltipTarget = React.useRef<HTMLDivElement>(null);
   // Показать тултип
-  const isHovering = useHover(tooltipTarget);
+  const isHovering: boolean = useHover(tooltipTarget);
   // Только десктоп
-  const matches = useMediaQuery("(max-width: 425px)");
+  const matches: boolean = useMediaQuery("(max-width: 425px)");
   return (
     <div ref={tooltipTarget} style={{ position: "relative" }}>
       <div

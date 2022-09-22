@@ -26,7 +26,8 @@ function ChatSideBar({ users, setSelectChat, selectChat }: ChatSideBarProps) {
         {users.map((user, index) => (
           <div
             style={{
-              background: selectChat === index && !matches ? "rgba(0, 0, 0, 0.22)" : "",
+              background:
+                selectChat === index && !matches ? "rgba(0, 0, 0, 0.22)" : "",
             }}
             key={index}
             onClick={() => setSelectChat(index)}
