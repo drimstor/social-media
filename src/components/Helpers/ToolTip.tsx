@@ -1,7 +1,7 @@
 import React from "react";
-import useHover from "../../hooks/useHover";
+import useHover from "hooks/useHover";
 import s from "../SideBar/SideBar.module.scss";
-import useMediaQuery from "../../hooks/useMediaQuery";
+import useMediaQuery from "hooks/useMediaQuery";
 
 interface ToolTipProps {
   children: React.ReactNode;

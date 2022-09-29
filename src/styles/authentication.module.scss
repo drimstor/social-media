@@ -51,6 +51,20 @@
         position: relative;
         border-radius: 5px;
 
+        span {
+          position: absolute;
+          font-size: 18px;
+          line-height: 120%;
+          letter-spacing: 0.5px;
+          color: #e1eae6;
+          left: 81px;
+          top: 21px;
+          pointer-events: none;
+          transition: all 0.3s, background-color 0.2s ;
+          white-space: nowrap;
+          border-radius: 5px;
+        }
+
         &::before {
           position: absolute;
           content: "";
@@ -87,25 +101,26 @@
         @extend %f2;
         color: #e1eae6;
         border-radius: 5px;
-        transition: all 0.2s;
+        transition: 0.2s;
 
-        &::placeholder {
-          color: #e1eae6;
-        }
         &:hover {
-          border: 1px solid $lightgrey;
+          border: 1px solid $white;
         }
         &:focus {
+          border: 1px solid $white;
+        }
+        &:focus ~ span,
+        &:valid ~ span {
+          background: $black;
+          transform: translateY(-33px);
+          font-size: 14px;
+          padding: 3px 8px;
           border: 1px solid $white;
         }
       }
 
       input[type="password"] {
         text-transform: none;
-
-        &::placeholder {
-          text-transform: capitalize;
-        }
       }
 
       input[type="file"] {
@@ -146,4 +161,14 @@
   position: fixed;
   bottom: 15px;
   left: calc(50% - 25px);
+}
+
+.error {
+  color: rgba(172, 34, 34, 0.904) !important;
+  font-weight: 700;
+  font-size: 16px !important;
+  margin-top: 5px !important;
+  svg {
+    margin-right: 3px;
+  }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import s from "../SideBar/SideBar.module.scss";
-import useMediaQuery from "../../hooks/useMediaQuery";
+import useMediaQuery from "hooks/useMediaQuery";
 import ToolTip from "../Helpers/ToolTip";
 
 interface SideBarElementProps {

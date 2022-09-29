@@ -2,7 +2,7 @@ import React from "react";
 import s from "./SideBar.module.scss";
 import SideBarElement from "./SideBarElement";
 import ToolTip from "../Helpers/ToolTip";
-import useTheme from "../../hooks/useTheme";
+import useTheme from "hooks/useTheme";
 import Switch from "../Switch/Switch";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

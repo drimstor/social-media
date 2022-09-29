@@ -1,7 +1,7 @@
 import React from "react";
-import Chat from "../components/Chat/Chat";
-import SideBar from "../components/SideBar/SideBar";
-import s from "../styles/Home.module.scss";
+import Chat from "components/Chat/Chat";
+import SideBar from "components/SideBar/SideBar";
+import s from "styles/Home.module.scss";
 
 export default function Home() {
   // Раскрыть сайдбар

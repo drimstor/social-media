@@ -2,10 +2,11 @@ import React from "react";
 import s from "./Chat.module.scss";
 import ChatNavBar from "./ChatNavBar";
 import ChatsUser from "./ChatsUser";
-import iUsers from "../../types/iUsers";
+import iUsers from "types/iUsers";
+import useMediaQuery from "hooks/useMediaQuery";
+
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import useMediaQuery from "../../hooks/useMediaQuery";
 
 interface ChatSideBarProps {
   users: iUsers[];

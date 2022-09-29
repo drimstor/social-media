@@ -39,6 +39,7 @@ html[data-theme="light"] {
 
 body {
   color: $lightgrey;
+  @extend %f2;
 }
 
 ul li {

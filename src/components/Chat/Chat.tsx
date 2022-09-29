@@ -2,9 +2,9 @@ import React from "react";
 import s from "./Chat.module.scss";
 import ChatArea from "./ChatArea";
 import ChatSideBar from "./ChatSideBar";
-import iUsers from "../../types/iUsers";
-import avatar from "../../img/ZC5B45PbR1I.jpg";
-import avatar2 from "../../img/RyN8L_hN83A.png";
+import iUsers from "types/iUsers";
+import avatar from "img/ZC5B45PbR1I.jpg";
+import avatar2 from "img/RyN8L_hN83A.png";
 
 const users: iUsers[] = [
   {
