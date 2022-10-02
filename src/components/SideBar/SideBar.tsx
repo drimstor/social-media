@@ -10,10 +10,10 @@ import { removeUser } from "store/slices/userSlice";
 import { toggleSideBar } from "store/slices/sideBarSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBell,
   faCog,
   faComments,
   faEarth,
-  faQuestionCircle,
   faRightFromBracket,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
@@ -24,16 +24,16 @@ const SideBarList = [
     title: "Profile",
   },
   {
+    icon: <FontAwesomeIcon icon={faBell} />,
+    title: "Notifications",
+  },
+  {
     icon: <FontAwesomeIcon icon={faComments} />,
     title: "Chats",
   },
   {
     icon: <FontAwesomeIcon icon={faCog} />,
     title: "Settings",
-  },
-  {
-    icon: <FontAwesomeIcon icon={faQuestionCircle} />,
-    title: "Help",
   },
 ];
 
@@ -55,13 +55,13 @@ export default function SideBar() {
 
   const logOutClick = () => {
     dispatch(removeUser());
-    navigate("/login");
+    navigate("/");
   };
 
   return (
     <div
       className={s.sidebar}
-      style={{ width: sideBarState ? "250px" : "70px" }}
+      style={{ width: sideBarState ? "260px" : "70px" }}
     >
       <div className={s.toggler} onClick={() => dispatch(toggleSideBar())}>
         <ToolTip title={sideBarState ? "Hide" : "Show"}>

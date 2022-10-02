@@ -3,9 +3,9 @@ import ChatSideBar from "components/Chat/ChatSideBar";
 import iUsers from "types/iUsers";
 import avatar from "img/ZC5B45PbR1I.jpg";
 import avatar2 from "img/RyN8L_hN83A.png";
-import { useSelector } from "react-redux";
 import SideBarLayout from "components/Layouts/SideBarLayout";
 import ChatArea from "components/Chat/ChatArea";
+import s from "components/SideBar/SideBar.module.scss";
 
 const users: iUsers[] = [
   {
@@ -39,20 +39,20 @@ const users: iUsers[] = [
 export default function Chat() {
   const [selectChat, setSelectChat] = React.useState<number>(0);
 
-  const handleClickOnChat: (index: number) => void = (index) => {
+  const clickOnChat: (index: number) => void = (index) => {
     setSelectChat(index);
   };
 
-  const stateUser = useSelector((state: any) => state.user);
-
   return (
-    <SideBarLayout>
-      <ChatSideBar
-        selectChat={selectChat}
-        setSelectChat={handleClickOnChat}
-        users={users}
-      />
-      <ChatArea user={users[selectChat]} />
-    </SideBarLayout>
+    <div className={s.chat}>
+      <SideBarLayout>
+        <ChatSideBar
+          selectChat={selectChat}
+          setSelectChat={clickOnChat}
+          users={users}
+        />
+        <ChatArea user={users[selectChat]} />
+      </SideBarLayout>
+    </div>
   );
 }

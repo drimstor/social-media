@@ -3,14 +3,18 @@ import React from "react";
 import { useSelector } from "react-redux";
 import s from "../SideBar/SideBar.module.scss";
 
-function SideBarLayout({ children }: { children: React.ReactNode }) {
+interface SideBarLayoutProps {
+  children: React.ReactNode;
+}
+
+function SideBarLayout({ children }: SideBarLayoutProps) {
   const sideBarState = useSelector((state: any) => state.sidebar.sideBarState);
   return (
     <div className={s.body}>
       <div
         className={s.contentBox}
         style={{
-          width: sideBarState ? "calc(100vw - 345px)" : "calc(100vw - 165px)",
+          width: sideBarState ? "calc(100vw - 355px)" : "calc(100vw - 165px)",
         }}
       >
         {children}

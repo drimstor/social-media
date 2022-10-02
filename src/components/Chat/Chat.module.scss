@@ -66,10 +66,12 @@
       }
       &:hover::placeholder {
         color: $white;
+        opacity: 1;
       }
       &::placeholder {
         transition: all 0.2s;
         color: $white;
+        opacity: 0.4;
       }
       &:hover {
         color: $white;
@@ -117,7 +119,7 @@
     }
   }
   .users {
-    height: 100%;
+    height: calc(100% - 160px);
     background: $grey;
 
     @include mobile {
