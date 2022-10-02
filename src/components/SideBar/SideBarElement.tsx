@@ -6,7 +6,7 @@ import ToolTip from "../Helpers/ToolTip";
 interface SideBarElementProps {
   item: Obj;
   onClick: (item: string) => void;
-  selectElement: string;
+  selectItem: string;
   showBar?: boolean;
 }
 
@@ -18,14 +18,14 @@ type Obj = {
 export default function SideBarElement({
   item,
   onClick,
-  selectElement,
+  selectItem,
   showBar,
 }: SideBarElementProps) {
   const matches = useMediaQuery("(max-width: 425px)");
   return (
     <div
       className={
-        selectElement === item.title
+        selectItem === item.title
           ? (matches ? s.select : s.active) + " " + s.sidebarElement
           : s.sidebarElement
       }

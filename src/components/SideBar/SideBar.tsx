@@ -4,7 +4,10 @@ import SideBarElement from "./SideBarElement";
 import ToolTip from "../Helpers/ToolTip";
 import useTheme from "hooks/useTheme";
 import Switch from "../Switch/Switch";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { removeUser } from "store/slices/userSlice";
+import { toggleSideBar } from "store/slices/sideBarSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCog,
@@ -34,28 +37,38 @@ const SideBarList = [
   },
 ];
 
-interface sideBarProps {
-  showBar: boolean;
-  setShowBar: (showBar: boolean) => void;
-}
-
-export default function SideBar({ showBar, setShowBar }: sideBarProps) {
+export default function SideBar() {
   // Табы
-  const [selectElement, setSelectElement] = React.useState<string>("Chats");
+  const [selectItem, setSelectItem] = React.useState<string>("Chats");
 
-  const handleClickOnElement = (index: string) => {
-    setSelectElement(index);
+  const clickOnItem = (index: string) => {
+    setSelectItem(index);
   };
 
   // Тема
-  const { theme, handleChangeTheme } = useTheme();
+  const { theme } = useTheme();
+
+  // Redux
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const sideBarState = useSelector((state: any) => state.sidebar.sideBarState);
+
+  const logOutClick = () => {
+    dispatch(removeUser());
+    navigate("/login");
+  };
 
   return (
-    <div className={s.sidebar} style={{ width: showBar ? "250px" : "70px" }}>
-      <div className={s.toggler} onClick={() => setShowBar(!showBar)}>
-        <ToolTip title={showBar ? "Hide" : "Show"}>
+    <div
+      className={s.sidebar}
+      style={{ width: sideBarState ? "250px" : "70px" }}
+    >
+      <div className={s.toggler} onClick={() => dispatch(toggleSideBar())}>
+        <ToolTip title={sideBarState ? "Hide" : "Show"}>
           <span
-            style={{ transform: showBar ? "rotate(180deg)" : "rotate(0deg)" }}
+            style={{
+              transform: sideBarState ? "rotate(180deg)" : "rotate(0deg)",
+            }}
           />
         </ToolTip>
       </div>
@@ -69,10 +82,10 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
         {SideBarList.map((item, index) => (
           <SideBarElement
             key={index}
-            onClick={() => handleClickOnElement(item.title)}
-            selectElement={selectElement}
+            onClick={() => clickOnItem(item.title)}
+            selectItem={selectItem}
             item={item}
-            showBar={showBar}
+            showBar={sideBarState}
           />
         ))}
         <div className={s.indicator} />
@@ -82,16 +95,19 @@ export default function SideBar({ showBar, setShowBar }: sideBarProps) {
       <div className={s.sidebarSwitch}>
         <ToolTip
           title={theme === "dark" ? "Light mode" : "Dark mode"}
-          state={showBar}
+          state={sideBarState}
         >
-          <Switch themeValue={theme} handleChangeTheme={handleChangeTheme} />
+          <Switch />
         </ToolTip>
       </div>
 
       <div className={s.sidebarTooltip}>
-        <ToolTip title={"Log Out"} state={showBar}>
+        <ToolTip title={"Log Out"} state={sideBarState}>
           <div className={s.buttonWrapper}>
-            <button className={showBar ? s.button : s.button + " " + s.hide}>
+            <button
+              className={sideBarState ? s.button : s.button + " " + s.hide}
+              onClick={logOutClick}
+            >
               <FontAwesomeIcon icon={faRightFromBracket} />
               <span>Log Out</span>
             </button>
