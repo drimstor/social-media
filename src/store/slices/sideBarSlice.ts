@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type iState = {
-  sideBarState: boolean;
+  isOpen: boolean;
   selectItem: string;
 };
 
 const initialState: iState = {
-  sideBarState: false,
+  isOpen: false,
   selectItem: "Chats",
 };
 
@@ -15,7 +15,7 @@ const sideBarSlice = createSlice({
   initialState,
   reducers: {
     toggleSideBar(state) {
-      state.sideBarState = !state.sideBarState;
+      state.isOpen = !state.isOpen;
     },
     selectSideBarItem(state, action) {
       state.selectItem = action.payload;
