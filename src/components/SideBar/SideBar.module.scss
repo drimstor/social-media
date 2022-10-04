@@ -1,10 +1,104 @@
 @import "styles/helpers.scss";
 
+.body {
+  width: 100%;
+  height: 100vh;
+  background: $background;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s;
+}
+
+.backgroundItem {
+  position: absolute;
+  bottom: -130px;
+  right: 400px;
+  width: 350px;
+  height: 350px;
+  border-radius: 20px;
+  background: radial-gradient(circle, $mainColor, $darkgrey);
+  transform: rotate(45deg);
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.body::after {
+  content: "";
+  position: absolute;
+  bottom: -100px;
+  right: -320px;
+  width: 550px;
+  height: 550px;
+  border-radius: 20px;
+  background: radial-gradient(circle, $grey, $blue);
+  transform: rotate(45deg);
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.body::before {
+  content: "";
+  position: absolute;
+  bottom: 600px;
+  right: -40px;
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  background: radial-gradient(circle, $mainColor, $grey);
+  transform: rotate(45deg);
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.contentBox {
+  position: absolute;
+  width: calc(100vw - 165px);
+  height: calc(100vh - 60px);
+  margin: 30px 0;
+  top: 0;
+  bottom: 0;
+  right: 45px;
+  transition: all 0.4s ease-in-out;
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  z-index: 1;
+
+  @include mobile {
+    height: calc(100vh - 50px);
+    width: 100vw !important;
+    z-index: 0;
+    right: 0;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+.chat .contentBox {
+  box-shadow: 0px 1px 8px -1px rgba(54, 54, 54, 0.5);
+}
+
+.profile .contentBox {
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(44, 44, 44, 0.06);
+  padding: 45px;
+  gap: 45px;
+  justify-content: space-between;
+}
+
 .tooltip.tooltipReverse {
   position: fixed;
   left: auto;
   top: auto;
-  margin-top: -32px;
+  margin-top: -37px;
   margin-left: -32px;
   text-align: center;
   min-width: 70px;
@@ -55,9 +149,9 @@
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(3px);
   @extend %f1;
-  border: 1px solid $grey;
+  border: 1px solid $monoChrome;
   border-radius: 5px;
-  color: #1f2024;
+  color: $monoChrome;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.1s;
@@ -67,7 +161,7 @@
   &::before {
     content: "\25B2";
     position: absolute;
-    color: $grey;
+    color: $monoChrome;
     left: -8px;
     top: 5px;
     font-size: 9px;
@@ -131,7 +225,7 @@
 .sidebar {
   width: 250px;
   min-width: 70px;
-  max-width: 250px;
+  max-width: 260px;
   height: 100vh;
   background: $black;
   padding: 25px 0px 6px 6px;
@@ -140,6 +234,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  z-index: 3;
 
   @include mobile {
     width: 100% !important;
@@ -159,6 +254,7 @@
     gap: 15px;
     margin-left: 9px;
     overflow: hidden;
+    transition: all .3s;
 
     @include mobile {
       display: none;
@@ -183,6 +279,7 @@
     }
 
     svg {
+    
       font-size: 35px;
       margin: 0 1px 1px 2px;
     }
@@ -200,13 +297,18 @@
     }
 
     .sidebarElement.active {
-      color: $black;
+      color: $mainColor;
+
+      svg,
+      h2 {
+        opacity: 1;
+      }
     }
 
     .sidebarElement {
       padding: 15px 5px;
       @extend %f1;
-      color: $pink;
+      color: rgb(230, 230, 230);
       width: 100%;
       border-bottom-left-radius: 35px;
       border-top-left-radius: 35px;
@@ -215,6 +317,11 @@
       transition: all 0.3s;
       margin: 15px 0;
       cursor: pointer;
+
+      svg,
+      h2 {
+        opacity: 0.7;
+      }
 
       @include noMobile {
         &:active {
@@ -228,7 +335,7 @@
         &:hover {
           svg,
           h2 {
-            opacity: 0.6;
+            opacity: 1;
           }
         }
       }
@@ -270,8 +377,7 @@
       svg {
         font-size: 25px;
         width: 25px;
-        margin-right: 23px;
-        position: relative;
+        position: absolute;
         z-index: 2;
         transition: 0.3s all;
 
@@ -292,6 +398,7 @@
         position: relative;
         z-index: 2;
         transition: 0.3s all;
+        margin-left: 43px;
 
         @include mobile {
           transition: 0.5s all;
@@ -301,6 +408,7 @@
           bottom: 30px;
           opacity: 0;
           transform: translateY(30px);
+          margin-left: 0;
         }
       }
     }
@@ -383,9 +491,9 @@
       border-top-left-radius: 35px;
       padding-left: 15px;
       position: absolute;
-      transition: top 0.5s !important;
+      transition: top 0.5s, background-color 0.3s;
       margin: 15px 0;
-      box-shadow: 5px 0px 3px 1px rgba(34, 60, 80, 0.3) inset;
+      box-shadow: 5px 0px 3px 1px rgba(44, 44, 44, 0.2) inset;
 
       @include mobile {
         display: none;
@@ -401,6 +509,7 @@
         background: transparent;
         border-radius: 50%;
         box-shadow: 28px 28px 0 10px $background;
+        transition: all 0.3s;
       }
 
       &::before {
@@ -413,6 +522,7 @@
         background: transparent;
         border-radius: 50%;
         box-shadow: 28px -28px 0 10px $background;
+        transition: all 0.3s;
       }
     }
   }

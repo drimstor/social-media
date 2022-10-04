@@ -1,11 +1,10 @@
 import React from "react";
 import s from "styles/authentication.module.scss";
 import BackdropLayout from "components/Layouts/BackdropLayout";
-import { auth, db, storage } from "../firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
-
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { setUser } from "store/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -18,14 +17,33 @@ import {
 
 export default function Register() {
   const [error, setError] = React.useState(false);
-  const handleSubmit = async (e) => {
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const displayName = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
     const confirmPassword = e.target[3].value;
     const file = e.target[4].files[0];
+
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        dispatch(
+          setUser({
+            email: user.email,
+            id: user.uid,
+            token: user.refreshToken,
+          })
+        );
+        navigate("/");
+      })
+      .catch(() => setError(true));
   };
+
   return (
     <BackdropLayout>
       <div className={s.formWrapper}>
@@ -61,15 +79,15 @@ export default function Register() {
           <button className="button" type="submit">
             Register
           </button>
-          {/* {error && (
-          <p className={s.error}>
-            <FontAwesomeIcon icon={faTriangleExclamation} /> Something went
-            wrong
-          </p>
-          )} */}
+          {error && (
+            <p className={s.error}>
+              <FontAwesomeIcon icon={faTriangleExclamation} /> Something went
+              wrong
+            </p>
+          )}
         </form>
         <p>
-          You do have an account? <a href="/login">Login</a>
+          You do have an account? <Link to="/login">Login</Link>
         </p>
       </div>
     </BackdropLayout>

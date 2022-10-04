@@ -9,13 +9,13 @@ export default function BackdropLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { theme, handleChangeTheme } = useTheme();
+  const { theme } = useTheme();
   return (
     <div className={s.backdrop}>
       {children}
       <div className={s.switch}>
         <ToolTip title={theme === "dark" ? "Light mode" : "Dark mode"}>
-          <Switch handleChangeTheme={handleChangeTheme} />
+          <Switch />
         </ToolTip>
       </div>
     </div>

@@ -1,14 +1,12 @@
+import useTheme from "hooks/useTheme";
 import React from "react";
 import s from "./Switch.module.scss";
 
-type iSwitch = {
-  handleChangeTheme: (value: boolean) => void;
-  themeValue?: string;
-};
+function Switch() {
+  const { theme, handleChangeTheme } = useTheme();
 
-function Switch({ handleChangeTheme, themeValue }: iSwitch) {
   let [check, setCheck] = React.useState<boolean>(
-    themeValue === "dark" ? true : false
+    theme === "dark" ? true : false
   );
 
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
