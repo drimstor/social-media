@@ -1,17 +1,16 @@
 @import "./helpers.scss";
 
 html[data-theme="dark"] {
-  --color1: #202328;
+  --color1: #1a1a1a;
   --color2: #f3f5ed;
-  --color3: #bfd0c7;
-  --color4: #728b9a;
-  --color5: #3d4e55;
-  --color6: #2b373b;
-  --color7: #536872;
+  --color3: #ee6740;
+  --color4: #313131;
+  --color5: #252525;
+  --color6: #1c1c1c;
 
-  --background: #718191;
-  --mainColor: #bfd0c7;
-  --input: #536872;
+  --background: #0e0e0e;
+  --mainColor: #ee6740;
+  --input: #1f1f1f;
   --monoChrome: #f3f5ed;
   --monoChromeReverse: #1f2024;
 }
@@ -23,7 +22,6 @@ html[data-theme="light"] {
   --color4: #a2bec8;
   --color5: #3d646e;
   --color6: #304e56;
-  --color7: #577a86;
 
   --background: #e1eae6;
   --mainColor: #3d646e;

@@ -11,8 +11,8 @@
 .profileImage {
   flex: 0.3;
   border-radius: 15px;
-  box-shadow: 0px 2px 9px 0px rgba(34, 60, 80, 0.2);
-  background: linear-gradient(45deg, $pink, $blue);
+  box-shadow: 0px 2px 9px 0px rgba(63, 63, 63, 0.2);
+  background: linear-gradient(0deg, $background 55%, $mainColor);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +25,7 @@
     top: 25%;
     left: -50%;
     position: absolute;
-    background-color: $background;
+    background-color: $input;
     border-radius: 50%;
     width: 200%;
     height: 350px;
@@ -56,7 +56,7 @@
   .information {
     position: absolute;
     bottom: 0;
-    background-color: $background;
+    background-color: $input;
     width: 100%;
     height: 56%;
     z-index: 2;
@@ -65,6 +65,45 @@
     align-items: center;
     @extend %f1;
     color: $monoChrome;
+
+    .description {
+      margin-top: 45px;
+    }
+
+    .followBox {
+      width: 100%;
+      position: absolute;
+      bottom: 50px;
+    }
+
+    .nickName {
+      margin-top: 15px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 25px;
+      width: 100%;
+      padding: 0 55px;
+
+      button:nth-child(1) {
+        @extend %Btn;
+        @extend %BtnC;
+        min-width: 170px;
+        font-size: 16px;
+        height: 40px;
+        background: $mainColor;
+        color: $background;
+      }
+      button:nth-child(2) {
+        @extend %Btn;
+        @extend %BtnO;
+        min-width: 170px;
+        font-size: 16px;
+        height: 40px;
+      }
+    }
 
     .location {
       display: flex;
@@ -111,29 +150,29 @@
         }
 
         &.followingBorder {
-            position: relative;
+          position: relative;
 
-            &::after {
-                content: '';
-                position: absolute;
-                height: 90%;
-                width: 2px;
-                background: $monoChrome;
-                border-radius: 5px;
-                left: -50%;
-                top: 5%;
-            }
+          &::after {
+            content: "";
+            position: absolute;
+            height: 90%;
+            width: 2px;
+            background: $monoChrome;
+            border-radius: 5px;
+            left: -50%;
+            top: 5%;
+          }
 
-            &::before {
-                content: '';
-                position: absolute;
-                height: 90%;
-                width: 2px;
-                background: $monoChrome;
-                border-radius: 5px;
-                right: -50%;
-                top: 5%;
-            }
+          &::before {
+            content: "";
+            position: absolute;
+            height: 90%;
+            width: 2px;
+            background: $monoChrome;
+            border-radius: 5px;
+            right: -50%;
+            top: 5%;
+          }
         }
       }
     }
@@ -142,14 +181,14 @@
 
 .profileInfo {
   height: 35%;
-  box-shadow: 0px 2px 9px 0px rgba(34, 60, 80, 0.2);
-  background: $background;
+ box-shadow: 0px 2px 9px 0px rgba(63, 63, 63, 0.2);
+  background: $input;
   border-radius: 15px;
 }
 
 .profileBlog {
   height: calc(65% - 45px);
-  box-shadow: 0px 2px 9px 0px rgba(34, 60, 80, 0.2);
-  background: $background;
+ box-shadow: 0px 2px 9px 0px rgba(63, 63, 63, 0.2);
+  background: $input;
   border-radius: 15px;
 }

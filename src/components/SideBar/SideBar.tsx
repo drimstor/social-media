@@ -7,7 +7,7 @@ import Switch from "../Switch/Switch";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "store/slices/userSlice";
-import { toggleSideBar } from "store/slices/sideBarSlice";
+import { selectSideBarItem, toggleSideBar } from "store/slices/sideBarSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,
@@ -39,10 +39,11 @@ const SideBarList = [
 
 export default function SideBar() {
   // Табы
-  const [selectItem, setSelectItem] = React.useState<string>("Chats");
+  const selectItem = useSelector((state: any) => state.sidebar.selectItem);
 
-  const clickOnItem = (index: string) => {
-    setSelectItem(index);
+  const clickOnItem = (title: string) => {
+    dispatch(selectSideBarItem(title));
+    setTimeout(() => navigate(`/${title}`), 450);
   };
 
   // Тема

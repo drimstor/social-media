@@ -18,22 +18,30 @@ function ProfileImage() {
       </div>
       <div className={s.information}>
         <h1>User Name</h1>
+        <span className={s.nickName}>@nickname</span>
         <div className={s.location}>
           <img src={flag} alt="flag" /> Russia, Krasnodar
         </div>
         <div className={s.profession}>UX/UI design</div>
-        <div className={s.followingBox}>
-          <div className={s.followingItem}>
-            <span>100</span>
-            <p>Posts</p>
+        <div className={s.description}>Something tell about yourself...</div>
+        <div className={s.followBox}>
+          <div className={s.followingBox}>
+            <div className={s.followingItem}>
+              <span>100</span>
+              <p>Posts</p>
+            </div>
+            <div className={s.followingItem + " " + s.followingBorder}>
+              <span>100</span>
+              <p>Followers</p>
+            </div>
+            <div className={s.followingItem}>
+              <span>100</span>
+              <p>Following</p>
+            </div>
           </div>
-          <div className={s.followingItem + ' ' + s.followingBorder}>
-            <span>100</span>
-            <p>Followers</p>
-          </div>
-          <div className={s.followingItem}>
-            <span>100</span>
-            <p>Following</p>
+          <div className={s.buttons}>
+            <button>Follow</button>
+            <button>Message</button>
           </div>
         </div>
       </div>

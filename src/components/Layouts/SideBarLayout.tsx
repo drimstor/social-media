@@ -11,6 +11,7 @@ function SideBarLayout({ children }: SideBarLayoutProps) {
   const sideBarState = useSelector((state: any) => state.sidebar.sideBarState);
   return (
     <div className={s.body}>
+      <div className={s.backgroundItem} />
       <div
         className={s.contentBox}
         style={{

@@ -6,7 +6,6 @@ $pink: var(--color3);
 $blue: var(--color4);
 $grey: var(--color5);
 $darkgrey: var(--color6);
-$nigthgrey: var(--color7);
 
 $background: var(--background);
 $mainColor: var(--mainColor);
@@ -57,7 +56,7 @@ $lightgrey: #757575;
 %Btn {
   cursor: pointer;
   width: 100%;
-  border-radius: 5px;
+  border-radius: 10px;
   height: 60px;
   font-size: 25px;
   text-transform: uppercase;
@@ -68,16 +67,16 @@ $lightgrey: #757575;
 
 %BtnC {
   background: $pink;
-  border: 1px solid $black;
+  border: none;
   color: $black;
   position: relative;
 
   &:hover {
-    opacity: 0.7;
+    opacity: 0.85;
   }
 
   &:active {
-    opacity: 0.5;
+    opacity: 0.7;
     transform: scale(0.97);
   }
 }
@@ -88,11 +87,14 @@ $lightgrey: #757575;
   color: $mainColor;
 
   &:hover {
-    box-shadow: 0px 1px 13px -2px $mainColor;
+    box-shadow: 0px 0px 6px -2px $mainColor;
   }
   &:active {
     transform: scale(0.97);
   }
+}
+
+%BtnA {
 }
 
 %f1 {
