@@ -8,18 +8,19 @@ interface SideBarLayoutProps {
 }
 
 function SideBarLayout({ children }: SideBarLayoutProps) {
-  const sideBarState = useSelector((state: any) => state.sidebar.sideBarState);
+  const isOpen = useSelector((state: any) => state.sidebar.isOpen);
   return (
     <div className={s.body}>
       <div className={s.backgroundItem} />
-      <div
+      <section
         className={s.contentBox}
+        id='contentBox'
         style={{
-          width: sideBarState ? "calc(100vw - 355px)" : "calc(100vw - 165px)",
+          width: isOpen ? "calc(100vw - 355px)" : "calc(100vw - 165px)",
         }}
       >
         {children}
-      </div>
+      </section>
       <SideBar />
     </div>
   );

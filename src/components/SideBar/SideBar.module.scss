@@ -321,6 +321,7 @@
       svg,
       h2 {
         opacity: 0.7;
+        text-transform: capitalize;
       }
 
       @include noMobile {
@@ -436,7 +437,7 @@
       border-radius: 50%;
       top: -53%;
       border: 6px solid $background;
-      transition: 0.5s left;
+      transition: 0.4s left;
 
       &::before {
         content: "";
@@ -491,7 +492,7 @@
       border-top-left-radius: 35px;
       padding-left: 15px;
       position: absolute;
-      transition: top 0.5s, background-color 0.3s;
+      transition: top 0.4s, background-color 0.3s;
       margin: 15px 0;
       box-shadow: 5px 0px 3px 1px rgba(44, 44, 44, 0.2) inset;
 

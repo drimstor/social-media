@@ -21,19 +21,19 @@ import {
 const SideBarList = [
   {
     icon: <FontAwesomeIcon icon={faUserCircle} />,
-    title: "Profile",
+    title: "profile",
   },
   {
     icon: <FontAwesomeIcon icon={faBell} />,
-    title: "Notifications",
+    title: "notifications",
   },
   {
     icon: <FontAwesomeIcon icon={faComments} />,
-    title: "Chats",
+    title: "chats",
   },
   {
     icon: <FontAwesomeIcon icon={faCog} />,
-    title: "Settings",
+    title: "settings",
   },
 ];
 
@@ -41,9 +41,11 @@ export default function SideBar() {
   // Табы
   const selectItem = useSelector((state: any) => state.sidebar.selectItem);
 
+  const contentBox = document.querySelector<HTMLElement>("#contentBox");
+
   const clickOnItem = (title: string) => {
     dispatch(selectSideBarItem(title));
-    setTimeout(() => navigate(`/${title}`), 450);
+    setTimeout(() => navigate(`/${title}`), 405);
   };
 
   // Тема
@@ -54,16 +56,14 @@ export default function SideBar() {
   const navigate = useNavigate();
   const isOpen = useSelector((state: any) => state.sidebar.isOpen);
 
+  // Логаут
   const logOutClick = () => {
     dispatch(removeUser());
     navigate("/");
   };
 
   return (
-    <div
-      className={s.sidebar}
-      style={{ width: isOpen ? "260px" : "70px" }}
-    >
+    <div className={s.sidebar} style={{ width: isOpen ? "260px" : "70px" }}>
       <div className={s.toggler} onClick={() => dispatch(toggleSideBar())}>
         <ToolTip title={isOpen ? "Hide" : "Show"}>
           <span

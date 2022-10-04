@@ -11,6 +11,7 @@ import {
   faLock,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
+import { selectSideBarItem } from "store/slices/sideBarSlice";
 
 export default function Login() {
   const [error, setError] = React.useState(false);
@@ -26,6 +27,7 @@ export default function Login() {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
+        dispatch(selectSideBarItem("chats"));
         dispatch(
           setUser({
             email: user.email,

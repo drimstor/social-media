@@ -7,7 +7,7 @@ type iState = {
 
 const initialState: iState = {
   isOpen: false,
-  selectItem: "Chats",
+  selectItem: "chats",
 };
 
 const sideBarSlice = createSlice({
