@@ -52,7 +52,7 @@ export default function SideBar() {
   // Redux
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const sideBarState = useSelector((state: any) => state.sidebar.sideBarState);
+  const isOpen = useSelector((state: any) => state.sidebar.isOpen);
 
   const logOutClick = () => {
     dispatch(removeUser());
@@ -62,13 +62,13 @@ export default function SideBar() {
   return (
     <div
       className={s.sidebar}
-      style={{ width: sideBarState ? "260px" : "70px" }}
+      style={{ width: isOpen ? "260px" : "70px" }}
     >
       <div className={s.toggler} onClick={() => dispatch(toggleSideBar())}>
-        <ToolTip title={sideBarState ? "Hide" : "Show"}>
+        <ToolTip title={isOpen ? "Hide" : "Show"}>
           <span
             style={{
-              transform: sideBarState ? "rotate(180deg)" : "rotate(0deg)",
+              transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
             }}
           />
         </ToolTip>
@@ -86,7 +86,7 @@ export default function SideBar() {
             onClick={() => clickOnItem(item.title)}
             selectItem={selectItem}
             item={item}
-            showBar={sideBarState}
+            showBar={isOpen}
           />
         ))}
         <div className={s.indicator} />
@@ -96,17 +96,17 @@ export default function SideBar() {
       <div className={s.sidebarSwitch}>
         <ToolTip
           title={theme === "dark" ? "Light mode" : "Dark mode"}
-          state={sideBarState}
+          state={isOpen}
         >
           <Switch />
         </ToolTip>
       </div>
 
       <div className={s.sidebarTooltip}>
-        <ToolTip title={"Log Out"} state={sideBarState}>
+        <ToolTip title={"Log Out"} state={isOpen}>
           <div className={s.buttonWrapper}>
             <button
-              className={sideBarState ? s.button : s.button + " " + s.hide}
+              className={isOpen ? s.button : s.button + " " + s.hide}
               onClick={logOutClick}
             >
               <FontAwesomeIcon icon={faRightFromBracket} />
