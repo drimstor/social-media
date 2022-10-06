@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 // const firebaseConfig = {
 //   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -17,8 +18,8 @@ const firebaseConfig = {
   projectId: "web-chat-5bf34",
   storageBucket: "web-chat-5bf34.appspot.com",
   messagingSenderId: "900799522357",
-  appId: "1:900799522357:web:7176e507ecb1db7eeb337c"
+  appId: "1:900799522357:web:7176e507ecb1db7eeb337c",
 };
 
-const app = initializeApp(firebaseConfig);
-
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth();

@@ -5,24 +5,8 @@
   height: 100vh;
   background: $background;
   display: flex;
-  position: relative;
   overflow: hidden;
-  transition: background-color 0.3s;
-}
-
-.backgroundItem {
-  position: absolute;
-  bottom: -130px;
-  right: 400px;
-  width: 350px;
-  height: 350px;
-  border-radius: 20px;
-  background: radial-gradient(circle, $mainColor, $darkgrey);
-  transform: rotate(45deg);
-
-  @include mobile {
-    display: none;
-  }
+  position: relative;
 }
 
 .body::after {
@@ -57,35 +41,53 @@
   }
 }
 
-.contentBox {
+.backgroundItem {
   position: absolute;
-  width: calc(100vw - 165px);
-  height: calc(100vh - 60px);
-  margin: 30px 0;
-  top: 0;
-  bottom: 0;
-  right: 45px;
-  transition: all 0.4s ease-in-out;
-  border-radius: 15px;
-  overflow: hidden;
-  display: flex;
-  z-index: 1;
+  bottom: -130px;
+  right: 400px;
+  width: 350px;
+  height: 350px;
+  border-radius: 20px;
+  background: radial-gradient(circle, $mainColor, $darkgrey);
+  transform: rotate(45deg);
 
   @include mobile {
-    height: calc(100vh - 50px);
-    width: 100vw !important;
-    z-index: 0;
-    right: 0;
-    margin: 0;
-    border-radius: 0;
+    display: none;
   }
 }
 
-.chat .contentBox {
+.contentBox {
+  position: absolute;
+  width: calc(100vw - 165px);
+  top: 25px;
+  right: 45px;
+  z-index: 2;
+  transition: all 0.4s ease-in-out;
+
+  @include mobile {
+    z-index: 0;
+    right: 0;
+    top: 0;
+    width: calc(100vw) !important;
+  }
+}
+
+.animateWrapper {
+  height: calc(100vh - 60px);
+}
+
+.pageWrapper {
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.chat {
   box-shadow: 0px 1px 8px -1px rgba(54, 54, 54, 0.5);
 }
 
-.profile .contentBox {
+.profile {
   backdrop-filter: blur(4px);
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(44, 44, 44, 0.06);
@@ -146,7 +148,7 @@
   left: 63px;
   margin-top: 4px;
   font-size: 12px;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(3px);
   @extend %f1;
   border: 1px solid $monoChrome;
@@ -157,6 +159,7 @@
   transition: opacity 0.1s;
   z-index: 3;
   white-space: nowrap;
+  text-transform: capitalize;
 
   &::before {
     content: "\25B2";
@@ -229,7 +232,10 @@
   height: 100vh;
   background: $black;
   padding: 25px 0px 6px 6px;
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
   transition: width 0.4s ease-in-out, background 0.4s ease-in-out;
   display: flex;
   flex-direction: column;
@@ -243,6 +249,7 @@
     position: fixed;
     bottom: 0;
     left: 0;
+    top: auto;
     padding: 0;
     border-top: 1px solid $background;
   }
@@ -254,7 +261,7 @@
     gap: 15px;
     margin-left: 9px;
     overflow: hidden;
-    transition: all .3s;
+    transition: all 0.3s;
 
     @include mobile {
       display: none;
@@ -279,7 +286,6 @@
     }
 
     svg {
-    
       font-size: 35px;
       margin: 0 1px 1px 2px;
     }
@@ -345,6 +351,7 @@
         svg {
           transform: translateY(-44px);
           color: $monoChromeReverse;
+          opacity: 1;
         }
         h2 {
           color: $pink;
@@ -437,7 +444,7 @@
       border-radius: 50%;
       top: -53%;
       border: 6px solid $background;
-      transition: 0.4s left;
+      transition: left 0.4s;
 
       &::before {
         content: "";
@@ -492,7 +499,7 @@
       border-top-left-radius: 35px;
       padding-left: 15px;
       position: absolute;
-      transition: top 0.4s, background-color 0.3s;
+      transition: top 0.4s;
       margin: 15px 0;
       box-shadow: 5px 0px 3px 1px rgba(44, 44, 44, 0.2) inset;
 
@@ -510,7 +517,6 @@
         background: transparent;
         border-radius: 50%;
         box-shadow: 28px 28px 0 10px $background;
-        transition: all 0.3s;
       }
 
       &::before {
@@ -523,7 +529,6 @@
         background: transparent;
         border-radius: 50%;
         box-shadow: 28px -28px 0 10px $background;
-        transition: all 0.3s;
       }
     }
   }

@@ -7,8 +7,8 @@ import Switch from "../Switch/Switch";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "store/slices/userSlice";
-import { selectSideBarItem, toggleSideBar } from "store/slices/sideBarSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { selectSideBarItem, toggleSideBar } from "store/slices/sideBarSlice";
 import {
   faBell,
   faCog,
@@ -38,23 +38,21 @@ const SideBarList = [
 ];
 
 export default function SideBar() {
-  // Табы
   const selectItem = useSelector((state: any) => state.sidebar.selectItem);
+  const isOpen = useSelector((state: any) => state.sidebar.isOpen);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { theme } = useTheme();
 
-  const contentBox = document.querySelector<HTMLElement>("#contentBox");
+  const showContentBox = (title: string) => {
+    navigate(`/${title}`);
+  };
 
   const clickOnItem = (title: string) => {
     dispatch(selectSideBarItem(title));
-    setTimeout(() => navigate(`/${title}`), 405);
+
+    setTimeout(() => showContentBox(title), 405);
   };
-
-  // Тема
-  const { theme } = useTheme();
-
-  // Redux
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const isOpen = useSelector((state: any) => state.sidebar.isOpen);
 
   // Логаут
   const logOutClick = () => {

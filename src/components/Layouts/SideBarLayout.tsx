@@ -9,20 +9,26 @@ interface SideBarLayoutProps {
 
 function SideBarLayout({ children }: SideBarLayoutProps) {
   const isOpen = useSelector((state: any) => state.sidebar.isOpen);
+  const user = useSelector((state: any) => state.user.token);
   return (
-    <div className={s.body}>
-      <div className={s.backgroundItem} />
-      <section
-        className={s.contentBox}
-        id='contentBox'
-        style={{
-          width: isOpen ? "calc(100vw - 355px)" : "calc(100vw - 165px)",
-        }}
-      >
-        {children}
-      </section>
-      <SideBar />
-    </div>
+    <>
+      {user ? (
+        <div className={s.body}>
+          <div className={s.backgroundItem} />
+          <div
+            className={s.contentBox}
+            style={{
+              width: isOpen ? "calc(100vw - 355px)" : "calc(100vw - 165px)",
+            }}
+          >
+            {children}
+          </div>
+          <SideBar />
+        </div>
+      ) : (
+        <>{children}</>
+      )}
+    </>
   );
 }
 

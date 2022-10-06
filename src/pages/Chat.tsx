@@ -3,7 +3,6 @@ import ChatSideBar from "components/Chat/ChatSideBar";
 import iUsers from "types/iUsers";
 import avatar from "img/ZC5B45PbR1I.jpg";
 import avatar2 from "img/RyN8L_hN83A.png";
-import SideBarLayout from "components/Layouts/SideBarLayout";
 import ChatArea from "components/Chat/ChatArea";
 import s from "components/SideBar/SideBar.module.scss";
 
@@ -44,15 +43,13 @@ export default function Chat() {
   };
 
   return (
-    <div className={s.chat}>
-      <SideBarLayout>
-        <ChatSideBar
-          selectChat={selectChat}
-          setSelectChat={clickOnChat}
-          users={users}
-        />
-        <ChatArea user={users[selectChat]} />
-      </SideBarLayout>
+    <div className={s.pageWrapper + " " + s.chat}>
+      <ChatSideBar
+        selectChat={selectChat}
+        setSelectChat={clickOnChat}
+        users={users}
+      />
+      <ChatArea user={users[selectChat]} />
     </div>
   );
 }
