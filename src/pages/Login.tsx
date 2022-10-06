@@ -35,7 +35,7 @@ export default function Login() {
             token: user.refreshToken,
           })
         );
-        navigate("/");
+        navigate("/chats");
       })
       .catch(() => setError(true));
   };

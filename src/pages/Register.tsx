@@ -39,7 +39,7 @@ export default function Register() {
             token: user.refreshToken,
           })
         );
-        navigate("/");
+        navigate("/chats");
       })
       .catch(() => setError(true));
   };
