@@ -70,6 +70,7 @@
     top: 0;
     width: calc(100vw) !important;
   }
+
 }
 
 .animateWrapper {
@@ -226,7 +227,7 @@
 // ---------------------------- //
 
 .sidebar {
-  width: 250px;
+  width: 70px;
   min-width: 70px;
   max-width: 260px;
   height: 100vh;
@@ -499,7 +500,7 @@
       border-top-left-radius: 35px;
       padding-left: 15px;
       position: absolute;
-      transition: top 0.4s;
+      transition: top 0.5s;
       margin: 15px 0;
       box-shadow: 5px 0px 3px 1px rgba(44, 44, 44, 0.2) inset;
 

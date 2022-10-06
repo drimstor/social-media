@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "styles/global.scss";
 import Login from "pages/Login";
@@ -8,29 +8,68 @@ import Chat from "pages/Chat";
 import Profile from "pages/Profile";
 import { useTransition, animated } from "react-spring";
 import s from "components/SideBar/SideBar.module.scss";
+import useMediaQuery from "hooks/useMediaQuery";
 
 export default function App() {
-  const user = useSelector((state: any) => state.user.token);
+  const isAuth = useSelector((state: any) => state.user.id);
   const location = useLocation();
+  const sidebarIndex = useSelector((state: any) => state.sidebar.selectIndex);
+  const [prevIndex, setPrevIndex] = React.useState(sidebarIndex);
+  const matches: boolean = useMediaQuery("(max-width: 425px)");
 
   const transitions = useTransition(location, {
-    enter: {
-      transform: "translateY(100%) scale(0.8)",
-    },
+    enter:
+      sidebarIndex !== prevIndex
+        ? !matches
+          ? {
+              opacity: 0,
+              transform:
+                sidebarIndex < prevIndex
+                  ? "translate(0%,-100%) scale(0.85)"
+                  : "translate(0%, 100%) scale(0.85)",
+            }
+          : {
+              transform:
+                sidebarIndex < prevIndex
+                  ? "translate(-100%, 0%)  scale(0.85)"
+                  : "translate(100%, 0%)  scale(0.85)",
+            }
+        : {},
     update: {
-      transform: "translateY(0%) scale(1)",
+      opacity: 1,
+      transform: "translate(0%,0%) scale(1)",
     },
-    leave: {
-      transform: "translateY(-100%) scale(0.8)",
+    leave:
+      sidebarIndex !== prevIndex
+        ? !matches
+          ? {
+              opacity: 0,
+              transform:
+                sidebarIndex > prevIndex
+                  ? "translate(0%,-100%) scale(0.85)"
+                  : "translate(0%, 100%) scale(0.85)",
+            }
+          : {
+              transform:
+                sidebarIndex > prevIndex
+                  ? "translate(-100%, 0%)  scale(0.85)"
+                  : "translate(100%, 0%)  scale(0.85)",
+            }
+        : {},
+    config: {
+      duration: 300,
+    },
+    onRest: () => {
+      setPrevIndex(sidebarIndex);
     },
   });
 
-  return user ? (
+  return isAuth ? (
     transitions((props, item) => (
       <animated.section style={props}>
         <div className={s.animateWrapper}>
           <Routes location={item}>
-            <Route path="/" element={<Chat />} />
+            <Route path="/" element={<Navigate to="/chats" replace />} />
             <Route path="/chats" element={<Chat />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
@@ -39,7 +78,7 @@ export default function App() {
     ))
   ) : (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
     </Routes>

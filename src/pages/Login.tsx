@@ -1,7 +1,8 @@
 import React from "react";
 import s from "styles/authentication.module.scss";
 import BackdropLayout from "components/Layouts/BackdropLayout";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { setUser } from "store/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,31 +12,36 @@ import {
   faLock,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
-import { selectSideBarItem } from "store/slices/sideBarSlice";
+import {
+  selectSideBarIndex,
+  selectSideBarItem,
+} from "store/slices/sideBarSlice";
 
 export default function Login() {
   const [error, setError] = React.useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const auth = getAuth();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
 
-    const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
         dispatch(selectSideBarItem("chats"));
+        dispatch(selectSideBarIndex(2));
         dispatch(
           setUser({
+            displayName: user.displayName,
+            photoURL: user.photoURL,
             email: user.email,
             id: user.uid,
-            token: user.refreshToken,
           })
         );
-        navigate("/chats");
+        navigate("/");
       })
       .catch(() => setError(true));
   };

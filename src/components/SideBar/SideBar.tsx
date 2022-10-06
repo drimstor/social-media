@@ -8,7 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "store/slices/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { selectSideBarItem, toggleSideBar } from "store/slices/sideBarSlice";
+import {
+  selectSideBarIndex,
+  selectSideBarItem,
+  toggleSideBar,
+} from "store/slices/sideBarSlice";
 import {
   faBell,
   faCog,
@@ -44,14 +48,10 @@ export default function SideBar() {
   const navigate = useNavigate();
   const { theme } = useTheme();
 
-  const showContentBox = (title: string) => {
-    navigate(`/${title}`);
-  };
-
-  const clickOnItem = (title: string) => {
+  const clickOnItem = (title: string, index: number) => {
     dispatch(selectSideBarItem(title));
-
-    setTimeout(() => showContentBox(title), 405);
+    dispatch(selectSideBarIndex(index));
+    navigate(`/${title}`);
   };
 
   // Логаут
@@ -81,7 +81,7 @@ export default function SideBar() {
         {SideBarList.map((item, index) => (
           <SideBarElement
             key={index}
-            onClick={() => clickOnItem(item.title)}
+            onClick={() => clickOnItem(item.title, index)}
             selectItem={selectItem}
             item={item}
             showBar={isOpen}

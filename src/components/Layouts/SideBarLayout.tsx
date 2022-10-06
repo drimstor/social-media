@@ -9,10 +9,10 @@ interface SideBarLayoutProps {
 
 function SideBarLayout({ children }: SideBarLayoutProps) {
   const isOpen = useSelector((state: any) => state.sidebar.isOpen);
-  const user = useSelector((state: any) => state.user.token);
+  const isAuth = useSelector((state: any) => state.user.id);
   return (
     <>
-      {user ? (
+      {isAuth ? (
         <div className={s.body}>
           <div className={s.backgroundItem} />
           <div
