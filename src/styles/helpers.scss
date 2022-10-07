@@ -94,9 +94,6 @@ $lightgrey: #757575;
   }
 }
 
-%BtnA {
-}
-
 %f1 {
   font-family: "Comfortaa", sans-serif;
 }
@@ -111,4 +108,17 @@ $lightgrey: #757575;
 
 %fontTitle {
   font-family: "Fredoka One";
+}
+
+//-------------- Animations ---------------//
+
+@keyframes showBlur {
+  0% {
+    opacity: 0;
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+  }
 }

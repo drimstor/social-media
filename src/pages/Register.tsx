@@ -113,7 +113,7 @@ export default function Register() {
           </div>
           <div className={s.inputWrapper}>
             <FontAwesomeIcon icon={faEnvelope} />
-            <input type="email" required />
+            <input type="text" required />
             <span>Email</span>
           </div>
           <div className={s.inputWrapper}>

@@ -38,6 +38,7 @@ html[data-theme="light"] {
 body {
   color: $lightgrey;
   @extend %f2;
+  overflow: hidden;
 }
 
 ul li {

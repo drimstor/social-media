@@ -25,19 +25,21 @@ export default function App() {
               opacity: 0,
               transform:
                 sidebarIndex < prevIndex
-                  ? "translate(0%,-100%) scale(0.85)"
-                  : "translate(0%, 100%) scale(0.85)",
+                  ? "translate(0%,-30%) scale(0.9)"
+                  : "translate(0%, 30%) scale(0.9)",
+              filter: "blur(10px)",
             }
           : {
               transform:
                 sidebarIndex < prevIndex
-                  ? "translate(-100%, 0%)  scale(0.85)"
-                  : "translate(100%, 0%)  scale(0.85)",
+                  ? "translate(-30%, 0%)  scale(0.9)"
+                  : "translate(30%, 0%)  scale(0.9)",
             }
         : {},
     update: {
       opacity: 1,
       transform: "translate(0%,0%) scale(1)",
+      filter: "blur(0px)",
     },
     leave:
       sidebarIndex !== prevIndex
@@ -46,14 +48,15 @@ export default function App() {
               opacity: 0,
               transform:
                 sidebarIndex > prevIndex
-                  ? "translate(0%,-100%) scale(0.85)"
-                  : "translate(0%, 100%) scale(0.85)",
+                  ? "translate(0%,-30%) scale(0.9)"
+                  : "translate(0%, 30%) scale(0.9)",
+              filter: "blur(10px)",
             }
           : {
               transform:
                 sidebarIndex > prevIndex
-                  ? "translate(-100%, 0%)  scale(0.85)"
-                  : "translate(100%, 0%)  scale(0.85)",
+                  ? "translate(-30%, 0%)  scale(0.9)"
+                  : "translate(30%, 0%)  scale(0.9)",
             }
         : {},
     config: {

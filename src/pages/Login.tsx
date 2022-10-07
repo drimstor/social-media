@@ -54,7 +54,7 @@ export default function Login() {
         <form onSubmit={handleSubmit}>
           <div className={s.inputWrapper}>
             <FontAwesomeIcon icon={faEnvelope} />
-            <input type="email" required />
+            <input type="text" required />
             <span>Email</span>
           </div>
           <div className={s.inputWrapper}>
