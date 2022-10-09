@@ -12,7 +12,9 @@
   flex: 0.3;
   border-radius: 15px;
   box-shadow: 0px 2px 9px 0px rgba(63, 63, 63, 0.2);
-  background: linear-gradient(0deg, $background 55%, $mainColor);
+  background: url(../../img/background.png),
+    linear-gradient(0deg, $background 55%, $mainColor);
+  background-size: 250px 250px, cover;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,6 +41,8 @@
     width: 250px;
     height: 250px;
     box-shadow: 0px 3px 8px 0px rgba(34, 60, 80, 0.2);
+    opacity: 0;
+    animation: show 0.5s ease-in-out 0.4s forwards;
 
     img {
       width: 100%;
@@ -78,6 +82,7 @@
 
     .nickName {
       margin-top: 15px;
+      color: $lightgrey;
     }
 
     .buttons {
@@ -123,6 +128,7 @@
     }
 
     h1 {
+      text-transform: capitalize;
       text-align: center;
       color: $monoChrome;
       @extend %f2;
@@ -181,14 +187,14 @@
 
 .profileInfo {
   height: 35%;
- box-shadow: 0px 2px 9px 0px rgba(63, 63, 63, 0.2);
+  box-shadow: 0px 2px 9px 0px rgba(63, 63, 63, 0.2);
   background: $input;
   border-radius: 15px;
 }
 
 .profileBlog {
   height: calc(65% - 45px);
- box-shadow: 0px 2px 9px 0px rgba(63, 63, 63, 0.2);
+  box-shadow: 0px 2px 9px 0px rgba(63, 63, 63, 0.2);
   background: $input;
   border-radius: 15px;
 }

@@ -58,9 +58,9 @@
 
 .contentBox {
   position: absolute;
-  width: calc(100vw - 165px);
   top: 25px;
-  right: 45px;
+  right: 25px;
+  bottom: 25px;
   z-index: 2;
   transition: all 0.4s ease-in-out;
 
@@ -73,7 +73,7 @@
 }
 
 .animateWrapper {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 50px);
 }
 
 .pageWrapper {
@@ -88,12 +88,16 @@
 }
 
 .profile {
-  backdrop-filter: blur(4px);
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(44, 44, 44, 0.06);
   padding: 45px;
   gap: 45px;
   justify-content: space-between;
+}
+
+.home {
+  gap: 25px;
+  // background: rgba(255, 255, 255, 0.151);
 }
 
 .tooltip.tooltipReverse {
@@ -135,6 +139,7 @@
   }
   .buttonWrapper {
     overflow: hidden;
+    padding: 0 3px;
   }
   .tooltip {
     margin-top: 18px;
@@ -172,7 +177,7 @@
 
 .tooltip.tooltipShow {
   visibility: visible !important;
-  animation: showBlur 0.2s ease-in-out forwards;
+  animation: show 0.2s ease-in-out forwards;
 }
 
 .toggler {
@@ -243,7 +248,7 @@
   @include mobile {
     width: 100% !important;
     max-width: none;
-    height: 90px;
+    height: 75px;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -266,16 +271,16 @@
     }
 
     h1 {
-      font-size: 45px;
+      font-size: 40px;
       letter-spacing: 1px;
       @extend %fontTitle;
-      margin-left: 1px;
+      margin-left: 2px;
       font-weight: 400;
     }
 
     span {
       display: inline-block;
-      font-size: 38px;
+      font-size: 35px;
       margin-top: 5px;
       margin-left: -14px;
       letter-spacing: 3px;
@@ -347,7 +352,7 @@
 
       &.select {
         svg {
-          transform: translateY(-44px);
+          transform: translateY(-41.8px);
           color: $monoChromeReverse;
           opacity: 1;
         }
@@ -372,8 +377,8 @@
           display: flex;
           flex-direction: column;
           align-items: center;
-          width: 75px;
-          height: 75px;
+          width: 60px;
+          height: 60px;
           padding: 0;
           text-align: center;
           overflow: visible;
@@ -390,11 +395,11 @@
         @include mobile {
           margin-right: 0;
           color: rgba(255, 255, 255, 0.572);
-          font-size: 32px;
-          width: 32px;
-          height: 32px;
-          min-height: 32px;
-          margin-top: 23px;
+          font-size: 30px;
+          width: 30px;
+          height: 30px;
+          min-height: 30px;
+          margin-top: 22px;
           margin-bottom: 70px;
           transition: 0.5s all;
         }
@@ -411,7 +416,7 @@
           color: $lightgrey;
           font-size: 13px;
           position: absolute;
-          bottom: 30px;
+          bottom: 20px;
           opacity: 0;
           transform: translateY(30px);
           margin-left: 0;
@@ -420,16 +425,19 @@
     }
 
     .sidebarElement:nth-child(1).select ~ .indicator {
-      left: 13px;
+      left: 4.5px;
     }
     .sidebarElement:nth-child(2).select ~ .indicator {
-      left: 27%;
+      left: 20.2%;
     }
     .sidebarElement:nth-child(3).select ~ .indicator {
-      left: 50.55%;
+      left: 39.5%;
     }
     .sidebarElement:nth-child(4).select ~ .indicator {
-      left: 74.3%;
+      left: 57.8%;
+    }
+    .sidebarElement:nth-child(5).select ~ .indicator {
+      left: 76.9%;
     }
 
     .indicator {
@@ -440,7 +448,7 @@
       height: 70px;
       background: $mainColor;
       border-radius: 50%;
-      top: -53%;
+      top: -67%;
       border: 6px solid $background;
       transition: left 0.4s;
 
@@ -476,15 +484,19 @@
     }
 
     .sidebarElement:nth-child(2).active ~ .desktopIndicator {
-      top: 18%;
+      top: 15%;
     }
 
     .sidebarElement:nth-child(3).active ~ .desktopIndicator {
-      top: 35.5%;
+      top: 30%;
     }
 
     .sidebarElement:nth-child(4).active ~ .desktopIndicator {
-      top: 53.5%;
+      top: 45.5%;
+    }
+
+    .sidebarElement:nth-child(5).active ~ .desktopIndicator {
+      top: 60.5%;
     }
 
     .desktopIndicator {
@@ -535,18 +547,20 @@
     @extend %Btn;
     @extend %BtnC;
     width: calc(100% - 6px);
+    height: 52px;
     display: block;
     position: relative;
     bottom: 0;
+
     svg {
       position: absolute;
-      left: 17px;
-      top: 16px;
+      left: 14px;
+      top: 13px;
     }
     span {
       position: absolute;
-      left: 25px;
-      top: 12px;
+      left: 20px;
+      top: 9px;
       margin-left: 35px;
       transition: all 0.4s;
       white-space: nowrap;

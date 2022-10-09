@@ -4,6 +4,7 @@ import SideBarElement from "./SideBarElement";
 import ToolTip from "../Helpers/ToolTip";
 import useTheme from "hooks/useTheme";
 import Switch from "../Switch/Switch";
+import { getAuth } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "store/slices/userSlice";
@@ -18,22 +19,28 @@ import {
   faCog,
   faComments,
   faEarth,
+  faHouse,
   faRightFromBracket,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { signOut } from "firebase/auth";
 
 const SideBarList = [
+  {
+    icon: <FontAwesomeIcon icon={faHouse} />,
+    title: "home",
+  },
   {
     icon: <FontAwesomeIcon icon={faUserCircle} />,
     title: "profile",
   },
   {
-    icon: <FontAwesomeIcon icon={faBell} />,
-    title: "notifications",
-  },
-  {
     icon: <FontAwesomeIcon icon={faComments} />,
     title: "chats",
+  },
+  {
+    icon: <FontAwesomeIcon icon={faBell} />,
+    title: "notices",
   },
   {
     icon: <FontAwesomeIcon icon={faCog} />,
@@ -47,6 +54,7 @@ export default function SideBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { theme } = useTheme();
+  const auth = getAuth();
 
   const clickOnItem = (title: string, index: number) => {
     dispatch(selectSideBarItem(title));
@@ -57,11 +65,12 @@ export default function SideBar() {
   // Логаут
   const logOutClick = () => {
     dispatch(removeUser());
+    signOut(auth);
     navigate("/");
   };
 
   return (
-    <div className={s.sidebar} style={{ width: isOpen ? "260px" : "70px" }}>
+    <div className={s.sidebar} style={{ width: isOpen ? "230px" : "70px" }}>
       <div className={s.toggler} onClick={() => dispatch(toggleSideBar())}>
         <ToolTip title={isOpen ? "Hide" : "Show"}>
           <span

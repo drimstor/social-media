@@ -29,7 +29,7 @@ export default function Login() {
     const email = e.target[0].value;
     const password = e.target[1].value;
 
-    signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
         dispatch(selectSideBarItem("chats"));
         dispatch(selectSideBarIndex(2));
@@ -43,7 +43,9 @@ export default function Login() {
         );
         navigate("/");
       })
-      .catch(() => setError(true));
+      .catch(() => {
+        setError(true);
+      });
   };
 
   return (

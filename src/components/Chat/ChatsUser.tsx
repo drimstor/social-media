@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Chat.module.scss";
-import iUsers from "types/iUsers";
+import {iUsers} from "types/iUsers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 

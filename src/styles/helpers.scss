@@ -94,6 +94,21 @@ $lightgrey: #757575;
   }
 }
 
+%BtnL {
+  background: rgba(151, 151, 151, 0.10);
+  border: 1px solid rgba(141, 141, 141, 0.15);
+  color: $monoChrome;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:active {
+    opacity: 0.7;
+    transform: scale(0.97);
+  }
+}
+
 %f1 {
   font-family: "Comfortaa", sans-serif;
 }
@@ -112,10 +127,21 @@ $lightgrey: #757575;
 
 //-------------- Animations ---------------//
 
-@keyframes showBlur {
+@keyframes show {
   0% {
     opacity: 0;
     filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@keyframes showBlur {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
   }
   100% {
     opacity: 1;

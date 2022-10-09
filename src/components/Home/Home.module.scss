@@ -1,0 +1,213 @@
+@import "styles/helpers.scss";
+
+.userInfo {
+  min-width: 320px;
+  height: 100%;
+  padding: 5px;
+
+  .user {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(44, 44, 44, 0.06);
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    background: $input;
+    box-shadow: 0px 0px 6px -2px rgba(126, 126, 126, 0.274);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      opacity: 0.8;
+      background-image: url(../../img/background.png),
+        linear-gradient($mainColor, $input);
+      background-size: 250px 250px, cover;
+    }
+
+    .info {
+      padding: 20px;
+      text-align: center;
+
+      h2,
+      p {
+        color: $monoChrome;
+      }
+
+      p {
+        margin: 20px 0 25px;
+      }
+
+      button {
+        @extend %Btn;
+        @extend %BtnL;
+        font-size: 18px;
+      }
+    }
+
+    .image {
+      position: relative;
+      z-index: 2;
+      margin: 0 auto;
+      margin-top: 45px;
+      width: 100px;
+      height: 100px;
+      padding: 2px;
+      border: 3px solid $mainColor;
+      border-radius: 25px;
+
+      .follow:first-child {
+        left: -89%;
+      }
+
+      .follow {
+        position: absolute;
+        top: calc(50% - 20px);
+        text-align: center;
+        color: $monoChrome;
+        left: 127%;
+
+        span {
+          font-weight: 700;
+          font-size: 18px;
+        }
+        p {
+          font-size: 12px;
+        }
+      }
+
+      img {
+        width: 100%;
+        border-radius: 20px;
+      }
+    }
+  }
+}
+
+.feed {
+  flex: 1;
+}
+
+.recentActivity {
+  border-radius: 15px;
+  min-width: 350px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(44, 44, 44, 0.06);
+  padding: 25px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  h2 {
+    color: $monoChrome;
+    @extend %f1;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 25px;
+  }
+
+  .recentActivityItem {
+    background-color: $input;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 15px;
+    color: $monoChrome;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 1px 6px 1px rgba(126, 126, 126, 0.274);
+
+    &.delete {
+      animation: delete 0.4s ease-in-out forwards;
+    }
+
+    .image {
+      width: 70px;
+      height: 70px;
+      padding: 2px;
+      border-radius: 50%;
+      border: 2px solid $mainColor;
+    }
+
+    img,
+    svg {
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      color: $mainColor;
+    }
+
+    .box {
+      margin-left: 20px;
+
+      h3 {
+        font-weight: 500;
+        margin-bottom: 2px;
+      }
+
+      span {
+        font-weight: 500;
+        color: $lightgrey;
+        font-size: 12px;
+      }
+
+      span.color {
+        margin-left: 10px;
+        color: $mainColor;
+      }
+
+      .control {
+        display: flex;
+        gap: 10px;
+        margin-top: 7px;
+
+        button {
+          background-color: transparent;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          transition: 0.3s;
+
+          &:hover svg {
+            color: $mainColor;
+            border-color: $mainColor;
+          }
+
+          &:active {
+            opacity: 0.7;
+            transform: scale(0.9);
+          }
+        }
+
+        svg {
+          font-size: 14px;
+          width: 14px;
+          height: 14px;
+          color: $lightgrey;
+          border: 2px solid $lightgrey;
+          border-radius: 50%;
+          padding: 5px;
+          transition: 0.3s;
+        }
+      }
+    }
+  }
+}
+
+@keyframes delete {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(100%, 0);
+  }
+}

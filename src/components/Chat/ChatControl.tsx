@@ -1,5 +1,5 @@
 import React from "react";
-import iUsers from "types/iUsers";
+import {iUsers} from "types/iUsers";
 import s from "./Chat.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

@@ -43,7 +43,6 @@
       font-size: 18px;
       line-height: 120%;
       padding-top: 3px;
-      text-transform: capitalize;
       background: $grey;
       @extend %f2;
       color: $white;
@@ -65,7 +64,7 @@
       &:focus ~ svg {
         opacity: 1;
       }
-  
+
       &::placeholder {
         transition: all 0.2s;
         color: $white;
@@ -152,6 +151,7 @@
 
       .userText {
         margin-left: 20px;
+        text-transform: capitalize;
 
         @include mobile {
           h3,
@@ -203,7 +203,7 @@
   flex: 2;
   position: relative;
   background: $blue;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(5px);
 
   @include mobile {
     display: none;
@@ -334,7 +334,7 @@
   width: 100%;
   height: calc(100% - 200px);
   overflow-y: scroll;
-  overflow:hidden;
+  overflow: hidden;
   position: relative;
   padding: 25px;
 

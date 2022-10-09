@@ -5,19 +5,22 @@ import avatar2 from "img/ZC5B45PbR1I.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import flag from "img/flag-russia.svg";
+import { useSelector } from "react-redux";
 
 function ProfileImage() {
+  const user = useSelector((state: any) => state.user);
+
   return (
     <div className={s.profileImage}>
       <div className={s.image}>
-        {!true ? (
-          <img src={avatar} alt="Profile Image" />
+        {user.photoURL ? (
+          <img src={user.photoURL} alt="Profile" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}
       </div>
       <div className={s.information}>
-        <h1>User Name</h1>
+        <h1>{user.displayName}</h1>
         <span className={s.nickName}>@nickname</span>
         <div className={s.location}>
           <img src={flag} alt="flag" /> Russia, Krasnodar

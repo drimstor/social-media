@@ -12,8 +12,9 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCircleCheck,
+  faCircleDown,
   faEnvelope,
-  faFileImage,
   faLock,
   faLockOpen,
   faTriangleExclamation,
@@ -21,7 +22,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Register() {
-  const [error, setError] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState<string>("");
+  const [image, setImage] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState<number | null>(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,76 +34,86 @@ export default function Register() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const displayName = e.target[0].value;
+    const displayName = e.target[0].value.toLowerCase();
     const email = e.target[1].value;
     const password = e.target[2].value;
     const confirmPassword = e.target[3].value;
     const file = e.target[4].files[0];
 
-    //Create user
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    //Create a unique image name
-    const date = new Date().getTime();
-    const storageRef = ref(storage, `${displayName + date}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    if (confirmPassword !== password) {
+      setErrorMessage("Passwords do not match");
+    } else {
+      await createUserWithEmailAndPassword(auth, email, password)
+        .then(({ user }) => {
+          setErrorMessage("");
+          //Create a unique image name
+          const date = new Date().getTime();
+          const storageRef = ref(storage, `${displayName + date}`);
+          const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        // Observe state change events such as progress, pause, and resume
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
-        switch (snapshot.state) {
-          case "paused":
-            console.log("Upload is paused");
-            break;
-          case "running":
-            console.log("Upload is running");
-            break;
-        }
-      },
-      (error) => {
-        // Handle unsuccessful uploads
-      },
-      () => {
-        // Handle successful uploads on complete
-        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          console.log("File available at", downloadURL);
-          try {
-            //Update profile
-            await updateProfile(res.user, {
-              displayName,
-              photoURL: downloadURL,
-            });
-            //create user on firestore
-            await setDoc(doc(db, "users", res.user.uid), {
-              displayName,
-              photoURL: downloadURL,
-              email,
-              id: res.user.uid,
-            });
-            // Redux
-            dispatch(
-              setUser({
-                displayName: res.user.displayName,
-                photoURL: res.user.photoURL,
-                email: res.user.email,
-                id: res.user.uid,
-              })
-            );
-            // Redirect
-            navigate("/");
-          } catch (err) {
-            console.log(err);
-            setError(true);
-          }
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              const progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log("Upload is " + progress + "% done");
+              setLoading(0);
+              switch (snapshot.state) {
+                case "paused":
+                  console.log("Upload is paused");
+                  break;
+                case "running":
+                  console.log("Upload is running");
+                  break;
+              }
+              setLoading(Math.round(progress));
+            },
+            (error) => {
+              setErrorMessage("Something went wrong");
+            },
+            () => {
+              // Handle successful uploads on complete
+              getDownloadURL(uploadTask.snapshot.ref).then(
+                async (downloadURL) => {
+                  console.log("File available at", downloadURL);
+                  try {
+                    // Update profile
+                    await updateProfile(user, {
+                      displayName,
+                      photoURL: downloadURL,
+                    });
+                    //create user on firestore
+                    await setDoc(doc(db, "users", user.uid), {
+                      displayName,
+                      photoURL: downloadURL,
+                      email,
+                      id: user.uid,
+                    });
+                    // Redux
+                    dispatch(
+                      setUser({
+                        displayName: user.displayName,
+                        photoURL: user.photoURL,
+                        email: user.email,
+                        id: user.uid,
+                      })
+                    );
+                    // Redirect
+                    navigate("/");
+                  } catch (error) {
+                    setErrorMessage("Something went wrong");
+                  }
+                }
+              );
+            }
+          );
+        })
+        .catch((error) => {
+          const errorContent = error.message;
+          setErrorMessage(errorContent.slice(10));
         });
-      }
-    );
+    }
   };
-
   return (
     <BackdropLayout>
       <div className={s.formWrapper}>
@@ -127,20 +140,43 @@ export default function Register() {
             <span>Confirm Password</span>
           </div>
 
-          <input type="file" id="file" />
+          <input
+            type="file"
+            id="file"
+            onChange={(e) => e.target.value && setImage(true)}
+            accept="image/*"
+          />
           <label htmlFor="file">
-            <FontAwesomeIcon icon={faFileImage} />
-            <span>Add an avatar</span>
+            {image ? (
+              <FontAwesomeIcon icon={faCircleCheck} />
+            ) : (
+              <FontAwesomeIcon icon={faCircleDown} />
+            )}
+            <span>{image ? "Avatar added" : "Add an avatar"}</span>
           </label>
 
           <button className="button" type="submit">
             Register
           </button>
-          {error && (
+
+          {errorMessage && (
             <p className={s.error}>
-              <FontAwesomeIcon icon={faTriangleExclamation} /> Something went
-              wrong
+              <FontAwesomeIcon icon={faTriangleExclamation} /> {errorMessage}
             </p>
+          )}
+
+          {loading !== null && (
+            <div className={s.loading}>
+              <span>Loading</span>
+              <div className={s.loadingBox}>
+                <div
+                  className={s.loadingBar}
+                  style={{
+                    width: `calc(${loading > 9 ? loading : 9}% - 4px)`,
+                  }}
+                ></div>
+              </div>
+            </div>
           )}
         </form>
         <p>

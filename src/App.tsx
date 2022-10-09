@@ -9,6 +9,7 @@ import Profile from "pages/Profile";
 import { useTransition, animated } from "react-spring";
 import s from "components/SideBar/SideBar.module.scss";
 import useMediaQuery from "hooks/useMediaQuery";
+import Home from "pages/Home";
 
 export default function App() {
   const isAuth = useSelector((state: any) => state.user.id);
@@ -23,40 +24,41 @@ export default function App() {
         ? !matches
           ? {
               opacity: 0,
-              transform:
-                sidebarIndex < prevIndex
-                  ? "translate(0%,-30%) scale(0.9)"
-                  : "translate(0%, 30%) scale(0.9)",
-              filter: "blur(10px)",
+              // transform:
+              //   sidebarIndex < prevIndex
+              //     ? "translate(0%,-30%)"
+              //     : "translate(0%, 30%)",
+              filter: "blur(7px)",
             }
           : {
               transform:
                 sidebarIndex < prevIndex
-                  ? "translate(-30%, 0%)  scale(0.9)"
-                  : "translate(30%, 0%)  scale(0.9)",
+                  ? "translate(-30%, 0%) "
+                  : "translate(30%, 0%) ",
             }
         : {},
     update: {
       opacity: 1,
-      transform: "translate(0%,0%) scale(1)",
+      transform: "translate(0,0)",
       filter: "blur(0px)",
+      backdropFilter: "blur(5px)",
     },
     leave:
       sidebarIndex !== prevIndex
         ? !matches
           ? {
               opacity: 0,
-              transform:
-                sidebarIndex > prevIndex
-                  ? "translate(0%,-30%) scale(0.9)"
-                  : "translate(0%, 30%) scale(0.9)",
-              filter: "blur(10px)",
+              // transform:
+              //   sidebarIndex > prevIndex
+              //     ? "translate(0%,-30%)"
+              //     : "translate(0%, 30%)",
+              filter: "blur(7px)",
             }
           : {
               transform:
                 sidebarIndex > prevIndex
-                  ? "translate(-30%, 0%)  scale(0.9)"
-                  : "translate(30%, 0%)  scale(0.9)",
+                  ? "translate(-30%, 0%) "
+                  : "translate(30%, 0%) ",
             }
         : {},
     config: {
@@ -73,6 +75,7 @@ export default function App() {
         <div className={s.animateWrapper}>
           <Routes location={item}>
             <Route path="/" element={<Navigate to="/chats" replace />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/chats" element={<Chat />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
