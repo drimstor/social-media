@@ -9,6 +9,7 @@
 }
 
 .profileImage {
+  min-width: 400px;
   flex: 0.3;
   border-radius: 15px;
   box-shadow: 0px 2px 9px 0px rgba(63, 63, 63, 0.2);
@@ -42,7 +43,7 @@
     height: 250px;
     box-shadow: 0px 3px 8px 0px rgba(34, 60, 80, 0.2);
     opacity: 0;
-    animation: show 0.5s ease-in-out 0.4s forwards;
+    animation: show 0.5s ease-in-out 0.5s forwards;
 
     img {
       width: 100%;
@@ -67,21 +68,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     @extend %f1;
     color: $monoChrome;
 
-    .description {
-      margin-top: 45px;
-    }
-
     .followBox {
       width: 100%;
-      position: absolute;
-      bottom: 50px;
+      padding-bottom: 10%;
     }
 
     .nickName {
-      margin-top: 15px;
+      margin: -30px 0 -50px;
       color: $lightgrey;
     }
 
@@ -95,7 +92,7 @@
       button:nth-child(1) {
         @extend %Btn;
         @extend %BtnC;
-        min-width: 170px;
+        // min-width: 170px;
         font-size: 16px;
         height: 40px;
         background: $mainColor;
@@ -104,7 +101,7 @@
       button:nth-child(2) {
         @extend %Btn;
         @extend %BtnO;
-        min-width: 170px;
+        // min-width: 170px;
         font-size: 16px;
         height: 40px;
       }
@@ -122,7 +119,7 @@
     }
 
     .profession {
-      margin-top: 20px;
+      margin: -30px 0 -10px;
       font-size: 16px;
       font-weight: 700;
     }
@@ -138,7 +135,7 @@
 
     .followingBox {
       width: 100%;
-      padding: 40px 55px;
+      padding: 0 55px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -154,32 +151,12 @@
           font-weight: 700;
           @extend %f2;
         }
-
-        &.followingBorder {
-          position: relative;
-
-          &::after {
-            content: "";
-            position: absolute;
-            height: 90%;
-            width: 2px;
-            background: $monoChrome;
-            border-radius: 5px;
-            left: -50%;
-            top: 5%;
-          }
-
-          &::before {
-            content: "";
-            position: absolute;
-            height: 90%;
-            width: 2px;
-            background: $monoChrome;
-            border-radius: 5px;
-            right: -50%;
-            top: 5%;
-          }
-        }
+      }
+      .followingBorder {
+        height: 30px;
+        width: 2px;
+        background: $monoChrome;
+        border-radius: 5px;
       }
     }
   }

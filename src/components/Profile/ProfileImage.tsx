@@ -29,12 +29,14 @@ function ProfileImage() {
           <div className={s.followingBox}>
             <div className={s.followingItem}>
               <span>100</span>
-              <p>Posts</p>
-            </div>
-            <div className={s.followingItem + " " + s.followingBorder}>
-              <span>100</span>
               <p>Followers</p>
             </div>
+            <div className={s.followingBorder} />
+            <div className={s.followingItem}>
+              <span>100</span>
+              <p>Posts</p>
+            </div>
+            <div className={s.followingBorder} />
             <div className={s.followingItem}>
               <span>100</span>
               <p>Following</p>

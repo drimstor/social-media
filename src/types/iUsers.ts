@@ -17,3 +17,10 @@ export interface iUserState {
   email: string | null;
   id: string | null;
 }
+
+export interface iFakeUser {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+}
