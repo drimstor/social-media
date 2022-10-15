@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { iUserState } from "types/iUsers";
 
-const initialState = {
+const initialState: iUserState = {
   displayName: null,
   photoURL: null,
   email: null,
@@ -11,7 +12,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser(state, action) {
+    setUser(state, action: PayloadAction<iUserState>) {
       state.displayName = action.payload.displayName;
       state.photoURL = action.payload.photoURL;
       state.email = action.payload.email;

@@ -5,7 +5,6 @@ import ToolTip from "../Helpers/ToolTip";
 import useTheme from "hooks/useTheme";
 import Switch from "../Switch/Switch";
 import { getAuth } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "store/slices/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,6 +23,7 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { signOut } from "firebase/auth";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
 
 const SideBarList = [
   {
@@ -49,9 +49,9 @@ const SideBarList = [
 ];
 
 export default function SideBar() {
-  const selectItem = useSelector((state: any) => state.sidebar.selectItem);
-  const isOpen = useSelector((state: any) => state.sidebar.isOpen);
-  const dispatch = useDispatch();
+  const selectItem = useAppSelector((state) => state.sidebar.selectItem);
+  const isOpen = useAppSelector((state) => state.sidebar.isOpen);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { theme } = useTheme();
   const auth = getAuth();

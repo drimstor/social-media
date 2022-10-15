@@ -1,14 +1,12 @@
 import React from "react";
 import s from "./Profile.module.scss";
-import avatar from "img/RyN8L_hN83A.png";
-import avatar2 from "img/ZC5B45PbR1I.jpg";
+import flag from "img/flag-russia.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import flag from "img/flag-russia.svg";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks/redux";
 
 function ProfileImage() {
-  const user = useSelector((state: any) => state.user);
+  const user = useAppSelector((state) => state.user);
 
   return (
     <div className={s.profileImage}>

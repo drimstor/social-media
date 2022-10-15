@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userSlice from "./slices/userSlice";
 import sideBarSlice from "./slices/sideBarSlice";
+import storage from "redux-persist/lib/storage";
 import {
   persistStore,
   persistReducer,
@@ -11,7 +12,6 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
   key: "root",
@@ -26,7 +26,7 @@ export const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const store = configureStore({
+export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -38,26 +38,6 @@ const store = configureStore({
 
 export const persistor = persistStore(store);
 
-export default store;
-
-// const saveToLocalStorage = (state: any) => {
-//   try {
-//     localStorage.setItem("state", JSON.stringify(state));
-//   } catch (e) {
-//     console.error(e);
-//   }
-// };
-
-// const loadFromLocalStorage = () => {
-//   try {
-//     const stateStr = localStorage.getItem("state");
-//     return stateStr ? JSON.parse(stateStr) : undefined;
-//   } catch (e) {
-//     console.error(e);
-//     return undefined;
-//   }
-// };
-
-// store.subscribe(() => {
-//   saveToLocalStorage(store.getState());
-// })
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

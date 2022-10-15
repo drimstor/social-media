@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type iState = {
+interface iState {
   isOpen: boolean;
   selectItem: string;
   selectIndex: number;
-};
+}
 
 const initialState: iState = {
   isOpen: false,
@@ -19,10 +19,10 @@ const sideBarSlice = createSlice({
     toggleSideBar(state) {
       state.isOpen = !state.isOpen;
     },
-    selectSideBarItem(state, action) {
+    selectSideBarItem(state, action: PayloadAction<string>) {
       state.selectItem = action.payload;
     },
-    selectSideBarIndex(state, action) {
+    selectSideBarIndex(state, action: PayloadAction<number>) {
       state.selectIndex = action.payload;
     },
   },

@@ -8,8 +8,8 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
 import { setUser } from "store/slices/userSlice";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "hooks/redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleCheck,
@@ -27,7 +27,7 @@ export default function Register() {
   const [loading, setLoading] = React.useState<number | null>(null);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const db = getFirestore();
   const auth = getAuth();
   const storage = getStorage();

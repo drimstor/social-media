@@ -4,7 +4,6 @@ import BackdropLayout from "components/Layouts/BackdropLayout";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { setUser } from "store/slices/userSlice";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,11 +15,12 @@ import {
   selectSideBarIndex,
   selectSideBarItem,
 } from "store/slices/sideBarSlice";
+import { useAppDispatch } from "hooks/redux";
 
 export default function Login() {
   const [error, setError] = React.useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const auth = getAuth();
 

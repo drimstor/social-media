@@ -10,3 +10,10 @@ export interface iUsersDb {
   message?: string;
   id: string;
 }
+
+export interface iUserState {
+  photoURL?: string | null;
+  displayName: string | null;
+  email: string | null;
+  id: string | null;
+}

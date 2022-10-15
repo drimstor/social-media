@@ -1,6 +1,6 @@
 import React from "react";
 import s from "components/Home/Home.module.scss";
-import { iUsersDb } from "types/iUsers";
+import { iUserState } from "types/iUsers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faComment,
@@ -9,7 +9,7 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
-function HomeActivityItem({ user }: { user: iUsersDb }) {
+function HomeActivityItem({ user }: { user: iUserState }) {
   const [del, setDel] = React.useState(false);
   const item = React.useRef<any>(null);
 

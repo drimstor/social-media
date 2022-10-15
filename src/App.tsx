@@ -1,20 +1,20 @@
 import React from "react";
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import "styles/global.scss";
+import s from "components/SideBar/SideBar.module.scss";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { useTransition, animated } from "react-spring";
+import { useAppSelector } from "hooks/redux";
+import useMediaQuery from "hooks/useMediaQuery";
+import Home from "pages/Home";
 import Login from "pages/Login";
 import Register from "pages/Register";
 import Chat from "pages/Chat";
 import Profile from "pages/Profile";
-import { useTransition, animated } from "react-spring";
-import s from "components/SideBar/SideBar.module.scss";
-import useMediaQuery from "hooks/useMediaQuery";
-import Home from "pages/Home";
 
 export default function App() {
-  const isAuth = useSelector((state: any) => state.user.id);
+  const isAuth = useAppSelector((state) => state.user.id);
+  const sidebarIndex = useAppSelector((state) => state.sidebar.selectIndex);
   const location = useLocation();
-  const sidebarIndex = useSelector((state: any) => state.sidebar.selectIndex);
   const [prevIndex, setPrevIndex] = React.useState(sidebarIndex);
   const matches: boolean = useMediaQuery("(max-width: 425px)");
 

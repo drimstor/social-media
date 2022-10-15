@@ -1,15 +1,17 @@
 import React from "react";
 import s from "components/Home/Home.module.scss";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import {
   selectSideBarIndex,
   selectSideBarItem,
 } from "store/slices/sideBarSlice";
 
 function HomeUserInfo() {
-  const user = useSelector((state: any) => state.user);
-  const dispatch = useDispatch();
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const clickOnItem = () => {
     dispatch(selectSideBarItem("profile"));
@@ -24,7 +26,11 @@ function HomeUserInfo() {
             <span>100</span>
             <p>Followers</p>
           </div>
-          <img src={user.photoURL} alt="avatar" />
+          {user.photoURL ? (
+            <img src={user.photoURL} alt="avatar" />
+          ) : (
+            <FontAwesomeIcon icon={faUserCircle} />
+          )}
           <div className={s.follow}>
             <span>100</span>
             <p>Following</p>
