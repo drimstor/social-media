@@ -203,7 +203,6 @@
   flex: 2;
   position: relative;
   background: $blue;
-  backdrop-filter: blur(5px);
 
   @include mobile {
     display: none;

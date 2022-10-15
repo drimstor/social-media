@@ -1,11 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 import b from "components/SideBar/SideBar.module.scss";
 import ProfileImage from "components/Profile/ProfileImage";
 import ProfileInfo from "components/Profile/ProfileInfo";
 import ProfileBlog from "components/Profile/ProfileBlog";
 import s from "components/Profile/Profile.module.scss";
 
-export default function Profile() {
+export default memo(function Profile() {
   return (
     <div className={b.pageWrapper + " " + b.profile}>
       <ProfileImage />
@@ -15,4 +15,4 @@ export default function Profile() {
       </div>
     </div>
   );
-}
+});

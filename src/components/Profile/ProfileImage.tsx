@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "hooks/redux";
 
-function ProfileImage() {
+export default function ProfileImage() {
   const user = useAppSelector((state) => state.user);
 
   return (
@@ -51,5 +51,3 @@ function ProfileImage() {
     </div>
   );
 }
-
-export default ProfileImage;
