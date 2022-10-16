@@ -13,6 +13,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import chatSlice from "./slices/chatSlice";
 
 const persistConfig = {
   key: "root",
@@ -24,6 +25,7 @@ export const rootReducer = combineReducers({
   user: userSlice,
   sidebar: sideBarSlice,
   fakeUsers: fakeUsersSllice,
+  chat: chatSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

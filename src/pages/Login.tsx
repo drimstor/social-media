@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { setUser } from "store/slices/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "hooks/redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -15,7 +16,6 @@ import {
   selectSideBarIndex,
   selectSideBarItem,
 } from "store/slices/sideBarSlice";
-import { useAppDispatch } from "hooks/redux";
 
 export default function Login() {
   const [error, setError] = React.useState(false);
@@ -33,14 +33,16 @@ export default function Login() {
       .then(({ user }) => {
         dispatch(selectSideBarItem("chats"));
         dispatch(selectSideBarIndex(2));
-        dispatch(
-          setUser({
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-            email: user.email,
-            id: user.uid,
-          })
-        );
+        if (user.email && user.displayName !== null) {
+          dispatch(
+            setUser({
+              displayName: user.displayName,
+              photoURL: user.photoURL,
+              email: user.email,
+              id: user.uid,
+            })
+          );
+        }
         navigate("/");
       })
       .catch(() => {

@@ -2,10 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { iUserState } from "types/iUsers";
 
 const initialState: iUserState = {
-  displayName: null,
-  photoURL: null,
-  email: null,
-  id: null,
+  displayName: "",
+  photoURL: "",
+  email: "",
+  id: "",
 };
 
 const userSlice = createSlice({
@@ -19,10 +19,10 @@ const userSlice = createSlice({
       state.id = action.payload.id;
     },
     removeUser(state) {
-      state.displayName = null;
-      state.photoURL = null;
-      state.email = null;
-      state.id = null;
+      state.displayName = "";
+      state.photoURL = "";
+      state.email = "";
+      state.id = "";
     },
   },
 });

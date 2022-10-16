@@ -78,7 +78,7 @@
     }
 
     .nickName {
-      margin: -30px 0 -50px;
+      margin: -35px 0 -50px;
       color: $lightgrey;
     }
 
@@ -92,7 +92,6 @@
       button:nth-child(1) {
         @extend %Btn;
         @extend %BtnC;
-        // min-width: 170px;
         font-size: 16px;
         height: 40px;
         background: $mainColor;
@@ -101,7 +100,6 @@
       button:nth-child(2) {
         @extend %Btn;
         @extend %BtnO;
-        // min-width: 170px;
         font-size: 16px;
         height: 40px;
       }

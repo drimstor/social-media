@@ -12,10 +12,10 @@ export interface iUsersDb {
 }
 
 export interface iUserState {
-  photoURL?: string | null;
-  displayName: string | null;
-  email: string | null;
-  id: string | null;
+  photoURL: string | null;
+  displayName: string;
+  email: string;
+  id: string;
 }
 
 export interface iFakeUser {

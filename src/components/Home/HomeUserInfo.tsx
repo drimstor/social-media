@@ -21,7 +21,10 @@ function HomeUserInfo() {
   return (
     <div className={s.userInfo}>
       <div className={s.user}>
-        <div className={s.image}>
+        <div
+          style={{ borderColor: user.photoURL ? "undefined" : "transparent" }}
+          className={s.image}
+        >
           <div className={s.follow}>
             <span>100</span>
             <p>Followers</p>

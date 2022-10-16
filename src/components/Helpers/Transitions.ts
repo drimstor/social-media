@@ -7,7 +7,7 @@ import { useTransition } from "react-spring";
 export default function Transitions() {
   const location = useLocation();
   const sidebarIndex = useAppSelector((state) => state.sidebar.selectIndex);
-  const [prevIndex, setPrevIndex] = React.useState(sidebarIndex);
+  const [prevIndex, setPrevIndex] = React.useState<number>(sidebarIndex);
   const matches: boolean = useMediaQuery("(max-width: 425px)");
 
   const transitions = useTransition(location, {

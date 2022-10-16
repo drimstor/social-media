@@ -2,8 +2,14 @@ import React from "react";
 import s from "./Chat.module.scss";
 import ChatNavBar from "./ChatNavBar";
 import ChatsUser from "./ChatsUser";
-import { iUsers, iUsersDb } from "types/iUsers";
 import useMediaQuery from "hooks/useMediaQuery";
+import { iUsers, iUserState } from "types/iUsers";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMagnifyingGlass,
+  faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   collection,
   query,
@@ -15,11 +21,10 @@ import {
   setDoc,
   serverTimestamp,
   updateDoc,
+  DocumentData,
+  onSnapshot,
 } from "firebase/firestore";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { changeUser } from "store/slices/chatSlice";
 
 interface ChatSideBarProps {
   users: iUsers[];
@@ -30,22 +35,28 @@ interface ChatSideBarProps {
 function ChatSideBar({ users, setSelectChat, selectChat }: ChatSideBarProps) {
   const matches = useMediaQuery("(max-width: 425px)");
   const db = getFirestore();
-
-  const [userName, setUserName] = React.useState("");
-  const [user, setUser] = React.useState<any>(null);
+  const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((state) => state.user);
   const [error, setError] = React.useState(false);
-
-  const currentUser = useSelector((state: any) => state.user);
+  const [userName, setUserName] = React.useState("");
+  const [user, setUser] = React.useState<iUserState | DocumentData | null>(
+    null
+  );
+  const chatInfo = useAppSelector((state) => state.chat);
 
   const handleSearch = async () => {
     const q = query(
       collection(db, "users"),
       where("displayName", "==", userName)
     );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      setUser(doc.data());
-    });
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        setUser(doc.data());
+      });
+    } catch (error) {
+      setError(true);
+    }
   };
 
   const handleKey = (e: any) => {
@@ -54,42 +65,61 @@ function ChatSideBar({ users, setSelectChat, selectChat }: ChatSideBarProps) {
 
   const handleSelect = async () => {
     //check whether the group(chats in firestore) exists, if not create
-    const combinedId =
-      currentUser.uid > user.uid
-        ? currentUser.uid + user.uid
-        : user.uid + currentUser.uid;
-
-    try {
-      const res = await getDoc(doc(db, "chats", combinedId));
-
-      if (!res.exists()) {
-        //create a chat in chats collection
-        await setDoc(doc(db, "chats", combinedId), { messages: [] });
-
-        //create user chats
-        await updateDoc(doc(db, "userChats", currentUser.uid), {
-          [combinedId + ".userInfo"]: {
-            uid: user.uid,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-          },
-          [combinedId + ".date"]: serverTimestamp(),
-        });
-
-        await updateDoc(doc(db, "userChats", user.uid), {
-          [combinedId + ".userInfo"]: {
-            uid: currentUser.uid,
-            displayName: currentUser.displayName,
-            photoURL: currentUser.photoURL,
-          },
-          [combinedId + ".date"]: serverTimestamp(),
-        });
+    if (user) {
+      const combinedId =
+        currentUser.id > user.id
+          ? currentUser.id + user.id
+          : user.id + currentUser.id;
+      try {
+        const res = await getDoc(doc(db, "chats", combinedId));
+        if (!res.exists()) {
+          //create a chat in chats collection
+          await setDoc(doc(db, "chats", combinedId), { messages: [] });
+          //create user chats
+          await updateDoc(doc(db, "userChats", currentUser.id), {
+            [combinedId + ".userInfo"]: {
+              id: user.id,
+              displayName: user.displayName,
+              photoURL: user.photoURL,
+            },
+            [combinedId + ".date"]: serverTimestamp(),
+          });
+          //create user chats
+          await updateDoc(doc(db, "userChats", user.id), {
+            [combinedId + ".userInfo"]: {
+              id: currentUser.id,
+              displayName: currentUser.displayName,
+              photoURL: currentUser.photoURL,
+            },
+            [combinedId + ".date"]: serverTimestamp(),
+          });
+        }
+      } catch (err) {
+        setError(true);
       }
-    } catch (err) {}
-
-    setUser(null);
-    setUserName("");
+      setUser(null);
+      setUserName("");
+    }
   };
+
+  const handleChatSelect = (user: any) => {
+    const chatObj = [currentUser, user];
+    dispatch(changeUser(chatObj));
+  };
+
+  //<DocumentData | null | undefined>
+  const [chats, setChats] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    const unsub = onSnapshot(doc(db, "userChats", currentUser.id), (doc) => {
+      setChats(doc.data());
+    });
+    return () => {
+      unsub();
+    };
+  }, [currentUser.id, db]);
+
+  // console.log(Object.entries(chats));
 
   return (
     <div className={s.sidebar}>
@@ -98,6 +128,7 @@ function ChatSideBar({ users, setSelectChat, selectChat }: ChatSideBarProps) {
         <input
           type="text"
           placeholder="Find a user"
+          value={userName}
           onKeyDown={handleKey}
           onChange={(e) => {
             setUserName(e.target.value.toLowerCase());
@@ -121,18 +152,19 @@ function ChatSideBar({ users, setSelectChat, selectChat }: ChatSideBarProps) {
 
         {error && <p>Error</p>}
 
-        {users.map((user, index) => (
-          <div
-            style={{
-              background:
-                selectChat === index && !matches ? "rgba(0, 0, 0, 0.22)" : "",
-            }}
-            key={index}
-            onClick={() => setSelectChat(index)}
-          >
-            <ChatsUser key={index} user={user} />
-          </div>
-        ))}
+        {chats &&
+          Object.entries(chats)?.map((chat: any) => (
+            <div
+              // style={{
+              //   background:
+              //     selectChat === index && !matches ? "rgba(0, 0, 0, 0.22)" : "",
+              // }}
+              key={chat[0]}
+              // onClick={() => setSelectChat(index)}
+            >
+              <ChatsUser chat={chat} onClick={handleChatSelect} />
+            </div>
+          ))}
       </div>
     </div>
   );
