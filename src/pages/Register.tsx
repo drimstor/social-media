@@ -32,14 +32,22 @@ export default function Register() {
   const auth = getAuth();
   const storage = getStorage();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    const displayName = e.target[0].value.toLowerCase();
-    const email = e.target[1].value;
-    const password = e.target[2].value;
-    const confirmPassword = e.target[3].value;
-    const file = e.target[4].files[0];
+    const target = e.target as typeof e.target & {
+      displayName: { value: string };
+      email: { value: string };
+      password: { value: string };
+      confirmPassword: { value: string };
+      file: { files: any };
+    };
+
+    const displayName = target.displayName.value.toLowerCase();
+    const email = target.email.value;
+    const password = target.password.value;
+    const confirmPassword = target.confirmPassword.value;
+    const file = target.file.files[0];
 
     if (confirmPassword !== password) {
       setErrorMessage("Passwords do not match");
@@ -163,22 +171,22 @@ export default function Register() {
         <form onSubmit={handleSubmit}>
           <div className={s.inputWrapper}>
             <FontAwesomeIcon icon={faUser} />
-            <input type="text" required />
+            <input type="text" name="displayName" required />
             <span>Display Name</span>
           </div>
           <div className={s.inputWrapper}>
             <FontAwesomeIcon icon={faEnvelope} />
-            <input type="text" required />
+            <input type="text" name="email" required />
             <span>Email</span>
           </div>
           <div className={s.inputWrapper}>
             <FontAwesomeIcon icon={faLock} />
-            <input type="password" required />
+            <input type="password" name="password" required />
             <span>Password</span>
           </div>
           <div className={s.inputWrapper}>
             <FontAwesomeIcon icon={faLockOpen} />
-            <input type="password" required />
+            <input type="password" name="confirmPassword" required />
             <span>Confirm Password</span>
           </div>
 
@@ -187,6 +195,7 @@ export default function Register() {
             id="file"
             onChange={(e) => e.target.value && setImage(true)}
             accept="image/*"
+            name="file"
           />
           <label htmlFor="file">
             {image ? (

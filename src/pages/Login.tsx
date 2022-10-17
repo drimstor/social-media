@@ -24,10 +24,16 @@ export default function Login() {
   const navigate = useNavigate();
   const auth = getAuth();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const email = e.target[0].value;
-    const password = e.target[1].value;
+
+    const target = e.target as typeof e.target & {
+      email: { value: string };
+      password: { value: string };
+    };
+
+    const email = target.email.value;
+    const password = target.password.value;
 
     await signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
@@ -58,12 +64,12 @@ export default function Login() {
         <form onSubmit={handleSubmit}>
           <div className={s.inputWrapper}>
             <FontAwesomeIcon icon={faEnvelope} />
-            <input type="text" required />
+            <input type="text" name="email" required />
             <span>Email</span>
           </div>
           <div className={s.inputWrapper}>
             <FontAwesomeIcon icon={faLock} />
-            <input type="password" required />
+            <input type="password" name="password" required />
             <span>Password</span>
           </div>
 

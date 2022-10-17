@@ -11,11 +11,11 @@ import {
 
 function HomeActivityItem({ user }: { user: iUserState }) {
   const [del, setDel] = React.useState(false);
-  const item = React.useRef<any>(null);
+  const item = React.useRef<HTMLDivElement>(null);
 
   const handleDelete = () => {
     setDel(true);
-    setTimeout(() => item.current.remove(), 350);
+    setTimeout(() => item.current && item.current.remove(), 350);
   };
 
   return (
