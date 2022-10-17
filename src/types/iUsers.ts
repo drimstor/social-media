@@ -12,9 +12,9 @@ export interface iUsersDb {
 }
 
 export interface iUserState {
-  photoURL: string | null;
+  photoURL?: string | null;
   displayName: string;
-  email: string;
+  email?: string;
   id: string;
 }
 

@@ -129,6 +129,14 @@
       padding-bottom: 560px;
     }
 
+    p.error {
+      color: rgb(202, 6, 6);
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      padding: 5px 0;
+    }
+
     > div {
       transition: all 0.3s;
 
@@ -184,12 +192,16 @@
         width: 50px;
         height: 50px;
         border-radius: 50%;
+        opacity: 0;
+        animation: show 0.5s ease-in-out 0.5s forwards;
       }
 
       svg {
         width: 50px;
         font-size: 50px;
         color: $pink;
+        opacity: 0;
+        animation: show 0.5s ease-in-out 0.5s forwards;
 
         @include mobile {
           color: $mainColor;
@@ -206,6 +218,42 @@
 
   @include mobile {
     display: none;
+  }
+
+  .chatAreaBanner {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    position: absolute;
+    z-index: 1;
+    cursor: not-allowed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @keyframes arrowPulse {
+      0% {
+        transform: translateX(0px);
+      }
+      100% {
+        transform: translateX(13px);
+      }
+    }
+
+    &::before {
+      position: absolute;
+      top: 165px;
+      left: 20px;
+      content: '\276E   Select chat';
+      color: $pink;
+      font-size: 50px;
+      font-weight: 700;
+      @extend %f2;
+      transition: .3s;
+      animation: arrowPulse 1.5s infinite alternate ease-in-out;
+    }
+
   }
 
   .control {
@@ -248,17 +296,22 @@
         @extend %f1;
         color: $white;
         font-size: 20px;
+        text-transform: capitalize;
       }
 
       img {
         width: 50px;
         height: 50px;
         border-radius: 50%;
+        opacity: 0;
+        animation: show 0.5s ease-in-out 0.5s forwards;
       }
       svg {
         width: 50px;
         font-size: 50px;
         color: $pink;
+        opacity: 0;
+        animation: show 0.5s ease-in-out 0.5s forwards;
       }
     }
   }

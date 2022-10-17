@@ -1,6 +1,7 @@
 import React from "react";
-import {iUsers} from "types/iUsers";
 import s from "./Chat.module.scss";
+import ToolTip from "../Helpers/ToolTip";
+import { useAppSelector } from "hooks/redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsis,
@@ -8,18 +9,18 @@ import {
   faUserCircle,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import ToolTip from "../Helpers/ToolTip";
 
-function ChatControl({ user }: { user: iUsers }) {
+function ChatControl() {
+  const user = useAppSelector((state) => state.chat.user);
   return (
     <div className={s.control}>
       <div className={s.controlProfile}>
-        {user.avatar ? (
-          <img src={user.avatar} alt="Profile avatar" />
+        {user && user.photoURL ? (
+          <img src={user.photoURL} alt="Profile avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}
-        <h2>{user.name}</h2>
+        <h2>{user && user.displayName}</h2>
       </div>
       <div className={s.controlPanel}>
         <ToolTip title={"Call"} reverse>

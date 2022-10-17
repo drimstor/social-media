@@ -1,30 +1,47 @@
 import React from "react";
 import s from "./Chat.module.scss";
-import { iUsers } from "types/iUsers";
+import { iUserState } from "types/iUsers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import useMediaQuery from "hooks/useMediaQuery";
+import { useAppSelector } from "hooks/redux";
 
-interface ChatsUserProps {
-  chat: any;
-  onClick: any;
+interface iUser extends iUserState {
+  lastMessage?: {
+    text?: string;
+  };
 }
 
-export default function ChatsUser({ chat, onClick }: ChatsUserProps) {
+interface ChatsUserProps {
+  chatUser: iUser;
+  onClick: (user: iUser) => void;
+}
+
+export default function ChatsUser({ chatUser, onClick }: ChatsUserProps) {
+  const selectChat = useAppSelector((state) => state.chat.selectedChat);
+  const matches = useMediaQuery("(max-width: 425px)");
   return (
     <div
-      className={s.userProfile}
-      onClick={() => {
-        onClick(chat[1].userInfo);
+      style={{
+        background:
+          selectChat === chatUser.id && !matches ? "rgba(0, 0, 0, 0.22)" : "",
       }}
     >
-      {chat[1].userInfo.photoURL ? (
-        <img src={chat[1].userInfo.photoURL} alt="Profile avatar" />
-      ) : (
-        <FontAwesomeIcon icon={faUserCircle} />
-      )}
-      <div className={s.userText}>
-        <h3>{chat[1].userInfo.displayName}</h3>
-        <p>{chat[1].userInfo.lastMessage?.text}</p>
+      <div
+        className={s.userProfile}
+        onClick={() => {
+          onClick(chatUser);
+        }}
+      >
+        {chatUser.photoURL ? (
+          <img src={chatUser.photoURL} alt="Profile avatar" />
+        ) : (
+          <FontAwesomeIcon icon={faUserCircle} />
+        )}
+        <div className={s.userText}>
+          <h3>{chatUser.displayName}</h3>
+          <p>{chatUser.lastMessage?.text}</p>
+        </div>
       </div>
     </div>
   );

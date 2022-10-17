@@ -24,7 +24,7 @@ const persistConfig = {
 export const rootReducer = combineReducers({
   user: userSlice,
   sidebar: sideBarSlice,
-  fakeUsers: fakeUsersSllice,
+  // fakeUsers: fakeUsersSllice,
   chat: chatSlice,
 });
 
