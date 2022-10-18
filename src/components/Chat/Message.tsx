@@ -1,27 +1,62 @@
 import React from "react";
 import s from "./Chat.module.scss";
-import avatar from "img/ZC5B45PbR1I.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { useAppSelector } from "hooks/redux";
+import { iMessage } from "types/iMessages";
 
-function Message({}) {
+export default function Message({ message }: { message: iMessage }) {
+  const currentUser = useAppSelector((state) => state.user);
+  const anotherUser = useAppSelector((state) => state.chat.user);
+  const scrollElement = React.useRef<HTMLDivElement>(null);
+
+  // React.useEffect(() => {
+  //   scrollElement.current?.scrollIntoView({
+  //     // block: "end",
+  //     // inline: "end",
+  //     // behavior: "smooth",
+  //   });
+  // }, [message]);
+
   return (
-    <div className={s.message + " " + s.owner}>
-      <div className={s.messageInfo}>
-        {avatar ? (
-          <img src={avatar} alt="user avatar" />
-        ) : (
-          <FontAwesomeIcon icon={faUserCircle} />
-        )}
-        <span>Just now</span>
+    <>
+      <div
+        className={
+          message.senderId === currentUser.id
+            ? s.message + " " + s.owner
+            : s.message
+        }
+      >
+        <div className={s.messageInfo}>
+          {anotherUser.photoURL == null &&
+            anotherUser.id === message.senderId && (
+              <FontAwesomeIcon icon={faUserCircle} />
+            )}
+
+          {anotherUser.photoURL !== null &&
+            anotherUser.id === message.senderId && (
+              <img src={anotherUser.photoURL} alt="user avatar" />
+            )}
+
+          {currentUser.photoURL == null &&
+            currentUser.id === message.senderId && (
+              <FontAwesomeIcon icon={faUserCircle} />
+            )}
+
+          {currentUser.photoURL !== null &&
+            currentUser.id === message.senderId && (
+              <img src={currentUser.photoURL} alt="user avatar" />
+            )}
+
+          <span>Just now</span>
+        </div>
+        <div className={s.messageContent}>
+          <div className={s.tail}></div>
+          <p>{message.text}</p>
+          {message.img && <img src={message.img} alt="" />}
+        </div>
       </div>
-      <div className={s.messageContent}>
-        <div className={s.tail}></div>
-        <p>hello</p>
-        {/* <img src={avatar} alt="" /> */}
-      </div>
-    </div>
+      <div ref={scrollElement}></div>
+    </>
   );
 }
-
-export default Message;

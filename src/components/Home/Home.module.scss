@@ -31,6 +31,10 @@
       padding: 20px;
       text-align: center;
 
+      h2 {
+        text-transform: capitalize;
+      }
+
       h2,
       p {
         color: $monoChrome;
@@ -155,6 +159,7 @@
       h3 {
         font-weight: 500;
         margin-bottom: 2px;
+        text-transform: capitalize;
       }
 
       span {

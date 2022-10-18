@@ -27,7 +27,7 @@ import {
 
 interface iChatUser {
   0: string;
-  1: { date: string; userInfo: iUserState };
+  1: { date: string; userInfo: iUserState; lastMessage?: { text: string } };
 }
 
 function ChatSideBar() {
@@ -46,7 +46,6 @@ function ChatSideBar() {
   React.useEffect(() => {
     const unsub = onSnapshot(doc(db, "userChats", currentUser.id), (doc) => {
       setChats(doc.data());
-      console.log(chats);
     });
     return () => {
       unsub();
@@ -149,13 +148,16 @@ function ChatSideBar() {
         {error && <p className={s.error}>Something is wrong</p>}
 
         {chats &&
-          Object.entries(chats)?.map((chatUser: iChatUser, index) => (
-            <ChatsUser
-              chatUser={chatUser[1].userInfo}
-              onClick={handleChatSelect}
-              key={index}
-            />
-          ))}
+          Object.entries(chats)
+            ?.sort((a, b) => b[1].date - a[1].date)
+            .map((chatUser: iChatUser, index) => (
+              <ChatsUser
+                chatUser={chatUser[1].userInfo}
+                lastMessage={chatUser[1].lastMessage}
+                onClick={handleChatSelect}
+                key={index}
+              />
+            ))}
       </div>
     </div>
   );

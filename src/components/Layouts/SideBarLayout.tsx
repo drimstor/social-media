@@ -18,7 +18,7 @@ function SideBarLayout({ children }: SideBarLayoutProps) {
           <div
             className={s.contentBox}
             style={{
-              width: isOpen ? "calc(100vw - 295px)" : "calc(100vw - 135px)",
+              width: isOpen ? "calc(100vw - 310px)" : "calc(100vw - 150px)",
             }}
           >
             {children}

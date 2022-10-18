@@ -8,6 +8,8 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "store/slices/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { signOut } from "firebase/auth";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
 import {
   selectSideBarIndex,
   selectSideBarItem,
@@ -22,10 +24,8 @@ import {
   faRightFromBracket,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { signOut } from "firebase/auth";
-import { useAppDispatch, useAppSelector } from "hooks/redux";
 
-const SideBarList = [
+const SideBarElements = [
   {
     icon: <FontAwesomeIcon icon={faHouse} />,
     title: "home",
@@ -87,7 +87,7 @@ export default function SideBar() {
       </div>
 
       <div className={s.sidebarWrapper}>
-        {SideBarList.map((item, index) => (
+        {SideBarElements.map((item, index) => (
           <SideBarElement
             key={index}
             onClick={() => clickOnItem(item.title, index)}

@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { iUserState } from "types/iUsers";
 
 interface initialStateProps {
-  chatId: string | null;
+  chatId: string;
   user: iUserState | null;
-  selectedChat?: string | null;
+  selectedChat?: string;
 }
 
 interface payloadProps {
@@ -12,10 +12,10 @@ interface payloadProps {
   1: iUserState;
 }
 
-const initialState: initialStateProps = {
-  chatId: null,
+const initialState: any = {
+  chatId: "",
   user: null,
-  selectedChat: null,
+  selectedChat: "",
 };
 
 const chatSlice = createSlice({

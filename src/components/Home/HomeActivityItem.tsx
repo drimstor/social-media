@@ -15,7 +15,7 @@ function HomeActivityItem({ user }: { user: iUserState }) {
 
   const handleDelete = () => {
     setDel(true);
-    setTimeout(() => item.current && item.current.remove(), 350);
+    setTimeout(() => item.current?.remove(), 350);
   };
 
   return (

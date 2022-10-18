@@ -386,9 +386,9 @@
   width: 100%;
   height: calc(100% - 200px);
   overflow-y: scroll;
-  overflow: hidden;
   position: relative;
   padding: 25px;
+  padding-bottom: 0;
 
   .message {
     display: flex;
@@ -425,6 +425,7 @@
         height: 50px;
         border-radius: 50%;
         object-fit: cover;
+        color: $mainColor;
       }
     }
     &Content {

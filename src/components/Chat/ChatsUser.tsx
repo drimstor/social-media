@@ -6,18 +6,19 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import useMediaQuery from "hooks/useMediaQuery";
 import { useAppSelector } from "hooks/redux";
 
-interface iUser extends iUserState {
+interface ChatsUserProps {
+  chatUser: iUserState;
   lastMessage?: {
     text?: string;
   };
+  onClick: (user: iUserState) => void;
 }
 
-interface ChatsUserProps {
-  chatUser: iUser;
-  onClick: (user: iUser) => void;
-}
-
-export default function ChatsUser({ chatUser, onClick }: ChatsUserProps) {
+export default function ChatsUser({
+  chatUser,
+  lastMessage,
+  onClick,
+}: ChatsUserProps) {
   const selectChat = useAppSelector((state) => state.chat.selectedChat);
   const matches = useMediaQuery("(max-width: 425px)");
   return (
@@ -40,7 +41,7 @@ export default function ChatsUser({ chatUser, onClick }: ChatsUserProps) {
         )}
         <div className={s.userText}>
           <h3>{chatUser.displayName}</h3>
-          <p>{chatUser.lastMessage?.text}</p>
+          <p>{lastMessage?.text}</p>
         </div>
       </div>
     </div>
