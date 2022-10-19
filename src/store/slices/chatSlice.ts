@@ -3,18 +3,18 @@ import { iUserState } from "types/iUsers";
 
 interface initialStateProps {
   chatId: string;
-  user: iUserState | null;
+  user: iUserState;
   selectedChat?: string;
 }
 
-interface payloadProps {
-  0: iUserState;
-  1: iUserState;
-}
-
-const initialState: any = {
+const initialState: initialStateProps = {
   chatId: "",
-  user: null,
+  user: {
+    photoURL: null,
+    displayName: "",
+    email: "",
+    id: "",
+  },
   selectedChat: "",
 };
 
@@ -22,7 +22,7 @@ const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    changeUser(state, action: PayloadAction<payloadProps>) {
+    changeUser(state, action: PayloadAction<iUserState[]>) {
       state.user = action.payload[1];
       state.chatId =
         action.payload[0].id > action.payload[1].id
