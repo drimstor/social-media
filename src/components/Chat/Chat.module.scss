@@ -232,28 +232,18 @@
     align-items: center;
     justify-content: center;
 
-    @keyframes arrowPulse {
-      0% {
-        transform: translateX(0px);
-      }
-      100% {
-        transform: translateX(13px);
-      }
-    }
-
     &::before {
       position: absolute;
       top: 165px;
       left: 20px;
-      content: '\276E   Select chat';
+      content: "\276E   Select chat";
       color: $pink;
       font-size: 50px;
       font-weight: 700;
       @extend %f2;
-      transition: .3s;
+      transition: 0.3s;
       animation: arrowPulse 1.5s infinite alternate ease-in-out;
     }
-
   }
 
   .control {
@@ -327,6 +317,44 @@
       display: flex;
       align-items: center;
       gap: 25px;
+      position: relative;
+    }
+
+    .progressLoading {
+      position: absolute;
+      right: 164px;
+      bottom: 25px;
+      border: 2px solid $mainColor;
+      width: 50px;
+      height: 10px;
+      border-radius: 4px;
+      opacity: 0;
+      animation: show 0.5s ease-in-out 0.2s forwards;
+
+      .progressLoadingBar {
+        background: $mainColor;
+        height: 2px;
+        left: 2px;
+        top: 2px;
+        position: relative;
+        max-width: 92%;
+        width: 0;
+        transition: all 0.3s;
+      }
+
+      span {
+        color: rgb(167, 14, 14);
+        font-weight: 700;
+        margin-top: 6px;
+        margin-left: 2px;
+        display: inline-block;
+      }
+    }
+
+    .fileIcon {
+      transition: transform 0.7s;
+      transform: translate(0, -9px);
+      animation: filePulse 0.8s ease-in-out 0.7s infinite alternate;
     }
 
     input[type="file"] {
@@ -358,6 +386,7 @@
       color: $mainColor;
       transition: all 0.3s;
       cursor: pointer;
+      margin-right: 5px;
 
       &:hover {
         opacity: 0.7;
@@ -390,33 +419,51 @@
   padding: 25px;
   padding-bottom: 0;
 
+  &::-webkit-scrollbar-track {
+    background-color: rgba(114, 114, 114, 0.212);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(114, 114, 114, 0.377);
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
   .message {
     display: flex;
     gap: 20px;
     margin-bottom: 20px;
     padding: 5px;
-
-    &.owner {
-      flex-direction: row-reverse;
-
-      .messageContent {
-        align-items: flex-end;
-      }
-      p {
-        background: $grey;
-        color: $white;
-        border-radius: 10px 0px 10px 10px;
-      }
-    }
+    opacity: 0;
+    animation: show 0.5s ease-in-out 0.5s forwards;
 
     &Info {
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
+
+      span:first-of-type {
+        margin-top: 2px;
+        font-size: 12px;
+        color: $monoChrome;
+        text-transform: capitalize;
+        position: relative;
+        left: 0 !important;
+        top: 0;
+        opacity: 1;
+        font-weight: 500;
+      }
 
       span {
+        color: $monoChrome;
+        opacity: 0.7;
+        position: absolute;
         font-size: 12px;
-        color: $white;
+        left: 75px;
+        top: 3px;
       }
 
       img,
@@ -428,6 +475,24 @@
         color: $mainColor;
       }
     }
+
+    &.owner {
+      flex-direction: row-reverse;
+
+      .messageInfo span {
+        left: -51px;
+      }
+
+      .messageContent {
+        align-items: flex-end;
+      }
+      p {
+        background: $grey;
+        color: $white;
+        border-radius: 10px 0px 10px 10px;
+      }
+    }
+
     &Content {
       max-width: 80%;
       display: flex;
@@ -439,11 +504,30 @@
         padding: 10px 20px;
         border-radius: 0px 10px 10px 10px;
         max-width: max-content;
+        box-shadow: 0px 1px 15px -6px rgba(34, 60, 80, 0.2);
       }
 
       img {
         width: 50%;
       }
     }
+  }
+}
+
+@keyframes filePulse {
+  0% {
+    transform: translate(0, -9px);
+  }
+  100% {
+    transform: translate(0, -6px);
+  }
+}
+
+@keyframes arrowPulse {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(13px);
   }
 }

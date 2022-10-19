@@ -11,7 +11,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import {
-  faFile,
+  faFileArrowUp,
   faFileImage,
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
@@ -27,12 +27,12 @@ import {
 export default function ChatInput() {
   const [text, setText] = React.useState<string>("");
   const [img, setImg] = React.useState<any>(null);
-  const db = getFirestore();
+  const [errorMessage, setErrorMessage] = React.useState<string>("");
+  const [loading, setLoading] = React.useState<number | null>(null);
   const currentUser = useAppSelector((state) => state.user);
   const anotherUser = useAppSelector((state) => state.chat);
   const storage = getStorage();
-  const [errorMessage, setErrorMessage] = React.useState<string>("");
-  const [loading, setLoading] = React.useState<number | null>(null);
+  const db = getFirestore();
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,7 +46,7 @@ export default function ChatInput() {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           // console.log("Upload is " + progress + "% done");
-          setLoading(0);
+          setLoading(1);
 
           switch (snapshot.state) {
             case "paused":
@@ -73,6 +73,9 @@ export default function ChatInput() {
                 img: downloadURL,
               }),
             });
+            setText("");
+            setImg(null);
+            setLoading(null);
           });
         }
       );
@@ -114,17 +117,6 @@ export default function ChatInput() {
           onChange={(e) => setText(e.target.value)}
           value={text}
         />
-        <input
-          type="file"
-          id="file2"
-          // onChange={(e) => setFile(e.target.files[0])}
-        />
-
-        <label htmlFor="file2">
-          <ToolTip title={"Add file"} reverse>
-            <FontAwesomeIcon icon={faFile} />
-          </ToolTip>
-        </label>
 
         <input
           type="file"
@@ -134,11 +126,26 @@ export default function ChatInput() {
             setImg(e.target.files[0]);
           }}
         />
+
         <label htmlFor="photo">
           <ToolTip title={"Add photo"} reverse>
-            <FontAwesomeIcon icon={faFileImage} />
+            {img ? (
+              <FontAwesomeIcon icon={faFileArrowUp} className={s.fileIcon} />
+            ) : (
+              <FontAwesomeIcon icon={faFileImage} />
+            )}
           </ToolTip>
         </label>
+
+        {img && (
+          <div className={s.progressLoading}>
+            <div
+              style={{ width: `${loading}%` }}
+              className={s.progressLoadingBar}
+            />
+            {errorMessage && <span>Error</span>}
+          </div>
+        )}
 
         <button onClick={handleSend}>
           <span>Send</span> <FontAwesomeIcon icon={faPaperPlane} />

@@ -8,55 +8,55 @@ import { iMessage } from "types/iMessages";
 export default function Message({ message }: { message: iMessage }) {
   const currentUser = useAppSelector((state) => state.user);
   const anotherUser = useAppSelector((state) => state.chat.user);
-  const scrollElement = React.useRef<HTMLDivElement>(null);
 
-  // React.useEffect(() => {
-  //   scrollElement.current?.scrollIntoView({
-  //     // block: "end",
-  //     // inline: "end",
-  //     // behavior: "smooth",
-  //   });
-  // }, [message]);
+  const fireBaseTime = new Date(
+    message.date.seconds * 1000 + message.date.nanoseconds / 1000000
+  );
+  const date = fireBaseTime.toDateString();
+  const atTime = fireBaseTime.toLocaleTimeString().slice(0, 5);
+  const newDate = date.split(" ").reverse().splice(1, 2).join(" ");
 
   return (
-    <>
-      <div
-        className={
-          message.senderId === currentUser.id
-            ? s.message + " " + s.owner
-            : s.message
-        }
-      >
-        <div className={s.messageInfo}>
-          {anotherUser.photoURL == null &&
-            anotherUser.id === message.senderId && (
-              <FontAwesomeIcon icon={faUserCircle} />
-            )}
+    <div
+      className={
+        message.senderId === currentUser.id
+          ? s.message + " " + s.owner
+          : s.message
+      }
+    >
+      <div className={s.messageInfo}>
+        {anotherUser.photoURL == null &&
+          anotherUser.id === message.senderId && (
+            <FontAwesomeIcon icon={faUserCircle} />
+          )}
 
-          {anotherUser.photoURL !== null &&
-            anotherUser.id === message.senderId && (
-              <img src={anotherUser.photoURL} alt="user avatar" />
-            )}
+        {anotherUser.photoURL !== null &&
+          anotherUser.id === message.senderId && (
+            <img src={anotherUser.photoURL} alt="user avatar" />
+          )}
 
-          {currentUser.photoURL == null &&
-            currentUser.id === message.senderId && (
-              <FontAwesomeIcon icon={faUserCircle} />
-            )}
+        {currentUser.photoURL == null &&
+          currentUser.id === message.senderId && (
+            <FontAwesomeIcon icon={faUserCircle} />
+          )}
 
-          {currentUser.photoURL !== null &&
-            currentUser.id === message.senderId && (
-              <img src={currentUser.photoURL} alt="user avatar" />
-            )}
+        {currentUser.photoURL !== null &&
+          currentUser.id === message.senderId && (
+            <img src={currentUser.photoURL} alt="user avatar" />
+          )}
 
-          <span>Just now</span>
-        </div>
-        <div className={s.messageContent}>
-          <div className={s.tail}></div>
-          <p>{message.text}</p>
-          {message.img && <img src={message.img} alt="" />}
-        </div>
+        <span>
+          {currentUser.id === message.senderId && currentUser.displayName}
+          {anotherUser.id === message.senderId && anotherUser.displayName}
+        </span>
+        <span>{atTime}</span>
       </div>
-      <div ref={scrollElement}></div>
-    </>
+
+      <div className={s.messageContent}>
+        <div className={s.tail}></div>
+        {message.text && <p>{message.text}</p>}
+        {message.img && <img src={message.img} alt="" />}
+      </div>
+    </div>
   );
 }

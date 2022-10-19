@@ -1,14 +1,15 @@
+import React from "react";
+import Message from "./Message";
+import s from "./Chat.module.scss";
 import { doc, getFirestore, onSnapshot } from "firebase/firestore";
 import { useAppSelector } from "hooks/redux";
-import React from "react";
 import { iMessage } from "types/iMessages";
-import s from "./Chat.module.scss";
-import Message from "./Message";
 
 function ChatMessages() {
   const db = getFirestore();
   const chatData = useAppSelector((state) => state.chat);
   const [messages, setMessages] = React.useState<iMessage[] | null>(null);
+  const scrollElement = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     if (chatData.user) {
@@ -22,8 +23,19 @@ function ChatMessages() {
     }
   }, [chatData.chatId]);
 
+  React.useEffect(() => {
+    setTimeout(
+      () =>
+        scrollElement.current?.scrollTo({
+          behavior: "smooth",
+          top: scrollElement.current?.scrollHeight,
+        }),
+      600
+    );
+  }, [messages]);
+
   return (
-    <div className={s.messages}>
+    <div ref={scrollElement} className={s.messages}>
       {messages !== null &&
         messages.map((message: iMessage) => (
           <Message message={message} key={message.id} />
