@@ -95,7 +95,7 @@ $lightgrey: #757575;
 }
 
 %BtnL {
-  background: rgba(151, 151, 151, 0.10);
+  background: rgba(151, 151, 151, 0.1);
   border: 1px solid rgba(141, 141, 141, 0.15);
   color: $monoChrome;
 
@@ -146,5 +146,14 @@ $lightgrey: #757575;
   100% {
     opacity: 1;
     filter: blur(0px);
+  }
+}
+
+@keyframes shadowPulse {
+  0% {
+    box-shadow: 0 0 0 0.01rem rgba(73, 73, 73, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 0 0.15rem rgba(255, 255, 255, 0.25);
   }
 }

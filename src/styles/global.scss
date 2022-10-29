@@ -55,3 +55,27 @@ a {
     opacity: 0.7;
   }
 }
+
+.slick-slider {
+  .slick-prev {
+    left: -3px;
+    transition: all 0.3s;
+
+    &::before {
+      color: $monoChrome;
+    }
+  }
+
+  .slick-next {
+    right: -6px;
+    transition: all 0.3s;
+
+    &::before {
+      color: $monoChrome;
+    }
+  }
+
+  .slick-disabled {
+    opacity: 0.6;
+  }
+}

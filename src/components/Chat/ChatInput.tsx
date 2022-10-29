@@ -111,8 +111,7 @@ export default function ChatInput() {
   return (
     <div className={s.MainInput}>
       <form>
-        <input
-          type="text"
+        <textarea
           placeholder="Type something..."
           onChange={(e) => setText(e.target.value)}
           value={text}
@@ -128,7 +127,7 @@ export default function ChatInput() {
         />
 
         <label htmlFor="photo">
-          <ToolTip title={"Add photo"} reverse>
+          <ToolTip title={"Photo"} reverse>
             {img ? (
               <FontAwesomeIcon icon={faFileArrowUp} className={s.fileIcon} />
             ) : (

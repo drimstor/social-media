@@ -26,7 +26,7 @@ function ChatControl() {
         <ToolTip title={"Call"} reverse>
           <FontAwesomeIcon icon={faPhone} />
         </ToolTip>
-        <ToolTip title={"Add as friends"} reverse>
+        <ToolTip title={"Follow"} reverse>
           <FontAwesomeIcon icon={faUserPlus} />
         </ToolTip>
         <ToolTip title={"More"} reverse>

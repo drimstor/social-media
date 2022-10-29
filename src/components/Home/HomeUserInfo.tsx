@@ -18,6 +18,7 @@ function HomeUserInfo() {
     dispatch(selectSideBarIndex(1));
     navigate("/profile");
   };
+
   return (
     <div className={s.userInfo}>
       <div className={s.user}>
