@@ -3,7 +3,7 @@ import Message from "./Message";
 import s from "./Chat.module.scss";
 import { doc, getFirestore, onSnapshot } from "firebase/firestore";
 import { useAppSelector } from "hooks/redux";
-import { iMessage } from "types/iMessages";
+import { iMessage } from "types/iMessage";
 
 function ChatMessages() {
   const db = getFirestore();
@@ -12,7 +12,7 @@ function ChatMessages() {
   const scrollElement = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    if (chatData.user) {
+    if (chatData.selectedChat) {
       const unSub = onSnapshot(doc(db, "chats", chatData.chatId), (doc) => {
         doc.exists() && setMessages(doc.data().messages);
       });

@@ -441,6 +441,11 @@
     opacity: 0;
     animation: show 0.5s ease-in-out 0.5s forwards;
 
+    p {
+      color: rgb(23, 23, 23);
+      font-weight: 500;
+    }
+
     &Info {
       display: flex;
       flex-direction: column;
@@ -492,6 +497,7 @@
         background: $grey;
         color: $white;
         border-radius: 10px 0px 10px 10px;
+        font-weight: 300;
       }
     }
 

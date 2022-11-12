@@ -3,7 +3,7 @@ import s from "./Chat.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "hooks/redux";
-import { iMessage } from "types/iMessages";
+import { iMessage } from "types/iMessage";
 
 export default function Message({ message }: { message: iMessage }) {
   const currentUser = useAppSelector((state) => state.user);
@@ -25,7 +25,7 @@ export default function Message({ message }: { message: iMessage }) {
       }
     >
       <div className={s.messageInfo}>
-        {anotherUser.photoURL == null &&
+        {anotherUser.photoURL === null &&
           anotherUser.id === message.senderId && (
             <FontAwesomeIcon icon={faUserCircle} />
           )}

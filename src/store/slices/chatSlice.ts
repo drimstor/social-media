@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { iUserState } from "types/iUsers";
+import { iUserState } from "types/iUser";
 
 interface initialStateProps {
   chatId: string;

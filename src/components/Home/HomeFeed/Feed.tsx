@@ -1,32 +1,37 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import s from "components/Home/Home.module.scss";
-import { useAppSelector } from "hooks/redux";
-import HomeUsersSlider from "./HomeUsersSlider";
-import HomeCreatePost from "./HomeCreatePost";
-import HomePosts from "./HomePosts";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import s from "components/Home/HomeFeed/HomeFeed.module.scss";
+import HomeUsersSlider from "./UsersSlider";
+import HomeCreatePost from "./CreatePost";
+import HomePosts from "./Posts";
+import { useGetPostsQuery } from "store/API/postsAPI";
 
 function HomeFeed() {
-  const user = useAppSelector((state) => state.user);
   const oldScroll = useRef<HTMLDivElement | any>(null);
   const newScroll = useRef<HTMLDivElement | any>(null);
   const newScrollContent = useRef<HTMLDivElement | any>(null);
 
-  const handleScroll = useCallback(() => {
-    newScroll.current.scrollTop = oldScroll.current?.scrollTop;
-  }, []);
+  const { data = [], isLoading } = useGetPostsQuery(5);
 
-  useEffect(() => {
+  const handleScroll = () => {
+    newScroll.current.scrollTop = oldScroll.current?.scrollTop;
+  };
+
+  const timeoutHandleScroll = () => {
     setTimeout(() => {
       newScrollContent.current.style.height =
         oldScroll.current.scrollHeight + "px";
-    }, 100);
-  }, [handleScroll]);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    timeoutHandleScroll();
+  }, [data]);
 
   return (
     <div ref={oldScroll} onScroll={handleScroll} className={s.feed}>
       <HomeUsersSlider />
       <HomeCreatePost />
-      <HomePosts />
+      <HomePosts data={data} />
       <div ref={newScroll} onScroll={handleScroll} className={s.scrollBar}>
         <div ref={newScrollContent} />
       </div>

@@ -3,6 +3,8 @@ import userSlice from "./slices/userSlice";
 import sideBarSlice from "./slices/sideBarSlice";
 import storage from "redux-persist/lib/storage";
 import fakeUsersSllice from "./slices/fakeUsersSllice";
+import chatSlice from "./slices/chatSlice";
+import { postsAPI } from "store/API/postsAPI";
 import {
   persistStore,
   persistReducer,
@@ -13,12 +15,11 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import chatSlice from "./slices/chatSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["fakeUsers"],
+  blacklist: ["fakeUsers", "postsAPI"],
 };
 
 export const rootReducer = combineReducers({
@@ -26,6 +27,7 @@ export const rootReducer = combineReducers({
   sidebar: sideBarSlice,
   fakeUsers: fakeUsersSllice,
   chat: chatSlice,
+  [postsAPI.reducerPath]: postsAPI.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -37,7 +39,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(postsAPI.middleware),
 });
 
 export const persistor = persistStore(store);

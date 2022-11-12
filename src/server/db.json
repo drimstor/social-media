@@ -1,0 +1,69 @@
+{
+  "posts": [
+    {
+      "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
+      "id": 1,
+      "nickname": "nickname",
+      "displayName": "Admin",
+      "photoURL": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
+      "date": {
+        "nanoseconds": 30000,
+        "seconds": 11111
+      },
+      "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis laudantium natus tempore quaerat in soluta dolorum impedit ad excepturi possimus explicabo esse.",
+      "images": [
+        "https://cdn.dribbble.com/users/2624832/screenshots/17015191/media/dd592c390f4092882929020c7cb63304.jpg"
+      ],
+      "likes": 3,
+      "comments": 0
+    },
+    {
+      "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
+      "id": 2,
+      "nickname": "nickname",
+      "displayName": "Admin",
+      "photoURL": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
+      "date": {
+        "nanoseconds": 30000,
+        "seconds": 11111
+      },
+      "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis laudantium natus tempore quaerat in soluta dolorum impedit ad excepturi possimus explicabo esse.",
+      "images": [
+        "https://cdn.dribbble.com/userupload/3876941/file/original-078ba35fa727613247d9111922551cb6.png?compress=1&resize=1600x1201"
+      ],
+      "likes": 3,
+      "comments": 0
+    },
+    {
+      "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
+      "id": 3,
+      "nickname": "nickname",
+      "displayName": "Admin",
+      "photoURL": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
+      "date": {
+        "nanoseconds": 30000,
+        "seconds": 11111
+      },
+      "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis laudantium natus tempore quaerat in soluta dolorum impedit ad excepturi possimus explicabo esse.",
+      "images": [
+        "https://cdn.dribbble.com/users/2673128/screenshots/16485011/media/d21e6065f5b3022da1fe9a8619fb42bd.jpg"
+      ],
+      "likes": 3,
+      "comments": 0
+    }
+  ],
+  "comments": [
+    {
+      "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
+      "postId": 3,
+      "displayName": "admin",
+      "photoURL": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
+      "date": {
+        "nanoseconds": 30000,
+        "seconds": 20000
+      },
+      "text": "Awesoome!",
+      "id": 1
+    }
+  ]
+}

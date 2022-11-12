@@ -1,5 +1,5 @@
 import axios from "axios";
-import { iFakeUser } from "types/iUsers";
+import { iFakeUser } from "types/iUser";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
 interface iState {

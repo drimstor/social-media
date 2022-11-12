@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Chat.module.scss";
 import ChatNavBar from "./ChatNavBar";
 import ChatsUser from "./ChatsUser";
-import { iUserState } from "types/iUsers";
+import { iUserState } from "types/iUser";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { changeUser } from "store/slices/chatSlice";

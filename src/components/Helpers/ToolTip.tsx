@@ -2,6 +2,7 @@ import React from "react";
 import useHover from "hooks/useHover";
 import s from "../SideBar/SideBar.module.scss";
 import useMediaQuery from "hooks/useMediaQuery";
+import clsx from "clsx";
 
 interface ToolTipProps {
   children: React.ReactNode;
@@ -25,15 +26,11 @@ export default function ToolTip({
   return (
     <div ref={tooltipTarget} style={{ position: "relative" }}>
       <div
-        className={
-          !matches && !state && isHovering
-            ? reverse
-              ? s.tooltip + " " + s.tooltipShow + " " + s.tooltipReverse
-              : s.tooltip + " " + s.tooltipShow
-            : reverse
-            ? s.tooltip + " " + s.tooltipReverse
-            : s.tooltip
-        }
+        className={clsx(
+          s.tooltip,
+          reverse && s.tooltipReverse,
+          !matches && !state && isHovering && s.tooltipShow
+        )}
       >
         {title}
       </div>

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import s from "components/Home/Home.module.scss";
-import { iUserState } from "types/iUsers";
+import { iUserState } from "types/iUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faComment,
@@ -8,10 +8,12 @@ import {
   faTrash,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import clsx from "clsx";
 
 function HomeActivityItem({ user }: { user: iUserState }) {
-  const [del, setDel] = React.useState(false);
-  const item = React.useRef<HTMLDivElement>(null);
+  const [del, setDel] = useState(false);
+  const [like, setLike] = useState(false);
+  const item = useRef<HTMLDivElement>(null);
 
   const handleDelete = () => {
     setDel(true);
@@ -37,8 +39,8 @@ function HomeActivityItem({ user }: { user: iUserState }) {
         <span>subscribed on you</span>
         <span className={s.color}>&#10625; 3 hrs ago</span>
         <div className={s.control}>
-          <button>
-            <FontAwesomeIcon icon={faHeart} />
+          <button onClick={() => setLike(!like)}>
+            <FontAwesomeIcon className={clsx(like && s.liked)} icon={faHeart} />
           </button>
           <button>
             <FontAwesomeIcon icon={faComment} />

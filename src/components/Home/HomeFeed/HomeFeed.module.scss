@@ -1,0 +1,610 @@
+@import "styles/helpers.scss";
+
+.feed {
+  flex: 1;
+  padding: 10px;
+  padding-top: 25px;
+  width: 40%;
+  max-width: 1080px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-bottom: 25px;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  .usersBarSlider {
+    display: flex;
+    height: 100px;
+    padding: 0 10px;
+    transition: 0.3s;
+
+    h2 {
+      text-align: center;
+      font-size: 14px;
+      text-transform: capitalize;
+      color: $monoChrome;
+      margin-top: 5px;
+      font-weight: 500;
+    }
+  }
+
+  .userBarItem {
+    transition: 0.3s;
+    min-width: 80px !important;
+    width: 80px !important;
+    height: 80px !important;
+    margin: 0 auto;
+    padding: 2px;
+    border: 2px solid $lightgrey;
+    border-radius: 22px;
+    cursor: pointer;
+
+    &.circle {
+      border-radius: 50%;
+    }
+
+    &.active {
+      border-color: $mainColor;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      color: $mainColor;
+    }
+  }
+
+  .createPost {
+    margin-top: 30px;
+    border-radius: 15px;
+    padding: 20px;
+    background: $mainMono;
+    border: 1px solid rgba(44, 44, 44, 0.06);
+    box-shadow: 0px 0px 6px -3px rgba(126, 126, 126, 0.274);
+  }
+
+  .createPostBox {
+    display: flex;
+    align-items: center;
+  }
+
+  form {
+    margin-left: 20px;
+    width: 90%;
+    position: relative;
+
+    textarea {
+      width: 100%;
+      min-height: 55px;
+      border-radius: 15px;
+      outline: none;
+      border: none;
+      padding: 17px 120px 0 20px;
+      @extend %f2;
+      font-size: 14px;
+      background: rgba(134, 134, 134, 0.123);
+      color: $monoChrome;
+      transition: 0.3s;
+      resize: none;
+      font-weight: 500;
+
+      &::placeholder {
+        color: $monoChrome;
+        opacity: 0.5;
+      }
+
+      &:valid,
+      &:focus {
+        margin-top: 0;
+        min-height: 75px;
+        animation: shadowPulse 1.5s ease-in-out infinite alternate;
+
+        ~ button {
+          opacity: 1;
+          filter: blur(0px);
+          visibility: visible;
+        }
+        ~ label {
+          opacity: 1;
+          filter: blur(0px);
+          visibility: visible;
+        }
+      }
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    button {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: none;
+      position: absolute;
+      right: 20px;
+      top: 22px;
+      padding-left: 4px;
+      padding-top: 3px;
+      cursor: pointer;
+      background: $monoChromeReverse;
+      opacity: 0;
+      transition: 0.5s;
+      filter: blur(5px);
+      visibility: hidden;
+
+      svg {
+        font-size: 15px;
+        color: $mainColor;
+      }
+    }
+
+    label {
+      border: none;
+      position: absolute;
+      right: 70px;
+      top: 22px;
+      cursor: pointer;
+      opacity: 0;
+      transition: 0.5s;
+      filter: blur(5px);
+      visibility: hidden;
+      padding-left: 10px;
+      padding-top: 9px;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: $monoChromeReverse;
+
+      svg {
+        font-size: 15px;
+        color: $mainColor;
+      }
+    }
+  }
+
+  .postImage {
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+
+    &.bordered {
+      border: 2px solid $lightgrey;
+      border-radius: 22px;
+      padding: 2px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 18px;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      color: $mainColor;
+    }
+  }
+
+  .postsBox {
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .post {
+    border-radius: 15px;
+    background: $mainMono;
+    padding: 20px;
+    border: 1px solid rgba(44, 44, 44, 0.06);
+    box-shadow: 0px 0px 6px -3px rgba(126, 126, 126, 0.274);
+  }
+
+  .postInfo {
+    margin-right: auto;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 45px;
+
+    .name {
+      display: flex;
+      align-items: center;
+      text-transform: capitalize;
+      font-size: 20px;
+      color: $monoChrome;
+      font-weight: 500;
+      @extend %f2;
+
+      span {
+        margin-top: 4px;
+        margin-left: 7px;
+        font-size: 12px;
+        color: $mainColor;
+        text-transform: lowercase;
+      }
+    }
+
+    .nickname {
+      display: flex;
+      align-items: center;
+      text-transform: lowercase;
+      font-size: 13px;
+      color: $lightgrey;
+      @extend %f1;
+
+      img {
+        margin-left: 7px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .postHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > svg {
+      cursor: pointer;
+      margin-bottom: auto;
+      border-radius: 50%;
+      padding: 5px;
+      width: 20px;
+      height: 20px;
+      transition: 0.3s;
+
+      &:hover {
+        background: $background;
+        color: $mainColor;
+      }
+
+      &:active {
+        transform: scale(0.85);
+      }
+    }
+  }
+  .image {
+    width: 55px;
+    height: 55px;
+    padding: 2px;
+    border: 2px solid $lightgrey;
+    border-radius: 22px;
+
+    &.bordered {
+      border-radius: 50%;
+    }
+
+    &.withoutBorder {
+      border-color: transparent;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      color: $mainColor;
+    }
+  }
+  .postBody {
+    margin-top: 20px;
+  }
+
+  .postText {
+    margin-bottom: 20px;
+    p {
+      font-size: 16px;
+      line-height: 125%;
+      color: $monoChrome;
+      @extend %f2;
+    }
+  }
+
+  .postImages {
+    width: 100%;
+
+    img {
+      border-radius: 15px;
+      width: 100%;
+    }
+  }
+  .controlPanel {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .icon {
+      border-radius: 12px;
+      background: rgba(119, 119, 119, 0.137);
+      height: 35px;
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(163, 163, 163, 0.15);
+      }
+
+      &:active {
+        transform: scale(0.9);
+      }
+
+      &.liked {
+        background: rgb(192, 34, 34);
+
+        span,
+        svg {
+          color: $white;
+        }
+      }
+
+      span {
+        margin-left: 6px;
+        font-weight: 700;
+        transition: 0.3s;
+      }
+
+      svg {
+        font-size: 20px;
+        height: 20px;
+        width: 20px;
+        transition: 0.3s;
+      }
+    }
+  }
+  .divider {
+    background: $lightgrey;
+    height: 1px;
+    margin: 20px 0;
+    opacity: 0.2;
+  }
+
+  .comments {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .divider {
+      margin: 0;
+      margin-left: 65px;
+
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+
+  .commentBody {
+    position: relative;
+    width: 100%;
+  }
+
+  .removeButton {
+    display: flex;
+    gap: 5px;
+    position: absolute;
+    top: -3px;
+    right: 2px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+
+    svg {
+      margin-left: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:active {
+        transform: scale(0.8);
+      }
+
+      &:hover {
+        color: $mainColor;
+      }
+    }
+  }
+
+  .commentFooter {
+    display: flex;
+    gap: 12px;
+    margin-top: 5px;
+
+    span {
+      min-width: 45px;
+    }
+  }
+
+  .commentControlPanel {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+
+    > svg {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .like {
+      display: flex;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+
+      &:hover {
+        svg,
+        p {
+          color: $mainColor !important;
+        }
+      }
+
+      &.liked {
+        visibility: visible;
+        opacity: 1;
+
+        svg,
+        p {
+          color: rgb(192, 34, 34) !important;
+        }
+      }
+
+      &:active {
+        svg,
+        p {
+          color: rgb(192, 34, 34) !important;
+        }
+        svg {
+          transform: scale(0.8);
+        }
+      }
+
+      p {
+        transition: 0.3s;
+        margin-left: 3px;
+        font-size: 12px !important;
+        color: $lightgrey !important;
+        @extend %f2;
+        font-weight: 700 !important;
+      }
+    }
+
+    svg {
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        color: $mainColor;
+      }
+
+      &:active {
+        transform: scale(0.8);
+      }
+    }
+  }
+
+  .commentBox {
+    display: flex;
+    gap: 15px;
+
+    &:hover {
+      .removeButton,
+      .commentControlPanel svg,
+      .like {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    .image {
+      min-width: 55px;
+      min-height: 55px;
+    }
+
+    h3 {
+      text-transform: capitalize;
+      font-size: 14px;
+      color: $monoChrome;
+      @extend %f1;
+      margin-top: 2px;
+      margin-bottom: 3px;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 14px;
+      color: $monoChrome;
+      word-wrap: break-word;
+      font-weight: 300;
+    }
+
+    span {
+      font-size: 10px;
+      color: $mainColor;
+      display: block;
+    }
+  }
+
+  .postComment {
+    padding-top: 5px;
+    display: flex;
+    align-items: center;
+
+    form {
+      margin-left: 15px;
+      width: 100%;
+    }
+
+    textarea {
+      &:valid,
+      &:focus {
+        min-height: 55px;
+      }
+    }
+
+    label,
+    button {
+      top: 10px;
+    }
+
+    button {
+      right: 15px;
+    }
+
+    label {
+      right: 60px;
+    }
+  }
+}
+
+.scrollBar {
+  position: fixed;
+  right: -30px;
+  top: 0;
+  width: 5 px;
+  height: 100vh;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  > div {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(114, 114, 114, 0.322);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(116, 116, 116, 0.849);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+}

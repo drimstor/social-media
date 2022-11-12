@@ -9,7 +9,7 @@ function ChatArea() {
   const selectedChat = useAppSelector((state) => state.chat.selectedChat);
   return (
     <div className={s.chatArea}>
-      {selectedChat === "" && <div className={s.chatAreaBanner}></div>}
+      {!selectedChat && <div className={s.chatAreaBanner}></div>}
       <ChatControl />
       <ChatMessages />
       <ChatInput />

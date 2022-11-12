@@ -1,10 +1,10 @@
 import React from "react";
 import { useAppSelector } from "hooks/redux";
-import HomeUserBarItem from "./HomeUserBarItem";
-import s from "components/Home/Home.module.scss";
+import s from "components/Home/HomeFeed/HomeFeed.module.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import HomeUserBarItem from "../HomeUserBarItem";
 
 function HomeUsersSlider() {
   const user = useAppSelector((state) => state.user);

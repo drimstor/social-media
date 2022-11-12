@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Chat.module.scss";
-import { iUserState } from "types/iUsers";
+import { iUserState } from "types/iUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import useMediaQuery from "hooks/useMediaQuery";
