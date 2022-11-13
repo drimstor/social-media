@@ -8,10 +8,10 @@ export interface iPost {
     nanoseconds: number;
     seconds: number;
   };
-  text?: string;
+  text: string;
   images?: string[];
-  likes?: number;
-  comments?: number;
+  likes: number;
+  liked: string[];
 }
 
 export interface iComment {
@@ -24,6 +24,8 @@ export interface iComment {
     nanoseconds: number;
     seconds: number;
   };
-  text?: string;
+  text: string;
   images?: string[];
+  likes: number;
+  liked: string[];
 }

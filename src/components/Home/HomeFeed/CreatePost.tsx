@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import s from "components/Home/HomeFeed/HomeFeed.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,10 +14,9 @@ import { iPost } from "types/iPost";
 
 function HomeCreatePost() {
   const user = useAppSelector((state) => state.user);
-
   const [postText, setPostText] = useState<string>("");
-
   const [addPost, { isError }] = useAddPostMutation();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const postObject = {
     userId: user.id,
@@ -29,6 +28,8 @@ function HomeCreatePost() {
       seconds: 20000,
     },
     text: postText,
+    likes: 0,
+    liked: [""],
   };
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -36,6 +37,16 @@ function HomeCreatePost() {
     if (postText) {
       await addPost(postObject as iPost).unwrap();
       setPostText("");
+      if (textareaRef.current) textareaRef.current.style.height = "auto";
+    }
+  };
+
+  const onChangeHandler = (e: any) => {
+    e.target.style.height = "auto";
+    e.target.style.height = e.target.scrollHeight + "px";
+
+    if (e.code === "Enter" && (e.ctrlKey || e.metaKey)) {
+      handleSubmit(e);
     }
   };
 
@@ -49,12 +60,14 @@ function HomeCreatePost() {
             <FontAwesomeIcon icon={faUserCircle} />
           )}
         </div>
-        <form onSubmit={handleSubmit}>
+        <form className={s.addCommentForm} onSubmit={handleSubmit}>
           <textarea
             required
             placeholder="Tell your friends about your thoughts..."
             value={postText}
             onChange={(e) => setPostText(e.target.value)}
+            onKeyUp={onChangeHandler}
+            ref={textareaRef}
           />
 
           <input type="file" name="" id="feedFile" />

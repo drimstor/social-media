@@ -77,18 +77,18 @@
     align-items: center;
   }
 
-  form {
+  form.addCommentForm {
     margin-left: 20px;
     width: 90%;
     position: relative;
 
     textarea {
       width: 100%;
-      min-height: 55px;
+      min-height: 60px;
       border-radius: 15px;
       outline: none;
       border: none;
-      padding: 17px 120px 0 20px;
+      padding: 15px 120px 10px 20px;
       @extend %f2;
       font-size: 14px;
       background: rgba(134, 134, 134, 0.123);
@@ -96,6 +96,8 @@
       transition: 0.3s;
       resize: none;
       font-weight: 500;
+      overflow-y: hidden;
+      border-bottom-left-radius: 0px;
 
       &::placeholder {
         color: $monoChrome;
@@ -104,7 +106,6 @@
 
       &:valid,
       &:focus {
-        margin-top: 0;
         min-height: 75px;
         animation: shadowPulse 1.5s ease-in-out infinite alternate;
 
@@ -257,6 +258,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 
     > svg {
       cursor: pointer;
@@ -311,6 +313,12 @@
 
   .postText {
     margin-bottom: 20px;
+
+    textarea {
+      font-size: 16px !important;
+      line-height: 125%;
+    }
+
     p {
       font-size: 16px;
       line-height: 125%;
@@ -379,6 +387,10 @@
     height: 1px;
     margin: 20px 0;
     opacity: 0.2;
+
+    &.lastDivider {
+      margin-top: 15px;
+    }
   }
 
   .comments {
@@ -396,9 +408,114 @@
     }
   }
 
+  .postHeaderPopup {
+    position: absolute;
+    top: -55px;
+    right: 25px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    filter: blur(3px);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    overflow: hidden;
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+      filter: blur(0px);
+    }
+
+    .postHeaderPopupItem {
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+      color: #fff;
+      transition: 0.3s;
+      background: rgba(137, 137, 137, 0.608);
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(89, 89, 89, 0.702);
+      }
+
+      &:active {
+        background: rgba(63, 63, 63, 0.753);
+      }
+
+      span {
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      svg {
+        font-size: 14px;
+        margin-right: 7px;
+      }
+    }
+  }
+
   .commentBody {
     position: relative;
     width: 100%;
+  }
+
+  .editComment {
+    position: relative;
+    margin-left: 0;
+    width: 100%;
+
+    textarea {
+      width: calc(100% + 6px);
+      margin-left: -3px;
+      margin-top: -3px;
+      font-size: 14px;
+      color: $monoChrome;
+      word-wrap: break-word;
+      font-weight: 300;
+      @extend %f2;
+      border: 1px solid $mainColor;
+      border-radius: 4px;
+      background: $mainMono;
+      resize: none;
+      overflow-y: hidden;
+
+      &:valid,
+      &:focus {
+        outline: none;
+        border: 1px solid $lightgrey;
+      }
+    }
+  }
+
+  .editCommentButtons {
+    position: absolute;
+    bottom: -27px;
+    width: 95%;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+
+    button:nth-child(1) {
+      @extend %Btn;
+      @extend %BtnO;
+      font-size: 12px;
+      height: 25px;
+      max-width: 80px;
+      border-radius: 7px;
+      border-width: 1px;
+    }
+
+    button:nth-child(2) {
+      @extend %Btn;
+      @extend %BtnC;
+      font-size: 12px;
+      height: 25px;
+      max-width: 80px;
+      border-radius: 7px;
+      color: $mainMono;
+      background: $mainColor;
+    }
   }
 
   .removeButton {
@@ -430,6 +547,7 @@
     display: flex;
     gap: 12px;
     margin-top: 5px;
+    margin-bottom: 3px;
 
     span {
       min-width: 45px;
@@ -562,21 +680,21 @@
     textarea {
       &:valid,
       &:focus {
-        min-height: 55px;
+        min-height: 55px !important;
       }
     }
 
     label,
     button {
-      top: 10px;
+      top: 10px !important;
     }
 
     button {
-      right: 15px;
+      right: 15px !important;
     }
 
     label {
-      right: 60px;
+      right: 60px !important;
     }
   }
 }

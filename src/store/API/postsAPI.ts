@@ -36,6 +36,15 @@ export const postsAPI = createApi({
       }),
       invalidatesTags: ["Posts"],
     }),
+    updatePost: build.mutation<iPost, iPost>({
+      query: (body) => ({
+        url: `/posts/${body.id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Posts"],
+    }),
+    /* ------------------------------------------------------- */
     getComments: build.query<iComment[], number[]>({
       query: (filter: number[]) =>
         `/comments?${`_limit=${filter[0]}&postId=${filter[1]}`}`,
@@ -62,6 +71,14 @@ export const postsAPI = createApi({
       }),
       invalidatesTags: ["Comments"],
     }),
+    updateComment: build.mutation<iComment, iComment>({
+      query: (body) => ({
+        url: `/comments/${body.id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Comments"],
+    }),
   }),
 });
 
@@ -72,4 +89,6 @@ export const {
   useGetCommentsQuery,
   useAddCommentMutation,
   useDeleteCommentMutation,
+  useUpdateCommentMutation,
+  useUpdatePostMutation,
 } = postsAPI;
