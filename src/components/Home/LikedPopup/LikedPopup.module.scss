@@ -1,0 +1,66 @@
+@import "styles/helpers.scss";
+
+.likedWrapper {
+  height: 35px;
+  width: 90px;
+  position: absolute;
+  bottom: 40px;
+  left: -19px;
+  border-radius: 12px;
+  background: rgba(137, 137, 137, 0.89);
+  display: flex;
+  justify-content: center;
+  padding: 6px 5px 5px 10px;
+  z-index: 2;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.5s;
+  transform: translate(0, 40px) scale(0.5);
+
+  &:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0, 0) scale(1);
+  }
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0, 0) scale(1);
+  }
+
+  img {
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    margin-left: -5px;
+    border: 1px solid $black;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+  .moreLikes {
+    min-width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    border: 1px solid $black;
+    background: $mainMono;
+    display: flex;
+    margin-left: -5px;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    color: $monoChrome;
+    transition: 0.3s;
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}

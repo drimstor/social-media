@@ -19,6 +19,9 @@ import {
 } from "store/API/postsAPI";
 import Comments from "../Comments/Comments";
 import { useAppSelector } from "hooks/redux";
+import formatDateTime from "components/Helpers/FormatDateTime";
+import LikedPopup from "../LikedPopup/LikedPopup";
+import useHover from "hooks/useHover";
 
 function HomePost({ post }: { post: iPost }) {
   const user = useAppSelector((state) => state.user);
@@ -99,6 +102,10 @@ function HomePost({ post }: { post: iPost }) {
     };
   }, []);
 
+  const hoverRef = useRef<HTMLDivElement>(null);
+  // Показать тултип
+  const isHovering = useHover(hoverRef);
+
   return (
     <div className={s.post}>
       <div className={s.postHeader}>
@@ -114,7 +121,7 @@ function HomePost({ post }: { post: iPost }) {
             @nickname <img src={approval} alt="approval" />
           </div>
           <div className={s.name}>
-            {post.displayName} <span>⦁ 1 hrs ago</span>
+            {post.displayName} <span>⦁ {formatDateTime(post.date)}</span>
           </div>
         </div>
         <FontAwesomeIcon
@@ -166,9 +173,11 @@ function HomePost({ post }: { post: iPost }) {
         </div>
       </div>
       <div className={s.controlPanel}>
+        <LikedPopup isShow={isHovering} likes={post.liked} />
         <div
           className={clsx(s.icon, liked && s.liked)}
           onClick={handleLikeClick}
+          ref={hoverRef}
         >
           <FontAwesomeIcon icon={faHeart} />
           {sumLike === 0 ? "" : <span>{sumLike}</span>}

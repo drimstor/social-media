@@ -11,6 +11,8 @@ import ToolTip from "components/Helpers/ToolTip";
 import clsx from "clsx";
 import { useAddPostMutation } from "store/API/postsAPI";
 import { iPost } from "types/iPost";
+import { Timestamp } from "firebase/firestore";
+import LikedPopup from "../LikedPopup/LikedPopup";
 
 function HomeCreatePost() {
   const user = useAppSelector((state) => state.user);
@@ -18,18 +20,17 @@ function HomeCreatePost() {
   const [addPost, { isError }] = useAddPostMutation();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const emptyArr: string[] = [];
+
   const postObject = {
     userId: user.id,
     nickname: user.displayName,
     displayName: user.displayName,
     photoURL: user.photoURL,
-    date: {
-      nanoseconds: 30000,
-      seconds: 20000,
-    },
+    date: Timestamp.now(),
     text: postText,
     likes: 0,
-    liked: [""],
+    liked: emptyArr,
   };
 
   const handleSubmit = async (e: React.SyntheticEvent) => {

@@ -12,6 +12,9 @@ function HomeFeed() {
 
   const { data = [], isLoading } = useGetPostsQuery(5);
 
+  console.log(data);
+  
+
   const handleScroll = () => {
     newScroll.current.scrollTop = oldScroll.current?.scrollTop;
   };

@@ -17,6 +17,7 @@ import {
   faTriangleExclamation,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import formatDateTime from "components/Helpers/FormatDateTime";
 
 function Comment({ comment }: { comment: iComment }) {
   const user = useAppSelector((state) => state.user);
@@ -114,7 +115,7 @@ function Comment({ comment }: { comment: iComment }) {
             <p>{comment.text}</p>
           )}
           <div className={s.commentFooter}>
-            <span>1 hrs ago</span>
+            <span>{formatDateTime(comment.date)}</span>
             <div className={s.commentControlPanel}>
               <FontAwesomeIcon
                 style={{ visibility: "hidden" }}

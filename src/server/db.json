@@ -2,17 +2,15 @@
   "posts": [
     {
       "id": 1,
-      "likes": 3,
-      "liked": [
-        ""
-      ],
+      "likes": 0,
+      "liked": [],
       "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
       "nickname": "Admin",
       "displayName": "Admin",
       "photoURL": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
       "date": {
-        "nanoseconds": 30000,
-        "seconds": 11111
+        "seconds": 1668311698,
+        "nanoseconds": 478000000
       },
       "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis laudantium natus tempore quaerat in soluta dolorum impedit ad excepturi possimus explicabo esse.",
       "images": [
@@ -21,17 +19,17 @@
     },
     {
       "id": 2,
-      "likes": 3,
+      "likes": 1,
       "liked": [
-        ""
+        "9Mdixu9cEwSEbwVMgIr7aB4GEFO2"
       ],
       "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
       "nickname": "Admin",
       "displayName": "Admin",
       "photoURL": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
       "date": {
-        "nanoseconds": 30000,
-        "seconds": 11111
+        "seconds": 1668441698,
+        "nanoseconds": 478000000
       },
       "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis laudantium natus tempore quaerat in soluta dolorum impedit ad excepturi possimus explicabo esse.",
       "images": [
@@ -40,17 +38,17 @@
     },
     {
       "id": 3,
-      "likes": 3,
+      "likes": 1,
       "liked": [
-        ""
+        "9Mdixu9cEwSEbwVMgIr7aB4GEFO2"
       ],
       "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
       "nickname": "Admin",
       "displayName": "Admin",
       "photoURL": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
       "date": {
-        "nanoseconds": 30000,
-        "seconds": 11111
+        "seconds": 1668451698,
+        "nanoseconds": 478000000
       },
       "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis laudantium natus tempore quaerat in soluta dolorum impedit ad excepturi possimus explicabo esse.",
       "images": [
@@ -60,9 +58,9 @@
   ],
   "comments": [
     {
-      "likes": 0,
+      "likes": 1,
       "liked": [
-        ""
+        "9Mdixu9cEwSEbwVMgIr7aB4GEFO2"
       ],
       "id": 1,
       "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
@@ -70,24 +68,22 @@
       "displayName": "admin",
       "photoURL": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
       "date": {
-        "nanoseconds": 30000,
-        "seconds": 20000
+        "seconds": 1668411698,
+        "nanoseconds": 478000000
       },
       "text": "Awesome!"
     },
     {
       "likes": 0,
-      "liked": [
-        ""
-      ],
+      "liked": [],
       "id": 3,
       "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
       "postId": 2,
       "displayName": "admin",
       "photoURL": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
       "date": {
-        "nanoseconds": 30000,
-        "seconds": 20000
+        "seconds": 1668211698,
+        "nanoseconds": 478000000
       },
       "text": "Cool"
     }

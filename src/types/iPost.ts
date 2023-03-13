@@ -1,13 +1,12 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface iPost {
   id: number;
   userId: string;
   nickname: string;
   displayName: string;
   photoURL: string;
-  date: {
-    nanoseconds: number;
-    seconds: number;
-  };
+  date: Timestamp;
   text: string;
   images?: string[];
   likes: number;
@@ -20,10 +19,7 @@ export interface iComment {
   postId: number;
   displayName: string;
   photoURL: string;
-  date: {
-    nanoseconds: number;
-    seconds: number;
-  };
+  date: Timestamp;
   text: string;
   images?: string[];
   likes: number;

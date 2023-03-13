@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { iComment, iPost } from "types/iPost";
 import { useAddCommentMutation } from "store/API/postsAPI";
+import { Timestamp } from "firebase/firestore";
 
 function AddComment({ post }: { post: iPost }) {
   const user = useAppSelector((state) => state.user);
@@ -18,18 +19,17 @@ function AddComment({ post }: { post: iPost }) {
   const [commentText, setCommentText] = useState<string>("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const emptyArr: string[] = [];
+
   const commentObject = {
     userId: user.id,
     postId: post.id,
     displayName: user.displayName,
     photoURL: user.photoURL,
-    date: {
-      nanoseconds: 30000,
-      seconds: 20000,
-    },
+    date: Timestamp.now(),
     text: commentText,
     likes: 0,
-    liked: [""],
+    liked: emptyArr,
   };
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
