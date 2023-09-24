@@ -3,6 +3,7 @@ export interface iUserState {
   displayName: string;
   email?: string;
   id: string;
+  token: string;
 }
 
 export interface iFakeUser {
@@ -10,4 +11,19 @@ export interface iFakeUser {
   name: string;
   username: string;
   email: string;
+}
+
+// export interface iUser {
+//   id: string;
+//   email: string;
+//   diskSpace: number;
+//   usedSpace: number;
+//   avatar?: string;
+// }
+
+export interface iLoginUser {
+  email: string;
+  password: string;
+  name: string;
+  file: any;
 }

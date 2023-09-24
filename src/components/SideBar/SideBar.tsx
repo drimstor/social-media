@@ -6,7 +6,7 @@ import useTheme from "hooks/useTheme";
 import Switch from "../Switch/Switch";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { removeUser } from "store/slices/userSlice";
+import { logout } from "store/slices/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signOut } from "firebase/auth";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
@@ -64,7 +64,7 @@ export default function SideBar() {
 
   // Логаут
   const logOutClick = () => {
-    dispatch(removeUser());
+    dispatch(logout());
     signOut(auth);
     navigate("/");
   };

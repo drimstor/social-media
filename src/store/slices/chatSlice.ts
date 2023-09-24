@@ -14,6 +14,7 @@ const initialState: initialStateProps = {
     displayName: "",
     email: "",
     id: "",
+    token: "",
   },
   selectedChat: "",
 };
