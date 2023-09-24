@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from "styles/authentication.module.scss";
 import BackdropLayout from "components/Layouts/BackdropLayout";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -7,7 +7,7 @@ import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
-import { setUser } from "store/slices/userSlice";
+import { registration } from "store/slices/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "hooks/redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,191 +20,134 @@ import {
   faTriangleExclamation,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import useValidation from "hooks/useValidatiton/useValidation";
+import Input from "components/UI-Kit/Input/Input";
+import FileInput from "components/UI-Kit/Input/FileInput";
+
+const formInputs = [
+  {
+    placeholder: "Name",
+    type: "text",
+    icon: faUser,
+  },
+  {
+    placeholder: "Email",
+    type: "email",
+    icon: faEnvelope,
+  },
+  {
+    placeholder: "Password",
+    type: "password",
+    icon: faLock,
+    validation: {
+      minLength: 4,
+    },
+  },
+  {
+    placeholder: "Confirm password",
+    type: "password",
+    name: "confirmPassword",
+    icon: faLockOpen,
+    validation: {
+      minLength: 4,
+    },
+  },
+  {
+    placeholder: "avatar",
+    type: "file",
+    icon: faLockOpen,
+  },
+];
 
 export default function Register() {
   const [errorMessage, setErrorMessage] = React.useState<string>("");
-  const [image, setImage] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<number | null>(null);
 
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const db = getFirestore();
-  const auth = getAuth();
-  const storage = getStorage();
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    runCheck();
 
     const target = e.target as typeof e.target & {
-      displayName: { value: string };
+      name: { value: string };
       email: { value: string };
       password: { value: string };
       confirmPassword: { value: string };
       file: { files: any };
     };
 
-    const displayName = target.displayName.value.toLowerCase();
+    const name = target.name.value.toLowerCase();
     const email = target.email.value;
     const password = target.password.value;
     const confirmPassword = target.confirmPassword.value;
-    const file = target.file.files[0];
 
-    if (confirmPassword !== password) {
-      setErrorMessage("Passwords do not match");
-    } else {
-      await createUserWithEmailAndPassword(auth, email, password)
-        .then(async ({ user }) => {
-          setErrorMessage("");
-          // If added image
-          if (image) {
-            //Create a unique image name
-            const date = new Date().getTime();
-            const storageRef = ref(storage, `${displayName + date}`);
-            const uploadTask = uploadBytesResumable(storageRef, file);
+    switch (false) {
+      case !!name:
+        setErrorMessage("Please enter name");
+        break;
 
-            uploadTask.on(
-              "state_changed",
-              (snapshot) => {
-                const progress =
-                  (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                // console.log("Upload is " + progress + "% done");
-                setLoading(0);
+      case !!email:
+        setErrorMessage("Please enter email");
+        break;
 
-                switch (snapshot.state) {
-                  case "paused":
-                    // console.log("Upload is paused");
-                    break;
-                  case "running":
-                    // console.log("Upload is running");
-                    break;
-                }
-                setLoading(Math.round(progress));
-              },
-              (error) => {
-                setErrorMessage("Something went wrong");
-              },
-              () => {
-                // Handle successful uploads on complete
-                getDownloadURL(uploadTask.snapshot.ref).then(
-                  async (downloadURL) => {
-                    // console.log("File available at", downloadURL);
-                    try {
-                      // Update profile
-                      await updateProfile(user, {
-                        photoURL: downloadURL,
-                        displayName,
-                      });
-                      // Update db
-                      await setDoc(doc(db, "users", user.uid), {
-                        photoURL: downloadURL,
-                        id: user.uid,
-                        displayName,
-                        email,
-                      });
-                      //create empty user chats on firestore
-                      await setDoc(doc(db, "userChats", user.uid), {});
-                      // Redux
-                      if (user.email && user.displayName !== null) {
-                        dispatch(
-                          setUser({
-                            displayName: user.displayName,
-                            photoURL: user.photoURL,
-                            email: user.email,
-                            id: user.uid,
-                          })
-                        );
-                      }
-                      // Redirect
-                      navigate("/");
-                    } catch (error) {
-                      setErrorMessage("Something went wrong");
-                    }
-                  }
-                );
-              }
-            );
-          }
-          if (!image) {
-            try {
-              // Update profile
-              await updateProfile(user, {
-                photoURL: null,
-                displayName,
-              });
-              //create user on firestore
-              await setDoc(doc(db, "users", user.uid), {
-                photoURL: null,
-                id: user.uid,
-                displayName,
-                email,
-              });
-              //create empty user chats on firestore
-              await setDoc(doc(db, "userChats", user.uid), {});
-              // Redux
-              if (user.email && user.displayName) {
-                dispatch(
-                  setUser({
-                    displayName: user.displayName,
-                    photoURL: null,
-                    email: user.email,
-                    id: user.uid,
-                  })
-                );
-              }
-              // Redirect
-              navigate("/");
-            } catch (error) {
-              setErrorMessage("Something went wrong");
-            }
-          }
-        })
-        .catch((error) => {
-          const errorContent = error.message;
-          setErrorMessage(errorContent.slice(10));
-        });
+      case !!password:
+        setErrorMessage("Please enter password");
+        break;
+
+      case !!confirmPassword:
+        setErrorMessage("Please enter a confirm to password");
+        break;
+
+      case password === confirmPassword:
+        setErrorMessage("Passwords mismatch");
+        break;
     }
   };
+
+  const { runCheck, isCheckError, checkValidate, isNoError, formFields } =
+    useValidation();
+
+  useEffect(() => {
+    async function signUp() {
+      await dispatch(registration(formFields));
+      if (!!formFields.file) {
+        // await dispatch(uploadAvatar(formFields.file));
+      }
+    }
+
+    if (isNoError && formFields.password === formFields.confirmPassword) {
+      signUp();
+    }
+  }, [isNoError]);
+
   return (
     <BackdropLayout>
       <div className={s.formWrapper}>
         <h1>Registration</h1>
         <form onSubmit={handleSubmit}>
-          <div className={s.inputWrapper}>
-            <FontAwesomeIcon icon={faUser} />
-            <input type="text" name="displayName" required />
-            <span>Display Name</span>
-          </div>
-          <div className={s.inputWrapper}>
-            <FontAwesomeIcon icon={faEnvelope} />
-            <input type="text" name="email" required />
-            <span>Email</span>
-          </div>
-          <div className={s.inputWrapper}>
-            <FontAwesomeIcon icon={faLock} />
-            <input type="password" name="password" required />
-            <span>Password</span>
-          </div>
-          <div className={s.inputWrapper}>
-            <FontAwesomeIcon icon={faLockOpen} />
-            <input type="password" name="confirmPassword" required />
-            <span>Confirm Password</span>
-          </div>
-
-          <input
-            type="file"
-            id="file"
-            onChange={(e) => e.target.value && setImage(true)}
-            accept="image/*"
-            name="file"
-          />
-          <label htmlFor="file">
-            {image ? (
-              <FontAwesomeIcon icon={faCircleCheck} />
-            ) : (
-              <FontAwesomeIcon icon={faCircleDown} />
-            )}
-            <span>{image ? "Avatar added" : "Add an avatar"}</span>
-          </label>
+          {formInputs.map((input, index) => (
+            <>
+              {input.type === "file" ? (
+                <FileInput
+                  isCheckError={isCheckError}
+                  checkValidate={checkValidate}
+                  key={input.type}
+                />
+              ) : (
+                <Input
+                  key={index}
+                  label={input.placeholder}
+                  type={input.type}
+                  name={input.name ?? input.type}
+                  icon={input.icon}
+                  isCheckError={isCheckError}
+                  checkValidate={checkValidate}
+                  validation={input.validation}
+                />
+              )}
+            </>
+          ))}
 
           <button className="button" type="submit">
             Register

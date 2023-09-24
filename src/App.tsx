@@ -1,4 +1,3 @@
-import React from "react";
 import "styles/global.scss";
 import s from "components/SideBar/SideBar.module.scss";
 import { Routes, Route, Navigate } from "react-router-dom";
