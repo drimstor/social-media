@@ -9,7 +9,7 @@ import HomeUserBarItem from "../HomeUserBarItem";
 function HomeUsersSlider() {
   const user = useAppSelector((state) => state.user);
 
-  let breakpointsInit = 1800;
+  let breakpointsInit = 1700;
   let breakpointsArray = [];
 
   for (let i = 8; i >= 4; i--) {
@@ -38,6 +38,9 @@ function HomeUsersSlider() {
 
   return (
     <Slider className={s.usersBarSlider} {...settings}>
+      <HomeUserBarItem user={user} active />
+      <HomeUserBarItem user={user} />
+      <HomeUserBarItem user={user} />
       <HomeUserBarItem user={user} active />
       <HomeUserBarItem user={user} />
       <HomeUserBarItem user={user} />

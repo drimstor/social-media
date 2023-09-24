@@ -9,6 +9,7 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
+import { API_URL } from "config";
 
 function HomeActivityItem({ user }: { user: iUserState }) {
   const [del, setDel] = useState(false);
@@ -29,7 +30,7 @@ function HomeActivityItem({ user }: { user: iUserState }) {
     >
       <div className={s.image}>
         {user.photoURL ? (
-          <img src={user.photoURL} alt="avatar" />
+          <img src={API_URL + user.photoURL} alt="avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}

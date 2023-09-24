@@ -9,6 +9,7 @@ import {
   faUserCircle,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import { API_URL } from "config";
 
 function ChatControl() {
   const user = useAppSelector((state) => state.chat.user);
@@ -16,7 +17,7 @@ function ChatControl() {
     <div className={s.control}>
       <div className={s.controlProfile}>
         {user && user.photoURL ? (
-          <img src={user.photoURL} alt="Profile avatar" />
+          <img src={API_URL + user.photoURL} alt="Profile avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}
