@@ -6,8 +6,8 @@ import ChatArea from "components/Chat/ChatArea";
 export default function Chat() {
   return (
     <div className={s.pageWrapper + " " + s.chat}>
-      <ChatSideBar />
-      <ChatArea />
+      {/* <ChatSideBar />
+      <ChatArea /> */}
     </div>
   );
 }

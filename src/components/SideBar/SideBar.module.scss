@@ -97,6 +97,7 @@
   padding: 45px;
   gap: 45px;
   justify-content: space-between;
+  backdrop-filter: blur(5px);
 }
 
 .home {
@@ -190,6 +191,9 @@
   position: absolute;
   width: 28px;
   height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: $pink;
   right: 22px;
   top: 105px;
@@ -216,19 +220,12 @@
     transform: scale(0.9);
     opacity: 0.8;
   }
-  span {
+  svg {
     display: block;
     transition: all 0.3s;
-    width: 28px;
-    height: 28px;
-  }
-  span:after {
-    content: "\276F";
+    width: 16px;
+    height: 16px;
     color: $black;
-    font-size: 22px;
-    padding-left: 9px;
-    display: inline-block;
-    margin-top: -2px;
   }
 }
 

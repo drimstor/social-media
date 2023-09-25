@@ -4,7 +4,6 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store/store";
-import "./firebase";
 import { PersistGate } from "redux-persist/integration/react";
 import SideBarLayout from "components/Layouts/SideBarLayout";
 

@@ -8,6 +8,7 @@ import {
   selectSideBarIndex,
   selectSideBarItem,
 } from "store/slices/sideBarSlice";
+import { API_URL } from "config";
 
 function HomeUserInfo() {
   const user = useAppSelector((state) => state.user);
@@ -31,7 +32,7 @@ function HomeUserInfo() {
             <p>Followers</p>
           </div>
           {user.photoURL ? (
-            <img src={user.photoURL} alt="avatar" />
+            <img src={API_URL + user.photoURL} alt="avatar" />
           ) : (
             <FontAwesomeIcon icon={faUserCircle} />
           )}
@@ -43,7 +44,6 @@ function HomeUserInfo() {
         <div className={s.info}>
           <h2>{user.displayName}</h2>
           <span>@username</span>
-          <p>Something tell about yourself...</p>
           <div className={s.border}></div>
           <button onClick={clickOnItem}>My Profile</button>
         </div>

@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { iComment, iPost } from "types/iPost";
 import { useAddCommentMutation } from "store/API/postsAPI";
+import { API_URL } from "config";
 
 function AddComment({ post }: { post: iPost }) {
   const user = useAppSelector((state) => state.user);
@@ -54,7 +55,7 @@ function AddComment({ post }: { post: iPost }) {
     <div className={s.postComment}>
       <div className={clsx(s.image, !user.photoURL && s.withoutBorder)}>
         {user.photoURL ? (
-          <img src={user.photoURL} alt="avatar" />
+          <img src={API_URL + user.photoURL} alt="avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}

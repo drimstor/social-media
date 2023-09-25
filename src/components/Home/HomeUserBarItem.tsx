@@ -4,6 +4,7 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { iUserState } from "types/iUser";
 import s from "components/Home/HomeFeed/HomeFeed.module.scss";
 import clsx from "clsx";
+import { API_URL } from "config";
 
 interface HomeUserBarItemProps {
   user: iUserState;
@@ -21,7 +22,7 @@ function HomeUserBarItem({ user, active }: HomeUserBarItemProps) {
         )}
       >
         {user.photoURL ? (
-          <img src={user.photoURL} alt="avatar" />
+          <img src={API_URL + user.photoURL} alt="avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}

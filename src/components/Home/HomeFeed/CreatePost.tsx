@@ -11,6 +11,7 @@ import ToolTip from "components/Helpers/ToolTip";
 import clsx from "clsx";
 import { useAddPostMutation } from "store/API/postsAPI";
 import { iPost } from "types/iPost";
+import { API_URL } from "config";
 
 function HomeCreatePost() {
   const user = useAppSelector((state) => state.user);
@@ -55,7 +56,7 @@ function HomeCreatePost() {
       <div className={s.createPostBox}>
         <div className={clsx(s.postImage, user.photoURL && s.bordered)}>
           {user.photoURL ? (
-            <img src={user.photoURL} alt="avatar" />
+            <img src={API_URL + user.photoURL} alt="avatar" />
           ) : (
             <FontAwesomeIcon icon={faUserCircle} />
           )}

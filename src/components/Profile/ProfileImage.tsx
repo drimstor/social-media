@@ -4,6 +4,7 @@ import flag from "img/flag-russia.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "hooks/redux";
+import { API_URL } from "config";
 
 export default function ProfileImage() {
   const user = useAppSelector((state) => state.user);
@@ -12,7 +13,7 @@ export default function ProfileImage() {
     <div className={s.profileImage}>
       <div className={s.image}>
         {user.photoURL ? (
-          <img src={user.photoURL} alt="Profile" />
+          <img src={API_URL + user.photoURL} alt="Profile" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}

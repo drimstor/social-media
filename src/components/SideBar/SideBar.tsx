@@ -4,11 +4,9 @@ import SideBarElement from "./SideBarElement";
 import ToolTip from "../Helpers/ToolTip";
 import useTheme from "hooks/useTheme";
 import Switch from "../Switch/Switch";
-import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { logout } from "store/slices/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { signOut } from "firebase/auth";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import {
   selectSideBarIndex,
@@ -16,6 +14,7 @@ import {
   toggleSideBar,
 } from "store/slices/sideBarSlice";
 import {
+  faAngleRight,
   faBell,
   faCog,
   faComments,
@@ -54,7 +53,6 @@ export default function SideBar() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { theme } = useTheme();
-  const auth = getAuth();
 
   const clickOnItem = (title: string, index: number) => {
     dispatch(selectSideBarItem(title));
@@ -65,7 +63,6 @@ export default function SideBar() {
   // Логаут
   const logOutClick = () => {
     dispatch(logout());
-    signOut(auth);
     navigate("/");
   };
 
@@ -73,7 +70,8 @@ export default function SideBar() {
     <div className={s.sidebar} style={{ width: isOpen ? "230px" : "70px" }}>
       <div className={s.toggler} onClick={() => dispatch(toggleSideBar())}>
         <ToolTip title={isOpen ? "Hide" : "Show"}>
-          <span
+          <FontAwesomeIcon
+            icon={faAngleRight}
             style={{
               transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
             }}

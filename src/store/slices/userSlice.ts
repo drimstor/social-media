@@ -103,6 +103,59 @@ export const auth = createAsyncThunk("user/auth", async (_) => {
 
 // -------------------------- //
 
+export const uploadAvatar = createAsyncThunk(
+  "user/uploadAvatar",
+  async (file: any, { dispatch }) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await axios.post(
+        `${API_URL}api/files/avatar`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error: any) {
+      // return dispatch(
+      //   setShowSnackbar({
+      //     variant: "fail",
+      //     message: error.response.data.message,
+      //   })
+      // );
+    }
+  }
+);
+
+// -------------------------- //
+
+export const deleteAvatar = createAsyncThunk(
+  "user/deleteAvatar",
+  async (_, { dispatch }) => {
+    try {
+      const response = await axios.delete(`${API_URL}api/files/avatar`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      return response.data;
+    } catch (error: any) {
+      // return dispatch(
+      //   setShowSnackbar({
+      //     variant: "fail",
+      //     message: error.response.data.message,
+      //   })
+      // );
+    }
+  }
+);
+
+// -------------------------- //
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -119,7 +172,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
       state.token = action.payload.token;
-      state.displayName = action.payload.user.email;
+      state.displayName = action.payload.user.name;
       state.photoURL = action.payload.user.avatar;
       state.email = action.payload.user.email;
       state.id = action.payload.user.id;
@@ -130,7 +183,7 @@ const userSlice = createSlice({
 
     builder.addCase(auth.fulfilled, (state, action) => {
       state.token = action.payload.token;
-      state.displayName = action.payload.user.email;
+      state.displayName = action.payload.user.name;
       state.photoURL = action.payload.user.avatar;
       state.email = action.payload.user.email;
       state.id = action.payload.user.id;
@@ -141,7 +194,7 @@ const userSlice = createSlice({
 
     builder.addCase(registration.fulfilled, (state, action) => {
       state.token = action.payload.token;
-      state.displayName = action.payload.user.email;
+      state.displayName = action.payload.user.name;
       state.photoURL = action.payload.user.avatar;
       state.email = action.payload.user.email;
       state.id = action.payload.user.id;
@@ -150,15 +203,23 @@ const userSlice = createSlice({
 
     // -------------------------- //
 
-    // builder.addCase(uploadAvatar.fulfilled, (state, action) => {
-    //   state.profile = action.payload;
-    // });
+    builder.addCase(uploadAvatar.fulfilled, (state, action) => {
+      state.token = action.payload.token;
+      state.displayName = action.payload.user.name;
+      state.photoURL = action.payload.user.avatar;
+      state.email = action.payload.user.email;
+      state.id = action.payload.user.id;
+    });
 
-    // // -------------------------- //
+    // -------------------------- //
 
-    // builder.addCase(deleteAvatar.fulfilled, (state, action: any) => {
-    //   state.profile = action.payload;
-    // });
+    builder.addCase(deleteAvatar.fulfilled, (state, action: any) => {
+      state.token = action.payload.token;
+      state.displayName = action.payload.user.name;
+      state.photoURL = action.payload.user.avatar;
+      state.email = action.payload.user.email;
+      state.id = action.payload.user.id;
+    });
   },
 });
 

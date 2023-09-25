@@ -17,6 +17,7 @@ import {
   faTriangleExclamation,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { API_URL } from "config";
 
 function Comment({ comment }: { comment: iComment }) {
   const user = useAppSelector((state) => state.user);
@@ -87,7 +88,7 @@ function Comment({ comment }: { comment: iComment }) {
       <div className={s.commentBox}>
         <div className={clsx(s.image, !comment.photoURL && s.withoutBorder)}>
           {comment.photoURL ? (
-            <img src={comment.photoURL} alt="avatar" />
+            <img src={API_URL + comment.photoURL} alt="avatar" />
           ) : (
             <FontAwesomeIcon icon={faUserCircle} />
           )}
