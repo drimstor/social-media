@@ -2,9 +2,10 @@
   "posts": [
     {
       "id": 1,
-      "likes": 3,
+      "likes": 4,
       "liked": [
-        ""
+        "",
+        "63ed68d1a469234df94a2db9"
       ],
       "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
       "nickname": "Admin",

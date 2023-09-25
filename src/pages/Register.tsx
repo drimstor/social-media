@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import s from "styles/authentication.module.scss";
 import BackdropLayout from "components/Layouts/BackdropLayout";
-import { registration } from "store/slices/userSlice";
+import { registration, uploadAvatar } from "store/slices/userSlice";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "hooks/redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -104,7 +104,7 @@ export default function Register() {
     async function signUp() {
       await dispatch(registration(formFields));
       if (!!formFields.file) {
-        // await dispatch(uploadAvatar(formFields.file));
+        await dispatch(uploadAvatar(formFields.file));
       }
     }
 
