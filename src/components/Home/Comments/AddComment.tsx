@@ -21,7 +21,7 @@ function AddComment({ post }: { post: iPost }) {
 
   const commentObject = {
     userId: user.id,
-    postId: post.id,
+    postId: post._id,
     name: user.name,
     avatar: user.avatar,
     date: {

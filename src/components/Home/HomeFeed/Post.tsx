@@ -32,27 +32,15 @@ function HomePost({ post }: { post: iPost }) {
   const [editPost, setEditPost] = useState<boolean>(false);
   const [editPostValue, setEditPostValue] = useState<string>(post.text);
 
-  const postObject = {
-    id: post.id,
-    likes: liked ? sumLike - 1 : sumLike + 1,
-    liked: liked
-      ? post.liked.filter((item) => item !== user.id)
-      : [...post.liked, user.id],
-    userId: post.userId,
-    nickname: post.name,
-    name: post.name,
-    avatar: post.avatar,
-    date: post.date,
-    text: editPostValue,
-    images: post.images,
-  };
-
   const handleDeletePost = async () => {
-    await deletePost(post.id).unwrap();
+    await deletePost(post._id).unwrap();
   };
 
   const handleUpdatePost = async () => {
-    await updatePost(postObject as iPost).unwrap();
+    await updatePost({
+      text: editPostValue,
+      id: String(post._id),
+    } as { text: string; id: string }).unwrap();
   };
 
   const handleLikeClick = () => {

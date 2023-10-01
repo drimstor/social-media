@@ -10,8 +10,8 @@ function Messages() {
 
       <div className={snackbarStyles.snackbarBox}>
         {!!messages.showSnackbar.length &&
-          messages.showSnackbar.map((snackbar) => (
-            <Snackbar data={snackbar} key={snackbar.id} />
+          messages.showSnackbar.map((snackbar, index) => (
+            <Snackbar data={snackbar} key={snackbar.id + index} />
           ))}
       </div>
     </>

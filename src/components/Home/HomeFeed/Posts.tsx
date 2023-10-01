@@ -6,10 +6,7 @@ import { iPost } from "types/iPost";
 function HomePosts({ data }: { data: iPost[] }) {
   return (
     <div className={s.postsBox}>
-      {data &&
-        data
-          .map((item, index) => <HomePost key={index} post={item} />)
-          .reverse()}
+      {data && data.map((item, index) => <HomePost key={index} post={item} />)}
     </div>
   );
 }

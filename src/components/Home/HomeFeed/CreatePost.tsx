@@ -6,18 +6,16 @@ import {
   faPaperPlane,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { useAppSelector } from "hooks/redux";
 import ToolTip from "components/Helpers/ToolTip";
 import clsx from "clsx";
 import { useAddPostMutation } from "store/API/postsAPI";
 import { API_URL } from "config";
-import { setShowSnackbar } from "store/slices/messageSlice";
 
 function HomeCreatePost() {
-  const dispatch = useAppDispatch();
   const [image, setImage] = useState<any>(null);
   const user = useAppSelector((state) => state.user);
-  const [addPost, { isError, error }] = useAddPostMutation();
+  const [addPost, { isError }] = useAddPostMutation();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -47,15 +45,6 @@ function HomeCreatePost() {
       handleSubmit(e);
     }
   };
-
-  // if (isError) {
-  //   dispatch(
-  //     setShowSnackbar({
-  //       variant: "fail",
-  //       message: "sda",
-  //     })
-  //   );
-  // }
 
   return (
     <div className={s.createPost}>

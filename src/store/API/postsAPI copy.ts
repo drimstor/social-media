@@ -16,7 +16,7 @@ export const postsAPI = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: "Posts" as const, id })),
+              ...result.map(({ _id }) => ({ type: "Posts" as const, _id })),
               "Posts",
             ]
           : ["Posts"],
@@ -38,7 +38,7 @@ export const postsAPI = createApi({
     }),
     updatePost: build.mutation<iPost, iPost>({
       query: (body) => ({
-        url: `/posts/${body.id}`,
+        url: `/posts/${body._id}`,
         method: "PUT",
         body,
       }),

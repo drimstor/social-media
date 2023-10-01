@@ -46,14 +46,14 @@ function Snackbar({ data }: { data: iSnackbar }) {
   };
 
   return (
-    <div className={clsx(s.snackbar, isShow && s.show, s[data.variant])}>
-      {data.variant === "success" && <FontAwesomeIcon icon={faCircleCheck} />}
+    <div className={clsx(s.snackbar, isShow && s.show, s[data?.variant])}>
+      {data?.variant === "success" && <FontAwesomeIcon icon={faCircleCheck} />}
 
-      {data.variant === "fail" && (
+      {data?.variant === "fail" && (
         <FontAwesomeIcon icon={faCircleExclamation} />
       )}
 
-      {data.variant === "attention" && (
+      {data?.variant === "attention" && (
         <FontAwesomeIcon icon={faTriangleExclamation} />
       )}
 
