@@ -16,12 +16,12 @@ function ChatControl() {
   return (
     <div className={s.control}>
       <div className={s.controlProfile}>
-        {user && user.photoURL ? (
-          <img src={API_URL + user.photoURL} alt="Profile avatar" />
+        {user && user.avatar ? (
+          <img src={API_URL + user.avatar} alt="Profile avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}
-        <h2>{user && user.displayName}</h2>
+        <h2>{user && user.name}</h2>
       </div>
       <div className={s.controlPanel}>
         <ToolTip title={"Call"} reverse>

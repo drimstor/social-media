@@ -24,15 +24,15 @@ function HomeUserInfo() {
     <div className={s.userInfo}>
       <div className={s.user}>
         <div
-          style={{ borderColor: user.photoURL ? "undefined" : "transparent" }}
+          style={{ borderColor: user.avatar ? "undefined" : "transparent" }}
           className={s.image}
         >
           <div className={s.follow}>
             <span>100</span>
             <p>Followers</p>
           </div>
-          {user.photoURL ? (
-            <img src={API_URL + user.photoURL} alt="avatar" />
+          {user.avatar ? (
+            <img src={API_URL + user.avatar} alt="avatar" />
           ) : (
             <FontAwesomeIcon icon={faUserCircle} />
           )}
@@ -42,7 +42,7 @@ function HomeUserInfo() {
           </div>
         </div>
         <div className={s.info}>
-          <h2>{user.displayName}</h2>
+          <h2>{user.name}</h2>
           <span>@username</span>
           <div className={s.border}></div>
           <button onClick={clickOnItem}>My Profile</button>

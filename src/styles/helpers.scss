@@ -126,6 +126,12 @@ $lightgrey: #757575;
   font-family: "Fredoka One";
 }
 
+%border {
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 5%),
+    0 3px 24px rgb(0 0 0 / 5%);
+}
+
+
 //-------------- Animations ---------------//
 
 @keyframes show {

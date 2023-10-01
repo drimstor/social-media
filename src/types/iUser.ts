@@ -1,9 +1,10 @@
 export interface iUserState {
-  photoURL?: string | null;
-  displayName: string;
+  avatar?: string | null;
+  name: string;
   email?: string;
   id: string;
   token: string;
+  posts?: number;
 }
 
 export interface iFakeUser {

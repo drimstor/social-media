@@ -25,29 +25,29 @@
 //       }
 //     >
 //       <div className={s.messageInfo}>
-//         {anotherUser.photoURL === null &&
+//         {anotherUser.avatar === null &&
 //           anotherUser.id === message.senderId && (
 //             <FontAwesomeIcon icon={faUserCircle} />
 //           )}
 
-//         {anotherUser.photoURL !== null &&
+//         {anotherUser.avatar !== null &&
 //           anotherUser.id === message.senderId && (
-//             <img src={anotherUser.photoURL} alt="user avatar" />
+//             <img src={anotherUser.avatar} alt="user avatar" />
 //           )}
 
-//         {currentUser.photoURL == null &&
+//         {currentUser.avatar == null &&
 //           currentUser.id === message.senderId && (
 //             <FontAwesomeIcon icon={faUserCircle} />
 //           )}
 
-//         {currentUser.photoURL !== null &&
+//         {currentUser.avatar !== null &&
 //           currentUser.id === message.senderId && (
-//             <img src={currentUser.photoURL} alt="user avatar" />
+//             <img src={currentUser.avatar} alt="user avatar" />
 //           )}
 
 //         <span>
-//           {currentUser.id === message.senderId && currentUser.displayName}
-//           {anotherUser.id === message.senderId && anotherUser.displayName}
+//           {currentUser.id === message.senderId && currentUser.name}
+//           {anotherUser.id === message.senderId && anotherUser.name}
 //         </span>
 //         <span>{atTime}</span>
 //       </div>

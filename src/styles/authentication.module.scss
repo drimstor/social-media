@@ -53,6 +53,20 @@
         position: relative;
         border-radius: 5px;
 
+        &.focused {
+          input:focus {
+            border: 1px solid $white;
+          }
+          input:focus ~ span,
+          input:valid ~ span {
+            background: $black;
+            transform: translateY(-33px);
+            font-size: 14px;
+            padding: 3px 8px;
+            border: 1px solid $white;
+          }
+        }
+
         span {
           position: absolute;
           font-size: 18px;
@@ -108,17 +122,17 @@
         &:hover {
           border: 1px solid $white;
         }
-        &:focus {
-          border: 1px solid $white;
-        }
-        &:focus ~ span,
-        &:valid ~ span {
-          background: $black;
-          transform: translateY(-33px);
-          font-size: 14px;
-          padding: 3px 8px;
-          border: 1px solid $white;
-        }
+        // &:focus {
+        //   border: 1px solid $white;
+        // }
+        // &:focus ~ span,
+        // &:valid ~ span {
+        //   background: $black;
+        //   transform: translateY(-33px);
+        //   font-size: 14px;
+        //   padding: 3px 8px;
+        //   border: 1px solid $white;
+        // }
       }
 
       input[type="password"] {

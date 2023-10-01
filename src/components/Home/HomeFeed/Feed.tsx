@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import s from "components/Home/HomeFeed/HomeFeed.module.scss";
 import HomeUsersSlider from "./UsersSlider";
 import HomeCreatePost from "./CreatePost";

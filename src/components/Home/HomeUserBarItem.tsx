@@ -18,16 +18,16 @@ function HomeUserBarItem({ user, active }: HomeUserBarItemProps) {
         className={clsx(
           s.userBarItem,
           active && s.active,
-          !user.photoURL && s.circle
+          !user.avatar && s.circle
         )}
       >
-        {user.photoURL ? (
-          <img src={API_URL + user.photoURL} alt="avatar" />
+        {user.avatar ? (
+          <img src={API_URL + user.avatar} alt="avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}
       </div>
-      <h2>{user.displayName}</h2>
+      <h2>{user.name}</h2>
     </>
   );
 }

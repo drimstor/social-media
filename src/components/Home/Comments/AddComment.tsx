@@ -21,9 +21,9 @@ function AddComment({ post }: { post: iPost }) {
 
   const commentObject = {
     userId: user.id,
-    postId: post.id,
-    displayName: user.displayName,
-    photoURL: user.photoURL,
+    postId: post._id,
+    name: user.name,
+    avatar: user.avatar,
     date: {
       nanoseconds: 30000,
       seconds: 20000,
@@ -53,9 +53,9 @@ function AddComment({ post }: { post: iPost }) {
 
   return (
     <div className={s.postComment}>
-      <div className={clsx(s.image, !user.photoURL && s.withoutBorder)}>
-        {user.photoURL ? (
-          <img src={API_URL + user.photoURL} alt="avatar" />
+      <div className={clsx(s.image, !user.avatar && s.withoutBorder)}>
+        {user.avatar ? (
+          <img src={API_URL + user.avatar} alt="avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}

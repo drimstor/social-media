@@ -10,36 +10,31 @@ import { useAppSelector } from "hooks/redux";
 import ToolTip from "components/Helpers/ToolTip";
 import clsx from "clsx";
 import { useAddPostMutation } from "store/API/postsAPI";
-import { iPost } from "types/iPost";
 import { API_URL } from "config";
 
 function HomeCreatePost() {
+  const [image, setImage] = useState<any>(null);
   const user = useAppSelector((state) => state.user);
-  const [postText, setPostText] = useState<string>("");
   const [addPost, { isError }] = useAddPostMutation();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const postObject = {
-    userId: user.id,
-    nickname: user.displayName,
-    displayName: user.displayName,
-    photoURL: user.photoURL,
-    date: {
-      nanoseconds: 30000,
-      seconds: 20000,
-    },
-    text: postText,
-    likes: 0,
-    liked: [""],
-  };
-
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (postText) {
-      await addPost(postObject as iPost).unwrap();
-      setPostText("");
-      if (textareaRef.current) textareaRef.current.style.height = "auto";
-    }
+
+    const target = e.target as typeof e.target & {
+      textarea: { value: string };
+      file: { files: any };
+    };
+
+    const text = target.textarea.value;
+    const file = target.file.files[0];
+
+    const formData = new FormData();
+    if (text) formData.append("text", text);
+    if (file) formData.append("file", file);
+    if (text || file) await addPost(formData as FormData).unwrap();
+
+    target.textarea.value = "";
   };
 
   const onChangeHandler = (e: any) => {
@@ -54,25 +49,30 @@ function HomeCreatePost() {
   return (
     <div className={s.createPost}>
       <div className={s.createPostBox}>
-        <div className={clsx(s.postImage, user.photoURL && s.bordered)}>
-          {user.photoURL ? (
-            <img src={API_URL + user.photoURL} alt="avatar" />
+        <div className={clsx(s.postImage, user.avatar && s.bordered)}>
+          {user.avatar ? (
+            <img src={API_URL + user.avatar} alt="avatar" />
           ) : (
             <FontAwesomeIcon icon={faUserCircle} />
           )}
         </div>
         <form className={s.addCommentForm} onSubmit={handleSubmit}>
           <textarea
-            required
             placeholder="Tell your friends about your thoughts..."
-            value={postText}
-            onChange={(e) => setPostText(e.target.value)}
+            name="textarea"
             onKeyUp={onChangeHandler}
             ref={textareaRef}
           />
 
-          <input type="file" name="" id="feedFile" />
-          <label htmlFor="feedFile">
+          <input
+            multiple={false}
+            type="file"
+            name="file"
+            id="feedFile"
+            accept=".jpg, .jpeg, .png, .webp, .gif, .svg, .ico, .tiff, .bmp"
+            onChange={(e) => e.target.files && setImage(e.target.files[0])}
+          />
+          <label htmlFor="feedFile" className={clsx(image && s.imageAdded)}>
             <ToolTip title="Photo" reverse>
               <FontAwesomeIcon icon={faImage} />
             </ToolTip>

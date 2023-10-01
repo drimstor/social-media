@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import s from "styles/authentication.module.scss";
 import BackdropLayout from "components/Layouts/BackdropLayout";
 import { registration, uploadAvatar } from "store/slices/userSlice";
@@ -38,7 +38,6 @@ const formInputs = [
   {
     placeholder: "Confirm password",
     type: "password",
-    name: "confirmPassword",
     icon: faLockOpen,
     validation: {
       minLength: 4,
@@ -52,12 +51,11 @@ const formInputs = [
 ];
 
 export default function Register() {
-  const [errorMessage, setErrorMessage] = React.useState<string>("");
-  const [loading, setLoading] = React.useState<number | null>(null);
-
   const dispatch = useAppDispatch();
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [loading, setLoading] = useState<number | null>(null);
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     runCheck();
 
@@ -69,7 +67,7 @@ export default function Register() {
       file: { files: any };
     };
 
-    const name = target.name.value.toLowerCase();
+    const name = target.name.value?.toLowerCase();
     const email = target.email.value;
     const password = target.password.value;
     const confirmPassword = target.confirmPassword.value;
@@ -94,6 +92,9 @@ export default function Register() {
       case password === confirmPassword:
         setErrorMessage("Passwords mismatch");
         break;
+
+      default:
+        setErrorMessage("");
     }
   };
 
@@ -103,9 +104,7 @@ export default function Register() {
   useEffect(() => {
     async function signUp() {
       await dispatch(registration(formFields));
-      if (!!formFields.file) {
-        await dispatch(uploadAvatar(formFields.file));
-      }
+      if (!!formFields.file) await dispatch(uploadAvatar(formFields.file));
     }
 
     if (isNoError && formFields.password === formFields.confirmPassword) {
@@ -131,7 +130,6 @@ export default function Register() {
                   key={index}
                   label={input.placeholder}
                   type={input.type}
-                  name={input.name ?? input.type}
                   icon={input.icon}
                   isCheckError={isCheckError}
                   checkValidate={checkValidate}
@@ -140,17 +138,14 @@ export default function Register() {
               )}
             </>
           ))}
-
           <button className="button" type="submit">
             Register
           </button>
-
           {errorMessage && (
             <p className={s.error}>
               <FontAwesomeIcon icon={faTriangleExclamation} /> {errorMessage}
             </p>
           )}
-
           {loading !== null && (
             <div className={s.loading}>
               <span>Loading</span>
@@ -160,7 +155,7 @@ export default function Register() {
                   style={{
                     width: `calc(${loading > 9 ? loading : 9}% - 4px)`,
                   }}
-                ></div>
+                />
               </div>
             </div>
           )}

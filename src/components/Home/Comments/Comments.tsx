@@ -8,7 +8,7 @@ import { iPost } from "types/iPost";
 import clsx from "clsx";
 
 function Comments({ post }: { post: iPost }) {
-  const { data, isLoading } = useGetCommentsQuery([9, post.id]);
+  const { data, isLoading } = useGetCommentsQuery([9, post._id]);
 
   return (
     <>

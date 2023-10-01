@@ -29,14 +29,14 @@ function HomeActivityItem({ user }: { user: iUserState }) {
       }
     >
       <div className={s.image}>
-        {user.photoURL ? (
-          <img src={API_URL + user.photoURL} alt="avatar" />
+        {user.avatar ? (
+          <img src={API_URL + user.avatar} alt="avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}
       </div>
       <div className={s.box}>
-        <h3>{user.displayName}</h3>
+        <h3>{user.name}</h3>
         <span>subscribed on you</span>
         <span className={s.color}>&#10625; 3 hrs ago</span>
         <div className={s.control}>

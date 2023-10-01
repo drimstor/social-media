@@ -1,9 +1,9 @@
 export interface iPost {
-  id: number;
+  _id: number;
   userId: string;
   nickname: string;
-  displayName: string;
-  photoURL: string;
+  name: string;
+  avatar: string;
   date: {
     nanoseconds: number;
     seconds: number;
@@ -14,12 +14,16 @@ export interface iPost {
   liked: string[];
 }
 
+export interface iAddPost {
+  [key: string]: string;
+}
+
 export interface iComment {
   id: number;
   userId: string;
   postId: number;
-  displayName: string;
-  photoURL: string;
+  name: string;
+  avatar: string;
   date: {
     nanoseconds: number;
     seconds: number;

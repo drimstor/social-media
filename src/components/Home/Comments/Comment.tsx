@@ -38,8 +38,8 @@ function Comment({ comment }: { comment: iComment }) {
     id: comment.id,
     userId: comment.userId,
     postId: comment.postId,
-    displayName: comment.displayName,
-    photoURL: comment.photoURL,
+    name: comment.name,
+    avatar: comment.avatar,
     date: comment.date,
     text: editCommentValue,
   };
@@ -86,15 +86,15 @@ function Comment({ comment }: { comment: iComment }) {
   return (
     <>
       <div className={s.commentBox}>
-        <div className={clsx(s.image, !comment.photoURL && s.withoutBorder)}>
-          {comment.photoURL ? (
-            <img src={API_URL + comment.photoURL} alt="avatar" />
+        <div className={clsx(s.image, !comment.avatar && s.withoutBorder)}>
+          {comment.avatar ? (
+            <img src={API_URL + comment.avatar} alt="avatar" />
           ) : (
             <FontAwesomeIcon icon={faUserCircle} />
           )}
         </div>
         <div className={s.commentBody}>
-          <h3>{comment.displayName}</h3>
+          <h3>{comment.name}</h3>
           {editComment ? (
             <form className={s.editComment} onSubmit={handleEditClick}>
               <textarea

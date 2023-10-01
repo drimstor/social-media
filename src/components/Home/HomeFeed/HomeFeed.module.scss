@@ -167,6 +167,12 @@
       border-radius: 50%;
       background: $monoChromeReverse;
 
+      &.imageAdded {
+        border: 2px solid $monoChrome;
+        padding-left: 8px;
+        padding-top: 6px;
+      }
+
       svg {
         font-size: 15px;
         color: $mainColor;
@@ -466,8 +472,8 @@
     width: 100%;
 
     h3 {
-         @extend %f2;
-         font-weight: 300;
+      @extend %f2;
+      font-weight: 300;
     }
   }
 
