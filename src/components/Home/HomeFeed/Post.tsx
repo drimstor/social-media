@@ -19,6 +19,7 @@ import {
 } from "store/API/postsAPI";
 import Comments from "../Comments/Comments";
 import { useAppSelector } from "hooks/redux";
+import { API_URL } from "config";
 
 function HomePost({ post }: { post: iPost }) {
   const user = useAppSelector((state) => state.user);
@@ -38,9 +39,9 @@ function HomePost({ post }: { post: iPost }) {
       ? post.liked.filter((item) => item !== user.id)
       : [...post.liked, user.id],
     userId: post.userId,
-    nickname: post.displayName,
-    displayName: post.displayName,
-    photoURL: post.photoURL,
+    nickname: post.name,
+    name: post.name,
+    avatar: post.avatar,
     date: post.date,
     text: editPostValue,
     images: post.images,
@@ -102,9 +103,9 @@ function HomePost({ post }: { post: iPost }) {
   return (
     <div className={s.post}>
       <div className={s.postHeader}>
-        <div className={clsx(s.image, !post.photoURL && s.bordered)}>
-          {post.photoURL ? (
-            <img src={post.photoURL} alt="avatar" />
+        <div className={clsx(s.image, !post.avatar && s.bordered)}>
+          {post.avatar ? (
+            <img src={API_URL + post.avatar} alt="avatar" />
           ) : (
             <FontAwesomeIcon icon={faUserCircle} />
           )}
@@ -114,7 +115,7 @@ function HomePost({ post }: { post: iPost }) {
             @nickname <img src={approval} alt="approval" />
           </div>
           <div className={s.name}>
-            {post.displayName} <span>⦁ 1 hrs ago</span>
+            {post.name} <span>⦁ 1 hrs ago</span>
           </div>
         </div>
         <FontAwesomeIcon

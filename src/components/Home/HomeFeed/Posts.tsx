@@ -7,7 +7,9 @@ function HomePosts({ data }: { data: iPost[] }) {
   return (
     <div className={s.postsBox}>
       {data &&
-        data.map((item) => <HomePost key={item.id} post={item} />).reverse()}
+        data
+          .map((item, index) => <HomePost key={index} post={item} />)
+          .reverse()}
     </div>
   );
 }

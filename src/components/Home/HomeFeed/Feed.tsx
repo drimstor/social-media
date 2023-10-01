@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import s from "components/Home/HomeFeed/HomeFeed.module.scss";
 import HomeUsersSlider from "./UsersSlider";
 import HomeCreatePost from "./CreatePost";
@@ -10,7 +10,8 @@ function HomeFeed() {
   const newScroll = useRef<HTMLDivElement | any>(null);
   const newScrollContent = useRef<HTMLDivElement | any>(null);
 
-  const { data = [], isLoading } = useGetPostsQuery(5);
+  const { data = [], isLoading, error } = useGetPostsQuery(1);
+
 
   const handleScroll = () => {
     newScroll.current.scrollTop = oldScroll.current?.scrollTop;

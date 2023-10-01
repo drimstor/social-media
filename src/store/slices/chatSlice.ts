@@ -10,8 +10,8 @@ interface initialStateProps {
 const initialState: initialStateProps = {
   chatId: "",
   user: {
-    photoURL: null,
-    displayName: "",
+    avatar: null,
+    name: "",
     email: "",
     id: "",
     token: "",

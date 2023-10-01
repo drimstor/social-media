@@ -1,23 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { iAddPost, iComment, iPost } from "types/iPost";
+import { iComment, iPost } from "types/iPost";
 
 export const postsAPI = createApi({
   reducerPath: "postsAPI",
   tagTypes: ["Posts", "Comments"],
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/posts" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001/" }),
   endpoints: (build) => ({
     getPosts: build.query<iPost[], number>({
       query: (limit: number = 5) => ({
-        url: "",
-        // params: {
-        //   _limit: limit,
-        // },
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        url: `/posts`,
+        params: {
+          _limit: limit,
+        },
       }),
-      // transformErrorResponse: (error) => {
-      //   const localError = error;
-      //   return error?.data.message;
-      // },
       providesTags: (result) =>
         result
           ? [
@@ -26,30 +21,26 @@ export const postsAPI = createApi({
             ]
           : ["Posts"],
     }),
-    addPost: build.mutation<iAddPost, FormData>({
+    addPost: build.mutation<iPost, iPost>({
       query: (body) => ({
-        url: `/add`,
+        url: `/posts`,
         method: "POST",
         body,
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       }),
       invalidatesTags: ["Posts"],
     }),
     deletePost: build.mutation<iPost, number>({
       query: (id) => ({
-        url: "",
+        url: `/posts/${id}`,
         method: "DELETE",
-        body: id,
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       }),
       invalidatesTags: ["Posts"],
     }),
     updatePost: build.mutation<iPost, iPost>({
       query: (body) => ({
-        url: `/${body.id}`,
+        url: `/posts/${body.id}`,
         method: "PUT",
         body,
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       }),
       invalidatesTags: ["Posts"],
     }),

@@ -12,14 +12,14 @@ export default function ProfileImage() {
   return (
     <div className={s.profileImage}>
       <div className={s.image}>
-        {user.photoURL ? (
-          <img src={API_URL + user.photoURL} alt="Profile" />
+        {user.avatar ? (
+          <img src={API_URL + user.avatar} alt="Profile" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}
       </div>
       <div className={s.information}>
-        <h1>{user.displayName}</h1>
+        <h1>{user.name}</h1>
         <span className={s.nickName}>@nickname</span>
         <div className={s.location}>
           <img src={flag} alt="flag" /> Russia, Krasnodar

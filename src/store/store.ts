@@ -4,6 +4,7 @@ import sideBarSlice from "./slices/sideBarSlice";
 import storage from "redux-persist/lib/storage";
 import fakeUsersSllice from "./slices/fakeUsersSllice";
 import chatSlice from "./slices/chatSlice";
+import messageSlice from "./slices/messageSlice";
 import { postsAPI } from "store/API/postsAPI";
 import {
   persistStore,
@@ -27,6 +28,7 @@ export const rootReducer = combineReducers({
   sidebar: sideBarSlice,
   fakeUsers: fakeUsersSllice,
   chat: chatSlice,
+  messages: messageSlice,
   [postsAPI.reducerPath]: postsAPI.reducer,
 });
 

@@ -2,33 +2,16 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { iLoginUser, iUserState } from "types/iUser";
 import { API_URL } from "config";
+import { setShowSnackbar } from "./messageSlice";
 
 const initialState: iUserState = {
-  displayName: "",
-  photoURL: "",
+  name: "",
+  avatar: "",
   email: "",
   id: "",
   token: "",
+  posts: undefined,
 };
-
-// const userSlice = createSlice({
-//   name: "user",
-//   initialState,
-//   reducers: {
-//     setUser(state, action: PayloadAction<iUserState>) {
-//       state.displayName = action.payload.displayName;
-//       state.photoURL = action.payload.photoURL;
-//       state.email = action.payload.email;
-//       state.id = action.payload.id;
-//     },
-//     removeUser(state) {
-//       state.displayName = "";
-//       state.photoURL = "";
-//       state.email = "";
-//       state.id = "";
-//     },
-//   },
-// });
 
 // ------------ Async Reducers ------------- //
 
@@ -40,20 +23,20 @@ export const registration = createAsyncThunk(
         `${API_URL}api/auth/registration`,
         data
       );
-      // dispatch(
-      //   setShowSnackbar({
-      //     variant: "success",
-      //     message: "User created",
-      //   })
-      // );
+      dispatch(
+        setShowSnackbar({
+          variant: "success",
+          message: "User created",
+        })
+      );
       return response.data;
     } catch (error: any) {
-      // return dispatch(
-      //   setShowSnackbar({
-      //     variant: "fail",
-      //     message: error.response.data.message,
-      //   })
-      // );
+      return dispatch(
+        setShowSnackbar({
+          variant: "fail",
+          message: error.response.data.message,
+        })
+      );
     }
   }
 );
@@ -68,20 +51,20 @@ export const login = createAsyncThunk(
         email: data.email,
         password: data.password,
       });
-      // dispatch(
-      //   setShowSnackbar({
-      //     variant: "success",
-      //     message: "Welcome!",
-      //   })
-      // );
+      dispatch(
+        setShowSnackbar({
+          variant: "success",
+          message: "Welcome!",
+        })
+      );
       return response.data;
     } catch (error: any) {
-      // return dispatch(
-      //   setShowSnackbar({
-      //     variant: "fail",
-      //     message: error.response.data.message,
-      //   })
-      // );
+      return dispatch(
+        setShowSnackbar({
+          variant: "fail",
+          message: error.response.data.message,
+        })
+      );
     }
   }
 );
@@ -121,12 +104,12 @@ export const uploadAvatar = createAsyncThunk(
       );
       return response.data;
     } catch (error: any) {
-      // return dispatch(
-      //   setShowSnackbar({
-      //     variant: "fail",
-      //     message: error.response.data.message,
-      //   })
-      // );
+      return dispatch(
+        setShowSnackbar({
+          variant: "fail",
+          message: error.response.data.message,
+        })
+      );
     }
   }
 );
@@ -144,12 +127,12 @@ export const deleteAvatar = createAsyncThunk(
       });
       return response.data;
     } catch (error: any) {
-      // return dispatch(
-      //   setShowSnackbar({
-      //     variant: "fail",
-      //     message: error.response.data.message,
-      //   })
-      // );
+      return dispatch(
+        setShowSnackbar({
+          variant: "fail",
+          message: error.response.data.message,
+        })
+      );
     }
   }
 );
@@ -161,21 +144,23 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     logout(state) {
-      state.displayName = "";
-      state.photoURL = "";
+      state.name = "";
+      state.avatar = "";
       state.email = "";
       state.id = "";
       state.token = "";
+      state.posts = undefined;
       localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
       state.token = action.payload.token;
-      state.displayName = action.payload.user.name;
-      state.photoURL = action.payload.user.avatar;
+      state.name = action.payload.user.name;
+      state.avatar = action.payload.user.avatar;
       state.email = action.payload.user.email;
       state.id = action.payload.user.id;
+      state.posts = action.payload.user.posts;
       localStorage.setItem("token", action.payload.token);
     });
 
@@ -183,10 +168,11 @@ const userSlice = createSlice({
 
     builder.addCase(auth.fulfilled, (state, action) => {
       state.token = action.payload.token;
-      state.displayName = action.payload.user.name;
-      state.photoURL = action.payload.user.avatar;
+      state.name = action.payload.user.name;
+      state.avatar = action.payload.user.avatar;
       state.email = action.payload.user.email;
       state.id = action.payload.user.id;
+      state.posts = action.payload.user.posts;
       localStorage.setItem("token", action.payload.token);
     });
 
@@ -194,10 +180,11 @@ const userSlice = createSlice({
 
     builder.addCase(registration.fulfilled, (state, action) => {
       state.token = action.payload.token;
-      state.displayName = action.payload.user.name;
-      state.photoURL = action.payload.user.avatar;
+      state.name = action.payload.user.name;
+      state.avatar = action.payload.user.avatar;
       state.email = action.payload.user.email;
       state.id = action.payload.user.id;
+      state.posts = action.payload.user.posts;
       localStorage.setItem("token", action.payload.token);
     });
 
@@ -205,20 +192,22 @@ const userSlice = createSlice({
 
     builder.addCase(uploadAvatar.fulfilled, (state, action) => {
       state.token = action.payload.token;
-      state.displayName = action.payload.user.name;
-      state.photoURL = action.payload.user.avatar;
+      state.name = action.payload.user.name;
+      state.avatar = action.payload.user.avatar;
       state.email = action.payload.user.email;
       state.id = action.payload.user.id;
+      state.posts = action.payload.user.posts;
     });
 
     // -------------------------- //
 
     builder.addCase(deleteAvatar.fulfilled, (state, action: any) => {
       state.token = action.payload.token;
-      state.displayName = action.payload.user.name;
-      state.photoURL = action.payload.user.avatar;
+      state.name = action.payload.user.name;
+      state.avatar = action.payload.user.avatar;
       state.email = action.payload.user.email;
       state.id = action.payload.user.id;
+      state.posts = action.payload.user.posts;
     });
   },
 });

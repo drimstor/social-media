@@ -2,6 +2,7 @@ import React from "react";
 import s from "../SideBar/SideBar.module.scss";
 import SideBar from "components/SideBar/SideBar";
 import { useAppSelector } from "hooks/redux";
+import Messages from "./Messages";
 
 interface SideBarLayoutProps {
   children: React.ReactNode;
@@ -28,6 +29,7 @@ function SideBarLayout({ children }: SideBarLayoutProps) {
       ) : (
         <>{children}</>
       )}
+      <Messages />
     </>
   );
 }

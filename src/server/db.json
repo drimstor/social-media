@@ -9,8 +9,8 @@
       ],
       "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
       "nickname": "Admin",
-      "displayName": "Admin",
-      "photoURL": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
+      "name": "Admin",
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
       "date": {
         "nanoseconds": 30000,
         "seconds": 11111
@@ -29,8 +29,8 @@
       ],
       "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
       "nickname": "Admin",
-      "displayName": "Admin",
-      "photoURL": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
+      "name": "Admin",
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
       "date": {
         "nanoseconds": 30000,
         "seconds": 11111
@@ -49,8 +49,8 @@
       ],
       "userId": "9Mdixu9cEwSEbwVMgIr7aB4GEFO2",
       "nickname": "Admin",
-      "displayName": "Admin",
-      "photoURL": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
+      "name": "Admin",
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/web-chat-5bf34.appspot.com/o/admin1667468147143?alt=media&token=c486f923-eb0c-476b-b2a8-2979aa109a65",
       "date": {
         "nanoseconds": 30000,
         "seconds": 11111
@@ -59,6 +59,22 @@
       "images": [
         "https://cdn.dribbble.com/users/2673128/screenshots/16485011/media/d21e6065f5b3022da1fe9a8619fb42bd.jpg"
       ]
+    },
+    {
+      "userId": "63ed68d1a469234df94a2db9",
+      "nickname": "Vyacheslav Gurin",
+      "name": "Vyacheslav Gurin",
+      "avatar": "63ed68d1a469234df94a2db9/980a5e9d-ed96-409e-970d-315f9857d908.jpg",
+      "date": {
+        "nanoseconds": 30000,
+        "seconds": 20000
+      },
+      "text": "d",
+      "likes": 0,
+      "liked": [
+        ""
+      ],
+      "id": 4
     }
   ],
   "comments": [
@@ -70,8 +86,8 @@
       "id": 5,
       "userId": "63ed68d1a469234df94a2db9",
       "postId": 2,
-      "displayName": "Vyacheslav Gurin",
-      "photoURL": "63ed68d1a469234df94a2db9/980a5e9d-ed96-409e-970d-315f9857d908.jpg",
+      "name": "Vyacheslav Gurin",
+      "avatar": "63ed68d1a469234df94a2db9/980a5e9d-ed96-409e-970d-315f9857d908.jpg",
       "date": {
         "nanoseconds": 30000,
         "seconds": 20000
@@ -86,8 +102,8 @@
       "id": 6,
       "userId": "63ed68d1a469234df94a2db9",
       "postId": 3,
-      "displayName": "Vyacheslav Gurin",
-      "photoURL": "63ed68d1a469234df94a2db9/980a5e9d-ed96-409e-970d-315f9857d908.jpg",
+      "name": "Vyacheslav Gurin",
+      "avatar": "63ed68d1a469234df94a2db9/980a5e9d-ed96-409e-970d-315f9857d908.jpg",
       "date": {
         "nanoseconds": 30000,
         "seconds": 20000

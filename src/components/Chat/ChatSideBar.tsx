@@ -56,7 +56,7 @@
 //   const handleSearch = async () => {
 //     const q = query(
 //       collection(db, "users"),
-//       where("displayName", "==", userName)
+//       where("name", "==", userName)
 //     );
 //     try {
 //       const querySnapshot = await getDocs(q);
@@ -92,8 +92,8 @@
 //           await updateDoc(doc(db, "userChats", currentUser.id), {
 //             [combinedId + ".userInfo"]: {
 //               id: user.id,
-//               displayName: user.displayName,
-//               photoURL: user.photoURL,
+//               name: user.name,
+//               avatar: user.avatar,
 //             },
 //             [combinedId + ".date"]: serverTimestamp(),
 //           });
@@ -101,8 +101,8 @@
 //           await updateDoc(doc(db, "userChats", user.id), {
 //             [combinedId + ".userInfo"]: {
 //               id: currentUser.id,
-//               displayName: currentUser.displayName,
-//               photoURL: currentUser.photoURL,
+//               name: currentUser.name,
+//               avatar: currentUser.avatar,
 //             },
 //             [combinedId + ".date"]: serverTimestamp(),
 //           });
@@ -135,13 +135,13 @@
 //       <div className={s.users}>
 //         {user !== null && (
 //           <div className={s.userProfile} onClick={handleSelect}>
-//             {user.photoURL ? (
-//               <img src={API_URL + user.photoURL} alt="Profile avatar" />
+//             {user.avatar ? (
+//               <img src={API_URL + user.avatar} alt="Profile avatar" />
 //             ) : (
 //               <FontAwesomeIcon icon={faUserCircle} />
 //             )}
 //             <div className={s.userText}>
-//               <h3>{user.displayName}</h3>
+//               <h3>{user.name}</h3>
 //             </div>
 //           </div>
 //         )}

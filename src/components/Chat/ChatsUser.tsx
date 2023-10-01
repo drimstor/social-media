@@ -34,13 +34,13 @@ export default function ChatsUser({
           onClick(chatUser);
         }}
       >
-        {chatUser.photoURL ? (
-          <img src={chatUser.photoURL} alt="Profile avatar" />
+        {chatUser.avatar ? (
+          <img src={chatUser.avatar} alt="Profile avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}
         <div className={s.userText}>
-          <h3>{chatUser.displayName}</h3>
+          <h3>{chatUser.name}</h3>
           <p>{lastMessage?.text}</p>
         </div>
       </div>
