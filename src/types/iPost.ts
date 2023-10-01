@@ -9,7 +9,7 @@ export interface iPost {
     seconds: number;
   };
   text: string;
-  images?: string[];
+  image?: string;
   likes: number;
   liked: string[];
 }
