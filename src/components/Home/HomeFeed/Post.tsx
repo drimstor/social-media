@@ -148,10 +148,7 @@ function HomePost({ post }: { post: iPost }) {
           )}
         </div>
         <div className={s.postImages}>
-          {post.images &&
-            post.images.map((image, index) => (
-              <img src={image} key={index} alt="post" />
-            ))}
+          {post.image && <img src={API_URL + post.image} alt="post" />}
         </div>
       </div>
       <div className={s.controlPanel}>
