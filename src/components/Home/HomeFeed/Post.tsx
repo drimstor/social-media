@@ -25,9 +25,9 @@ function HomePost({ post }: { post: iPost }) {
   const user = useAppSelector((state) => state.user);
   const popupButtonRef = useRef<SVGSVGElement>(null);
   const [deletePost] = useDeletePostMutation();
-  const [updatePost, { isError }] = useUpdatePostMutation();
-  const [liked, setLiked] = useState<boolean>(post.liked.includes(user.id));
-  const [sumLike, setSumLike] = useState<number>(post.likes);
+  const [updatePost] = useUpdatePostMutation();
+  const [isLiked, setIsLiked] = useState(post.liked.includes(user.id));
+  const [sumLike, setSumLike] = useState<number>(post.liked.length);
   const [visibleHeaderPopup, setVisibleHeaderPopup] = useState<boolean>(false);
   const [editPost, setEditPost] = useState<boolean>(false);
   const [editPostValue, setEditPostValue] = useState<string>(post.text);
@@ -36,17 +36,23 @@ function HomePost({ post }: { post: iPost }) {
     await deletePost(post._id).unwrap();
   };
 
-  const handleUpdatePost = async () => {
+  const handleUpdatePost = async (isLike?: boolean) => {
     await updatePost({
       text: editPostValue,
       id: String(post._id),
-    } as { text: string; id: string }).unwrap();
+      liked:
+        isLike === undefined
+          ? post.liked
+          : isLike
+          ? post.liked.filter((like) => like !== user.id)
+          : [...post.liked, user.id],
+    } as { text: string; id: string; liked: string[] }).unwrap();
   };
 
   const handleLikeClick = () => {
-    setLiked(!liked);
-    setSumLike(liked ? sumLike - 1 : sumLike + 1);
-    handleUpdatePost();
+    setIsLiked(!isLiked);
+    setSumLike(post.liked.includes(user.id) ? sumLike - 1 : sumLike + 1);
+    handleUpdatePost(post.liked.includes(user.id));
   };
 
   const calcInputHeight = (e: any) => {
@@ -153,7 +159,7 @@ function HomePost({ post }: { post: iPost }) {
       </div>
       <div className={s.controlPanel}>
         <div
-          className={clsx(s.icon, liked && s.liked)}
+          className={clsx(s.icon, isLiked && s.liked)}
           onClick={handleLikeClick}
         >
           <FontAwesomeIcon icon={faHeart} />
