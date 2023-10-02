@@ -13,7 +13,7 @@ import { useAddPostMutation } from "store/API/postsAPI";
 import { API_URL } from "config";
 
 function HomeCreatePost() {
-  const [image, setImage] = useState<any>(null);
+  const [image, setImage] = useState<File | null>(null);
   const user = useAppSelector((state) => state.user);
   const [addPost, { isError }] = useAddPostMutation();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -23,18 +23,19 @@ function HomeCreatePost() {
 
     const target = e.target as typeof e.target & {
       textarea: { value: string };
-      file: { files: any };
     };
 
     const text = target.textarea.value;
-    const file = target.file.files[0];
+
+    if (!image && !text) return;
 
     const formData = new FormData();
     if (text) formData.append("text", text);
-    if (file) formData.append("file", file);
-    if (text || file) await addPost(formData as FormData).unwrap();
+    if (image) formData.append("file", image);
+    if (text || image) await addPost(formData as FormData).unwrap();
 
     target.textarea.value = "";
+    setImage(null);
   };
 
   const onChangeHandler = (e: any) => {

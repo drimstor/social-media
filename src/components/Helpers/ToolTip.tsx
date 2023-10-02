@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useHover from "hooks/useHover";
 import s from "../SideBar/SideBar.module.scss";
 import useMediaQuery from "hooks/useMediaQuery";
@@ -17,15 +17,24 @@ export default function ToolTip({
   state,
   reverse,
 }: ToolTipProps) {
-  // Тултипы
-  const tooltipTarget = React.useRef<HTMLDivElement>(null);
-  // Показать тултип
+  const [tooltipWidth, settooltipWidth] = useState<number | null>(null);
+  const tooltipTarget = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
   const isHovering: boolean = useHover(tooltipTarget);
-  // Только десктоп
   const matches: boolean = useMediaQuery("(max-width: 425px)");
+
+  useEffect(() => {
+    const tooltipWidth = tooltipRef.current && tooltipRef.current.clientWidth;
+    if (tooltipWidth) settooltipWidth(tooltipWidth / 2);
+
+    return () => {};
+  }, []);
+
   return (
     <div ref={tooltipTarget} style={{ position: "relative" }}>
       <div
+        style={reverse ? { left: `calc(47% - ${tooltipWidth}px)` } : {}}
+        ref={tooltipRef}
         className={clsx(
           s.tooltip,
           reverse && s.tooltipReverse,
