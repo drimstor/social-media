@@ -11,7 +11,7 @@
   padding-bottom: 25px;
 
   @include tablet {
-    padding-bottom: 80px;
+    padding-bottom: 180px;
   }
 
   &::-webkit-scrollbar {
@@ -103,8 +103,6 @@
       font-weight: 500;
       overflow-y: hidden;
       border-bottom-left-radius: 0px;
-
-
 
       @include tablet {
         padding: 10px;
@@ -701,7 +699,7 @@
     padding-top: 5px;
     display: flex;
     align-items: center;
-    
+
     @include tablet {
       padding-top: 15px;
     }
@@ -738,8 +736,9 @@
   right: -30px;
   top: 0;
   width: 5px;
-  height: 100dvh;
-
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll;
 
