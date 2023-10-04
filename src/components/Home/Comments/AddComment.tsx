@@ -9,36 +9,38 @@ import {
   faPaperPlane,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { iComment, iPost } from "types/iPost";
-import { useAddCommentMutation } from "store/API/postsAPI";
 import { API_URL } from "config";
+import { useAddCommentMutation } from "store/API/commentsAPI";
 
-function AddComment({ post }: { post: iPost }) {
+function AddComment({ postId }: { postId: string }) {
   const user = useAppSelector((state) => state.user);
-  const [addComment, { isLoading }] = useAddCommentMutation();
-  const [commentText, setCommentText] = useState<string>("");
+  const [addComment] = useAddCommentMutation();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  const commentObject = {
-    userId: user.id,
-    postId: post._id,
-    name: user.name,
-    avatar: user.avatar,
-    date: {
-      nanoseconds: 30000,
-      seconds: 20000,
-    },
-    text: commentText,
-    likes: 0,
-    liked: [""],
-  };
+  const [image, setImage] = useState<File | null>(null);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (commentText) {
-      await addComment(commentObject as iComment).unwrap();
-      setCommentText("");
-      if (textareaRef.current) textareaRef.current.style.height = "auto";
+
+    const target = e.target as typeof e.target & {
+      textarea: { value: string };
+    };
+
+    const text = target.textarea.value;
+
+    if (!image && !text) return;
+
+    const formData = new FormData();
+    formData.append("postId", String(postId));
+    if (text) formData.append("text", text);
+    if (image) formData.append("file", image);
+    if (text || image) {
+      await addComment(formData as FormData)
+        .unwrap()
+        .then(() => {
+          target.textarea.value = "";
+          if (textareaRef.current) textareaRef.current.style.height = "auto";
+          setImage(null);
+        });
     }
   };
 
@@ -63,14 +65,20 @@ function AddComment({ post }: { post: iPost }) {
       <form className={s.addCommentForm} onSubmit={handleSubmit}>
         <textarea
           required
+          name="textarea"
           placeholder="Write your comment"
-          value={commentText}
-          onChange={(e) => setCommentText(e.target.value)}
           onKeyUp={onChangeHandler}
           ref={textareaRef}
         />
-        <input type="file" name="" id="feedFile" />
-        <label htmlFor="feedFile">
+        <input
+          multiple={false}
+          type="file"
+          name="file"
+          id="feedFile"
+          accept=".jpg, .jpeg, .png, .webp, .gif, .svg, .ico, .tiff, .bmp"
+          onChange={(e) => e.target.files && setImage(e.target.files[0])}
+        />
+        <label htmlFor="feedFile" className={clsx(image && s.imageAdded)}>
           <ToolTip title="Photo" reverse>
             <FontAwesomeIcon icon={faImage} />
           </ToolTip>

@@ -108,6 +108,12 @@
   flex-direction: column;
   justify-content: start;
   padding: 5px;
+  
+
+  @include tablet {
+   display: none;
+  }
+
 }
 
 .recentActivity {

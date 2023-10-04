@@ -21,7 +21,7 @@ export default function SideBarElement({
   selectItem,
   showBar,
 }: SideBarElementProps) {
-  const matches = useMediaQuery("(max-width: 425px)");
+  const matches = useMediaQuery("(max-width: 769px)");
 
   return (
     <div

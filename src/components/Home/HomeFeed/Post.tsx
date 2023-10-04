@@ -173,7 +173,7 @@ function HomePost({ post }: { post: iPost }) {
         </div>
       </div>
       <div className={s.divider} />
-      <Comments post={post} />
+      <Comments postId={post._id} />
     </div>
   );
 }

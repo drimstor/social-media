@@ -21,7 +21,7 @@ export default function ToolTip({
   const tooltipTarget = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const isHovering: boolean = useHover(tooltipTarget);
-  const matches: boolean = useMediaQuery("(max-width: 425px)");
+  const matches: boolean = useMediaQuery("(max-width: 769px)");
 
   useEffect(() => {
     const tooltipWidth = tooltipRef.current && tooltipRef.current.clientWidth;

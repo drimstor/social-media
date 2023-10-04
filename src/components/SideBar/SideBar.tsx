@@ -52,6 +52,7 @@ export default function SideBar() {
   const isOpen = useAppSelector((state) => state.sidebar.isOpen);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const { theme } = useTheme();
 
   const clickOnItem = (title: string, index: number) => {
@@ -81,7 +82,6 @@ export default function SideBar() {
 
       <div className={s.title}>
         <FontAwesomeIcon icon={faEarth} /> <h1>Chat</h1>
-        <span>ik</span>
       </div>
 
       <div className={s.sidebarWrapper}>
@@ -98,15 +98,16 @@ export default function SideBar() {
         <div className={s.desktopIndicator} />
       </div>
 
-      <div className={s.sidebarSwitch}>
-        <ToolTip
-          title={theme === "dark" ? "Light mode" : "Dark mode"}
-          state={isOpen}
-        >
-          <Switch />
-        </ToolTip>
-      </div>
-
+      {selectItem === "settings" && (
+        <div className={s.sidebarSwitch}>
+          <ToolTip
+            title={theme === "dark" ? "Light mode" : "Dark mode"}
+            state={isOpen}
+          >
+            <Switch />
+          </ToolTip>
+        </div>
+      )}
       <div className={s.sidebarTooltip}>
         <ToolTip title={"Log Out"} state={isOpen}>
           <div className={s.buttonWrapper}>

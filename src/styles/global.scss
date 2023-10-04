@@ -63,12 +63,20 @@ a {
     left: -10px;
     transition: all 0.3s;
 
+    @include tablet {
+      top: calc(50% - 17px);
+    }
+
     &:active {
       transform: translate(0, -50%) scale(0.85);
     }
 
     &::before {
       color: $monoChrome;
+
+      @include tablet {
+        font-size: 35px;
+      }
     }
   }
 
@@ -76,12 +84,21 @@ a {
     right: -10px;
     transition: all 0.3s;
 
+    @include tablet {
+      top: calc(50% - 17px);
+      right: 4px;
+    }
+
     &:active {
       transform: translate(0, -50%) scale(0.85);
     }
 
     &::before {
       color: $monoChrome;
+
+      @include tablet {
+        font-size: 35px;
+      }
     }
   }
 

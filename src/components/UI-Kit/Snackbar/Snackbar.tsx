@@ -57,7 +57,7 @@ function Snackbar({ data }: { data: iSnackbar }) {
         <FontAwesomeIcon icon={faTriangleExclamation} />
       )}
 
-      <p>{data.message}</p>
+      {/* <p>{data.message}</p> */}
     </div>
   );
 }

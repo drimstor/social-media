@@ -13,14 +13,12 @@ export default function App() {
   const location = useLocation();
 
   return isAuth ? (
-    <div className={s.animateWrapper}>
-      <Routes location={location}>
-        <Route path="/" element={<Navigate to="/chats" replace />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/chats" element={<Chat />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </div>
+    <Routes location={location}>
+      <Route path="/" element={<Navigate to="/chats" replace />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/chats" element={<Chat />} />
+      <Route path="/profile" element={<Profile />} />
+    </Routes>
   ) : (
     <Routes>
       <Route path="*" element={<Navigate to="/login" replace />} />

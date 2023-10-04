@@ -5,9 +5,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import HomeUserBarItem from "../HomeUserBarItem";
+import useMediaQuery from "hooks/useMediaQuery";
 
 function HomeUsersSlider() {
   const user = useAppSelector((state) => state.user);
+  const matches = useMediaQuery("(max-width:425px)");
 
   let breakpointsInit = 1700;
   let breakpointsArray = [];
@@ -28,13 +30,15 @@ function HomeUsersSlider() {
     arrows: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 9,
+    slidesToShow: matches ? 3 : 9,
     slidesToScroll: 1,
     easing: "ease-in-out",
     touchMove: false,
     adaptiveHeight: true,
-    responsive: breakpointsArray,
+    responsive: matches ? [] : breakpointsArray,
   };
+
+  console.log(matches);
 
   return (
     <Slider className={s.usersBarSlider} {...settings}>

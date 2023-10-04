@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_URL } from "config";
 import { setShowSnackbar } from "store/slices/messageSlice";
-import { iAddPost, iComment, iPost } from "types/iPost";
+import { iAddPost, iPost } from "types/iPost";
 
 export const postsAPI = createApi({
   reducerPath: "postsAPI",
-  tagTypes: ["Posts", "Comments"],
+  tagTypes: ["Posts"],
   baseQuery: fetchBaseQuery({ baseUrl: `${API_URL}api/posts` }),
   endpoints: (build) => ({
     getPosts: build.query<iPost[], number>({
@@ -74,7 +74,7 @@ export const postsAPI = createApi({
       },
       invalidatesTags: ["Posts"],
     }),
-    deletePost: build.mutation<iAddPost, number>({
+    deletePost: build.mutation<iAddPost, string>({
       query: (id) => ({
         url: "",
         method: "DELETE",
@@ -144,40 +144,6 @@ export const postsAPI = createApi({
       invalidatesTags: ["Posts"],
     }),
     /* ------------------------------------------------------- */
-    getComments: build.query<iComment[], number[]>({
-      query: (filter: number[]) =>
-        `/comments?${`_limit=${filter[0]}&postId=${filter[1]}`}`,
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ id }) => ({ type: "Comments" as const, id })),
-              "Comments",
-            ]
-          : ["Comments"],
-    }),
-    addComment: build.mutation<iComment, iComment>({
-      query: (body) => ({
-        url: `/comments`,
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: ["Comments"],
-    }),
-    deleteComment: build.mutation<iComment, number>({
-      query: (id) => ({
-        url: `/comments/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Comments"],
-    }),
-    updateComment: build.mutation<iComment, iComment>({
-      query: (body) => ({
-        url: `/comments/${body.id}`,
-        method: "PUT",
-        body,
-      }),
-      invalidatesTags: ["Comments"],
-    }),
   }),
 });
 
@@ -185,9 +151,5 @@ export const {
   useGetPostsQuery,
   useAddPostMutation,
   useDeletePostMutation,
-  useGetCommentsQuery,
-  useAddCommentMutation,
-  useDeleteCommentMutation,
-  useUpdateCommentMutation,
   useUpdatePostMutation,
 } = postsAPI;

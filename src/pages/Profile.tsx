@@ -1,4 +1,3 @@
-import React from "react";
 import b from "components/SideBar/SideBar.module.scss";
 import ProfileImage from "components/Profile/ProfileImage";
 import ProfileInfo from "components/Profile/ProfileInfo";

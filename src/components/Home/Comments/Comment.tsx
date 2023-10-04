@@ -4,10 +4,6 @@ import s from "components/Home/HomeFeed/HomeFeed.module.scss";
 import { iComment } from "types/iPost";
 import { useAppSelector } from "hooks/redux";
 import ToolTip from "components/Helpers/ToolTip";
-import {
-  useDeleteCommentMutation,
-  useUpdateCommentMutation,
-} from "store/API/postsAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
@@ -18,13 +14,14 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { API_URL } from "config";
+import { useDeleteCommentMutation, useUpdateCommentMutation } from "store/API/commentsAPI";
 
 function Comment({ comment }: { comment: iComment }) {
   const user = useAppSelector((state) => state.user);
   const [deleteComment] = useDeleteCommentMutation();
   const [updateComment, { isLoading }] = useUpdateCommentMutation();
   const [liked, setLiked] = useState<boolean>(comment.liked.includes(user.id));
-  const [sumLike, setSumLike] = useState<number>(comment.likes);
+  const [sumLike, setSumLike] = useState<number>(comment.liked.length);
   const [editComment, setEditComment] = useState<boolean>(false);
   const [editCommentValue, setEditCommentValue] = useState<string>(
     comment.text
@@ -35,7 +32,7 @@ function Comment({ comment }: { comment: iComment }) {
     liked: liked
       ? comment.liked.filter((item) => item !== user.id)
       : [...comment.liked, user.id],
-    id: comment.id,
+    id: comment._id,
     userId: comment.userId,
     postId: comment.postId,
     name: comment.name,
@@ -45,10 +42,10 @@ function Comment({ comment }: { comment: iComment }) {
   };
 
   const handleDeleteComment = async () => {
-    await deleteComment(comment.id).unwrap();
+    await deleteComment(comment._id).unwrap();
   };
   const handleUpdateComment = async () => {
-    await updateComment(commentObject as iComment).unwrap();
+    // await updateComment(commentObject as iComment).unwrap();
   };
 
   const handleLikeClick = () => {

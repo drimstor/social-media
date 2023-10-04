@@ -1,4 +1,3 @@
-import React from "react";
 import s from "./Chat.module.scss";
 import { iUserState } from "types/iUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,7 +19,7 @@ export default function ChatsUser({
   onClick,
 }: ChatsUserProps) {
   const selectChat = useAppSelector((state) => state.chat.selectedChat);
-  const matches = useMediaQuery("(max-width: 425px)");
+  const matches = useMediaQuery("(max-width:769px)");
   return (
     <div
       style={{

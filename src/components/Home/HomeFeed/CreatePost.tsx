@@ -15,7 +15,7 @@ import { API_URL } from "config";
 function HomeCreatePost() {
   const [image, setImage] = useState<File | null>(null);
   const user = useAppSelector((state) => state.user);
-  const [addPost, { isError }] = useAddPostMutation();
+  const [addPost] = useAddPostMutation();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -32,10 +32,14 @@ function HomeCreatePost() {
     const formData = new FormData();
     if (text) formData.append("text", text);
     if (image) formData.append("file", image);
-    if (text || image) await addPost(formData as FormData).unwrap();
-
-    target.textarea.value = "";
-    setImage(null);
+    if (text || image)
+      await addPost(formData as FormData)
+        .unwrap()
+        .then(() => {
+          target.textarea.value = "";
+          if (textareaRef.current) textareaRef.current.style.height = "auto";
+          setImage(null);
+        });
   };
 
   const onChangeHandler = (e: any) => {

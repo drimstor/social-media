@@ -20,12 +20,16 @@ export default function ProfileImage() {
       </div>
       <div className={s.information}>
         <h1>{user.name}</h1>
-        <span className={s.nickName}>@nickname</span>
-        <div className={s.location}>
-          <img src={flag} alt="flag" /> Russia, Krasnodar
+
+        <div className={s.infoBoxWrapper}>
+          <span className={s.nickName}>@nickname</span>
+          <div className={s.location}>
+            <img src={flag} alt="flag" /> Russia, Krasnodar
+          </div>
+          <div className={s.profession}>UX/UI design</div>
+          <div className={s.description}>Something tell about yourself...</div>
         </div>
-        <div className={s.profession}>UX/UI design</div>
-        <div className={s.description}>Something tell about yourself...</div>
+
         <div className={s.followBox}>
           <div className={s.followingBox}>
             <div className={s.followingItem}>
