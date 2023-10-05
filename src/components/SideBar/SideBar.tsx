@@ -23,6 +23,8 @@ import {
   faRightFromBracket,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import clsx from "clsx";
+import useMediaQuery from "hooks/useMediaQuery";
 
 const SideBarElements = [
   {
@@ -50,9 +52,9 @@ const SideBarElements = [
 export default function SideBar() {
   const selectItem = useAppSelector((state) => state.sidebar.selectItem);
   const isOpen = useAppSelector((state) => state.sidebar.isOpen);
+  const isMobile = useMediaQuery("(max-width:769px)");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const { theme } = useTheme();
 
   const clickOnItem = (title: string, index: number) => {
@@ -87,7 +89,7 @@ export default function SideBar() {
       <div className={s.sidebarWrapper}>
         {SideBarElements.map((item, index) => (
           <SideBarElement
-            key={index}
+            key={index + item.title}
             onClick={() => clickOnItem(item.title, index)}
             selectItem={selectItem}
             item={item}
@@ -98,7 +100,7 @@ export default function SideBar() {
         <div className={s.desktopIndicator} />
       </div>
 
-      {selectItem === "settings" && (
+      {((isMobile && selectItem === "settings") || !isMobile) && (
         <div className={s.sidebarSwitch}>
           <ToolTip
             title={theme === "dark" ? "Light mode" : "Dark mode"}
@@ -108,19 +110,22 @@ export default function SideBar() {
           </ToolTip>
         </div>
       )}
-      <div className={s.sidebarTooltip}>
-        <ToolTip title={"Log Out"} state={isOpen}>
-          <div className={s.buttonWrapper}>
-            <button
-              className={isOpen ? s.button : s.button + " " + s.hide}
-              onClick={logOutClick}
-            >
-              <FontAwesomeIcon icon={faRightFromBracket} />
-              <span>Log Out</span>
-            </button>
-          </div>
-        </ToolTip>
-      </div>
+
+      {((isMobile && selectItem === "settings") || !isMobile) && (
+        <div className={s.sidebarTooltip}>
+          <ToolTip title={"Log Out"} state={isOpen}>
+            <div className={s.buttonWrapper}>
+              <button
+                className={clsx(s.button, isOpen && s.hide)}
+                onClick={logOutClick}
+              >
+                <FontAwesomeIcon icon={faRightFromBracket} />
+                <span>Log Out</span>
+              </button>
+            </div>
+          </ToolTip>
+        </div>
+      )}
     </div>
   );
 }

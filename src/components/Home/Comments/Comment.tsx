@@ -14,10 +14,15 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { API_URL } from "config";
-import { useDeleteCommentMutation, useUpdateCommentMutation } from "store/API/commentsAPI";
+import {
+  useDeleteCommentMutation,
+  useUpdateCommentMutation,
+} from "store/API/commentsAPI";
+import { calculateTimeAgo } from "components/Helpers/calculateTimeAgo";
 
 function Comment({ comment }: { comment: iComment }) {
   const user = useAppSelector((state) => state.user);
+  const timeAgo = calculateTimeAgo(comment.date);
   const [deleteComment] = useDeleteCommentMutation();
   const [updateComment, { isLoading }] = useUpdateCommentMutation();
   const [liked, setLiked] = useState<boolean>(comment.liked.includes(user.id));
@@ -112,7 +117,7 @@ function Comment({ comment }: { comment: iComment }) {
             <p>{comment.text}</p>
           )}
           <div className={s.commentFooter}>
-            <span>1 hrs ago</span>
+            <span>{timeAgo}</span>
             <div className={s.commentControlPanel}>
               <FontAwesomeIcon
                 style={{ visibility: "hidden" }}

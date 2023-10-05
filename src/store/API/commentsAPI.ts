@@ -6,7 +6,9 @@ import { iAddPost, iComment } from "types/iPost";
 export const commentsAPI = createApi({
   reducerPath: "commentsAPI",
   tagTypes: ["Comment"],
-  baseQuery: fetchBaseQuery({ baseUrl: `${API_URL}api/comments` }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${API_URL}api/comments`,
+  }),
   endpoints: (build) => ({
     getComments: build.query<iComment[], any[]>({
       query: (limit: any[]) => ({

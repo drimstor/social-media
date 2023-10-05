@@ -38,8 +38,6 @@ function HomeUsersSlider() {
     responsive: matches ? [] : breakpointsArray,
   };
 
-  console.log(matches);
-
   return (
     <Slider className={s.usersBarSlider} {...settings}>
       <HomeUserBarItem user={user} active />

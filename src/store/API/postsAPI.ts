@@ -1,12 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { API_URL } from "config";
+import { API_URL, DEV_API_URL } from "config";
 import { setShowSnackbar } from "store/slices/messageSlice";
 import { iAddPost, iPost } from "types/iPost";
 
 export const postsAPI = createApi({
   reducerPath: "postsAPI",
   tagTypes: ["Posts"],
-  baseQuery: fetchBaseQuery({ baseUrl: `${API_URL}api/posts` }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${API_URL}api/posts`,
+  }),
   endpoints: (build) => ({
     getPosts: build.query<iPost[], number>({
       query: (limit: number = 5) => ({

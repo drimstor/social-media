@@ -11,7 +11,7 @@
   padding-bottom: 25px;
 
   @include tablet {
-    padding-bottom: 180px;
+    padding-bottom: 80px;
   }
 
   &::-webkit-scrollbar {
@@ -214,6 +214,26 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    position: relative;
+
+    > span {
+      color: $monoChrome;
+      position: absolute;
+      font-weight: 500;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      transition: all 0.5s ease-in-out;
+      bottom: -15px;
+      opacity: 0;
+      transform: scale(0.6);
+
+      &.active {
+        bottom: -28px;
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
   }
 
   .post {
@@ -231,6 +251,25 @@
     flex-direction: column;
     justify-content: space-between;
     height: 45px;
+
+    @include tablet {
+      margin-top: -12px;
+    }
+
+    .time {
+      display: none;
+      @extend %f2;
+
+      @include tablet {
+        font-weight: 500;
+        font-size: 12px;
+        color: $mainColor;
+        text-transform: lowercase;
+        margin-left: auto;
+        width: fit-content;
+        display: block;
+      }
+    }
 
     .name {
       display: flex;
@@ -254,7 +293,7 @@
         text-transform: lowercase;
 
         @include tablet {
-          margin-left: 0;
+          display: none;
         }
       }
     }
@@ -579,6 +618,10 @@
 
     span {
       min-width: 45px;
+
+      @include tablet {
+        width: 100%;
+      }
     }
   }
 
@@ -699,10 +742,6 @@
     padding-top: 5px;
     display: flex;
     align-items: center;
-
-    @include tablet {
-      padding-top: 15px;
-    }
 
     form {
       margin-left: 15px;

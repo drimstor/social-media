@@ -20,6 +20,7 @@ import {
 import Comments from "../Comments/Comments";
 import { useAppSelector } from "hooks/redux";
 import { API_URL } from "config";
+import { calculateTimeAgo } from "components/Helpers/calculateTimeAgo";
 
 function HomePost({ post }: { post: iPost }) {
   const user = useAppSelector((state) => state.user);
@@ -31,6 +32,7 @@ function HomePost({ post }: { post: iPost }) {
   const [visibleHeaderPopup, setVisibleHeaderPopup] = useState<boolean>(false);
   const [editPost, setEditPost] = useState<boolean>(false);
   const [editPostValue, setEditPostValue] = useState<string>(post.text);
+  const timeAgo = calculateTimeAgo(post.date);
 
   const handleDeletePost = async () => {
     await deletePost(post._id).unwrap();
@@ -106,10 +108,11 @@ function HomePost({ post }: { post: iPost }) {
         </div>
         <div className={s.postInfo}>
           <div className={s.nickname}>
-            @nickname <img src={approval} alt="approval" />
+            @nickname <img src={approval} alt="approval" />{" "}
+            <span className={s.time}>⦁ {timeAgo}</span>
           </div>
           <div className={s.name}>
-            {post.name} <span>⦁ 1 hrs ago</span>
+            {post.name} <span>⦁ {timeAgo}</span>
           </div>
         </div>
         <FontAwesomeIcon
