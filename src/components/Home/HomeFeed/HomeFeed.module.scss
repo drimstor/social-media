@@ -8,10 +8,12 @@
   max-width: 1080px;
   overflow-x: hidden;
   overflow-y: scroll;
-  padding-bottom: 25px;
+  padding-bottom: 35px;
+  height: 100dvh;
 
   @include tablet {
-    padding-bottom: 80px;
+    padding-top: 15px;
+    padding-bottom: 130px;
   }
 
   &::-webkit-scrollbar {
@@ -68,7 +70,7 @@
   }
 
   .createPost {
-    margin-top: 30px;
+    margin-top: 35px;
     border-radius: 15px;
     padding: 20px;
     background: $mainMono;
@@ -308,6 +310,7 @@
 
       img {
         margin-left: 7px;
+        margin-right: 7px;
         width: 20px;
         height: 20px;
       }

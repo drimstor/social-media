@@ -107,6 +107,7 @@ export default function Register() {
       if (!!formFields.file) await dispatch(uploadAvatar(formFields.file));
     }
 
+
     if (isNoError && formFields.password === formFields.confirmPassword) {
       signUp();
     }

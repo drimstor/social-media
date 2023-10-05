@@ -10,7 +10,7 @@ function HomeFeed() {
   const newScroll = useRef<HTMLDivElement | any>(null);
   const newScrollContent = useRef<HTMLDivElement | any>(null);
 
-  const { data = [], isLoading } = useGetPostsQuery(5);
+  const { data = [], isFetching } = useGetPostsQuery(5);
 
   const handleScroll = () => {
     newScroll.current.scrollTop = oldScroll.current?.scrollTop;
@@ -25,7 +25,7 @@ function HomeFeed() {
 
   useEffect(() => {
     timeoutHandleScroll();
-  }, [data]);
+  }, [data, isFetching]);
 
   return (
     <div ref={oldScroll} onScroll={handleScroll} className={s.feed}>

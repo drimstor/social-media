@@ -7,7 +7,7 @@ import clsx from "clsx";
 
 function HomePosts({ data }: { data: iPost[] }) {
   const { ref, inView } = useInView({
-    // triggerOnce: true,
+    triggerOnce: true,
     threshold: 0.9,
     delay: 2000,
   });

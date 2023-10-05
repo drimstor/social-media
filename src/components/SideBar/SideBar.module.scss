@@ -4,12 +4,12 @@
   width: 100%;
   height: 100vh;
   background: $background;
-  display: flex;
-  overflow: hidden;
-  position: relative;
+  // display: flex;
+  // overflow: hidden;
+  // position: relative;
 
   @include laptop {
-    overflow-y: scroll;
+    // overflow-y: scroll;
   }
 }
 
@@ -158,7 +158,7 @@
 
   @include tablet {
     bottom: auto;
-    top: 37px;
+    top: 15px;
     position: fixed;
     right: 15px;
   }
@@ -374,7 +374,7 @@
       border-top-left-radius: 35px;
       padding-left: 15px;
       position: relative;
-      // transition: all 0.3s;
+      transition: all 0.3s;
       margin: 15px 0;
       cursor: pointer;
 
@@ -382,7 +382,7 @@
       h2 {
         opacity: 0.7;
         text-transform: capitalize;
-        // transition: all 0.3s;
+        transition: all 0.3s;
       }
 
       @include noMobile {
@@ -422,7 +422,7 @@
 
       .elementWrapper {
         display: flex;
-        // transition: all 0.005s;
+        transition: all 0.005s;
         overflow: hidden;
 
         @include tablet {
@@ -442,7 +442,7 @@
         width: 25px;
         position: absolute;
         z-index: 2;
-        // transition: 0.3s all;
+        transition: 0.3s all;
 
         @include tablet {
           margin-right: 0;
@@ -453,14 +453,14 @@
           min-height: 30px;
           margin-top: 22px;
           margin-bottom: 70px;
-          transition: 1.3s all;
+          transition: 0.5s all;
         }
       }
 
       h2 {
         position: relative;
         z-index: 2;
-        // transition: 0.3s all;
+        transition: 0.3s all;
         margin-left: 44px;
 
         @include tablet {

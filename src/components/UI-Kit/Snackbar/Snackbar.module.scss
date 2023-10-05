@@ -9,6 +9,16 @@
   flex-direction: column;
   justify-content: end;
   gap: 8px;
+
+  @include tablet {
+    width: fit-content;
+    white-space: nowrap;
+    bottom: initial;
+    top: 35px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    right: initial;
+  }
 }
 
 .snackbar {

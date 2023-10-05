@@ -178,18 +178,27 @@
         flex-direction: column;
         align-items: center;
         gap: 5px;
-        min-width: 78px;
+        min-width: 95px;
+        position: relative;
+
+        .followingBorder {
+          position: absolute;
+          right: 0%;
+          height: 30px;
+          width: 2px;
+          background: $monoChrome;
+          border-radius: 5px;
+
+          &:nth-child(1) {
+            right: auto;
+            left: 0%;
+          }
+        }
 
         span {
           font-weight: 700;
           @extend %f2;
         }
-      }
-      .followingBorder {
-        height: 30px;
-        width: 2px;
-        background: $monoChrome;
-        border-radius: 5px;
       }
     }
   }

@@ -36,12 +36,14 @@ export default function ProfileImage() {
               <span>100</span>
               <p>Followers</p>
             </div>
-            <div className={s.followingBorder} />
+
             <div className={s.followingItem}>
+              <div className={s.followingBorder} />
               <span>100</span>
               <p>Posts</p>
+              <div className={s.followingBorder} />
             </div>
-            <div className={s.followingBorder} />
+
             <div className={s.followingItem}>
               <span>100</span>
               <p>Following</p>
