@@ -95,7 +95,7 @@
       border-radius: 15px;
       outline: none;
       border: none;
-      padding: 15px 120px 10px 20px;
+      padding: 12px 120px 10px 20px;
       @extend %f2;
       font-size: 14px;
       background: rgba(134, 134, 134, 0.123);
@@ -561,10 +561,10 @@
   .editCommentButtons {
     position: absolute;
     bottom: -27px;
-    width: 95%;
+    width: 100%;
     display: flex;
     gap: 10px;
-    justify-content: flex-end;
+    justify-content: center;
 
     button:nth-child(1) {
       @extend %Btn;
@@ -621,6 +621,7 @@
 
     span {
       min-width: 45px;
+      width: 100%;
 
       @include tablet {
         width: 100%;

@@ -10,17 +10,19 @@ import { useEffect } from "react";
 import { auth } from "store/slices/userSlice";
 
 export default function App() {
-  const isAuth = useAppSelector((state) => state.user.id);
+  const user = useAppSelector((state) => state.user);
   const location = useLocation();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(auth);
-  }, []);
+    if (user.token) {
+      dispatch(auth(user.token));
+    }
+  }, [user.token]);
 
   return (
     <Routes location={location}>
-      {isAuth ? (
+      {user.id ? (
         <>
           <Route path="/" element={<Navigate to="/chats" replace />} />
           <Route path="/home" element={<Home />} />

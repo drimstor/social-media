@@ -25,38 +25,33 @@ function Comment({ comment }: { comment: iComment }) {
   const timeAgo = calculateTimeAgo(comment.date);
   const [deleteComment] = useDeleteCommentMutation();
   const [updateComment, { isLoading }] = useUpdateCommentMutation();
-  const [liked, setLiked] = useState<boolean>(comment.liked.includes(user.id));
+  const [isLiked, setIsLiked] = useState(comment.liked.includes(user.id));
   const [sumLike, setSumLike] = useState<number>(comment.liked.length);
   const [editComment, setEditComment] = useState<boolean>(false);
   const [editCommentValue, setEditCommentValue] = useState<string>(
     comment.text
   );
 
-  const commentObject = {
-    likes: liked ? sumLike - 1 : sumLike + 1,
-    liked: liked
-      ? comment.liked.filter((item) => item !== user.id)
-      : [...comment.liked, user.id],
-    id: comment._id,
-    userId: comment.userId,
-    postId: comment.postId,
-    name: comment.name,
-    avatar: comment.avatar,
-    date: comment.date,
-    text: editCommentValue,
-  };
-
   const handleDeleteComment = async () => {
     await deleteComment(comment._id).unwrap();
   };
-  const handleUpdateComment = async () => {
-    // await updateComment(commentObject as iComment).unwrap();
+  const handleUpdateComment = async (isLike?: boolean) => {
+    await updateComment({
+      text: editCommentValue,
+      id: String(comment._id),
+      liked:
+        isLike === undefined
+          ? comment.liked
+          : isLike
+          ? comment.liked.filter((like) => like !== user.id)
+          : [...comment.liked, user.id],
+    } as { text: string; id: string; liked: string[] }).unwrap();
   };
 
   const handleLikeClick = () => {
-    setLiked(!liked);
-    setSumLike(liked ? sumLike - 1 : sumLike + 1);
-    handleUpdateComment();
+    setIsLiked(!isLiked);
+    setSumLike(comment.liked.includes(user.id) ? sumLike - 1 : sumLike + 1);
+    handleUpdateComment(comment.liked.includes(user.id));
   };
 
   const handleCancelEditClick = () => {
@@ -124,7 +119,7 @@ function Comment({ comment }: { comment: iComment }) {
                 icon={faReply}
               />
               <div
-                className={clsx(s.like, liked && s.liked)}
+                className={clsx(s.like, isLiked && s.liked)}
                 onClick={handleLikeClick}
               >
                 <FontAwesomeIcon icon={faHeart} />
@@ -133,7 +128,7 @@ function Comment({ comment }: { comment: iComment }) {
             </div>
           </div>
           <div className={s.removeButton}>
-            {comment.userId === user.id ? (
+            {comment.user === user.id ? (
               <>
                 <ToolTip title="Edit" reverse>
                   <FontAwesomeIcon

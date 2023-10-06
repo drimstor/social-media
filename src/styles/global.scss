@@ -83,7 +83,7 @@ a {
     transition: all 0.3s;
 
     @include tablet {
-      top: calc(50% - 17px);
+      top: calc(50% - 13px);
     }
 
     &:active {
@@ -104,7 +104,7 @@ a {
     transition: all 0.3s;
 
     @include tablet {
-      top: calc(50% - 17px);
+      top: calc(50% - 13px);
       right: 4px;
     }
 

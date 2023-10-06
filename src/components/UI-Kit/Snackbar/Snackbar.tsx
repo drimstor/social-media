@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import s from "./Snackbar.module.scss";
 import { setRemoveSnackbar } from "store/slices/messageSlice";
+import { logout } from "store/slices/userSlice";
 
 export interface iSnackbar {
   message: string;
@@ -32,6 +33,10 @@ function Snackbar({ data }: { data: iSnackbar }) {
       clearTimeout(globalTimer);
     };
   }, []);
+
+  if (data.message === "Auth error") {
+    dispatch(logout());
+  }
 
   const showSnackbar = () => {
     setIsShow(true);
@@ -57,7 +62,7 @@ function Snackbar({ data }: { data: iSnackbar }) {
         <FontAwesomeIcon icon={faTriangleExclamation} />
       )}
 
-      <p>{data.message}</p>
+      <p>{data.message ?? ""}</p>
     </div>
   );
 }

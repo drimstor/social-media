@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { iLoginUser, iUserState } from "types/iUser";
-import { API_URL } from "config";
+import { API_URL, DEV_API_URL } from "config";
 import { setShowSnackbar } from "./messageSlice";
 
 const initialState: iUserState = {
@@ -20,7 +20,7 @@ export const registration = createAsyncThunk(
   async (data: iLoginUser, { dispatch }) => {
     try {
       const response = await axios.post(
-        `${API_URL}api/auth/registration`,
+        `${DEV_API_URL}api/auth/registration`,
         data
       );
       dispatch(
@@ -47,7 +47,7 @@ export const login = createAsyncThunk(
   "user/login",
   async (data: Omit<iLoginUser, "name" | "file">, { dispatch }) => {
     try {
-      const response = await axios.post(`${API_URL}api/auth/login`, {
+      const response = await axios.post(`${DEV_API_URL}api/auth/login`, {
         email: data.email,
         password: data.password,
       });
@@ -71,18 +71,21 @@ export const login = createAsyncThunk(
 
 // -------------------------- //
 
-export const auth = createAsyncThunk("user/auth", async (_) => {
-  try {
-    const response = await axios.get(`${API_URL}api/auth/auth`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    return response.data;
-  } catch (error: any) {
-    localStorage.removeItem("token");
+export const auth = createAsyncThunk(
+  "user/auth",
+  async (token: string, { dispatch }) => {
+    try {
+      const response = await axios.get(`${DEV_API_URL}api/auth/auth`, {
+        headers: {
+          Authorization: `Bearer ${token ?? localStorage.getItem("token")}`,
+        },
+      });
+      return response.data;
+    } catch (error: any) {
+      return dispatch(logout());
+    }
   }
-});
+);
 
 // -------------------------- //
 
@@ -94,7 +97,7 @@ export const uploadAvatar = createAsyncThunk(
       formData.append("file", file);
 
       const response = await axios.post(
-        `${API_URL}api/files/avatar`,
+        `${DEV_API_URL}api/files/avatar`,
         formData,
         {
           headers: {
@@ -120,7 +123,7 @@ export const deleteAvatar = createAsyncThunk(
   "user/deleteAvatar",
   async (_, { dispatch }) => {
     try {
-      const response = await axios.delete(`${API_URL}api/files/avatar`, {
+      const response = await axios.delete(`${DEV_API_URL}api/files/avatar`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

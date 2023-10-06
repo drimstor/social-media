@@ -16,7 +16,7 @@ export interface iAddPost {
 
 export interface iComment {
   _id: string;
-  userId: string;
+  user: string;
   postId: number;
   name: string;
   avatar: string;
