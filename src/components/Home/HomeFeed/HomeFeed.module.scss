@@ -396,7 +396,9 @@
     border-radius: 15px;
     max-height: 300px;
     width: fit-content;
-    // object-fit: contain;
+    width: -moz-fit-content;
+    width: -webkit-fit-content;
+    object-fit: contain;
     max-width: 100%;
     margin-top: 3px;
   }
@@ -588,6 +590,7 @@
       max-width: 80px;
       border-radius: 7px;
       border-width: 1px;
+      background: $background;
     }
 
     button:nth-child(2) {
