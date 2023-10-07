@@ -50,7 +50,7 @@ function Comment({ comment }: { comment: iComment }) {
 
   const handleLikeClick = () => {
     setIsLiked(!isLiked);
-    setSumLike(comment.liked.includes(user.id) ? sumLike - 1 : sumLike + 1);
+    setSumLike(isLiked ? sumLike - 1 : sumLike + 1);
     handleUpdateComment(comment.liked.includes(user.id));
   };
 

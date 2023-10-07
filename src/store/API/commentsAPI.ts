@@ -7,7 +7,7 @@ export const commentsAPI = createApi({
   reducerPath: "commentsAPI",
   tagTypes: ["Comment"],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${API_URL}api/comments`,
+    baseUrl: `${DEV_API_URL}api/comments`,
   }),
   endpoints: (build) => ({
     getComments: build.query<iComment[], any[]>({

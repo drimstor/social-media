@@ -22,7 +22,6 @@ import { useAppSelector } from "hooks/redux";
 import { API_URL } from "config";
 import { calculateTimeAgo } from "components/Helpers/calculateTimeAgo";
 
-
 function HomePost({ post }: { post: iPost }) {
   const user = useAppSelector((state) => state.user);
   const popupButtonRef = useRef<SVGSVGElement>(null);
@@ -54,7 +53,7 @@ function HomePost({ post }: { post: iPost }) {
 
   const handleLikeClick = () => {
     setIsLiked(!isLiked);
-    setSumLike(post.liked.includes(user.id) ? sumLike - 1 : sumLike + 1);
+    setSumLike(isLiked ? sumLike - 1 : sumLike + 1);
     handleUpdatePost(post.liked.includes(user.id));
   };
 
