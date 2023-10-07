@@ -395,9 +395,10 @@
   .commentImage {
     border-radius: 15px;
     max-height: 300px;
-    width: fit-content;
-    width: -moz-fit-content;
-    width: -webkit-fit-content;
+    // width: fit-content;
+    // width: -moz-fit-content;
+    // width: -webkit-fit-content;
+    margin-right: auto;
     object-fit: contain;
     max-width: 100%;
     margin-top: 3px;
