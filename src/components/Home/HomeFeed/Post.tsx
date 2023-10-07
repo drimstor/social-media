@@ -22,6 +22,7 @@ import { useAppSelector } from "hooks/redux";
 import { API_URL } from "config";
 import { calculateTimeAgo } from "components/Helpers/calculateTimeAgo";
 
+
 function HomePost({ post }: { post: iPost }) {
   const user = useAppSelector((state) => state.user);
   const popupButtonRef = useRef<SVGSVGElement>(null);

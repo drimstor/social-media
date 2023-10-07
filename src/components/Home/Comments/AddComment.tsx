@@ -64,7 +64,6 @@ function AddComment({ postId }: { postId: string }) {
       </div>
       <form className={s.addCommentForm} onSubmit={handleSubmit}>
         <textarea
-          required
           name="textarea"
           placeholder="Write your comment"
           onKeyUp={onChangeHandler}
@@ -74,11 +73,11 @@ function AddComment({ postId }: { postId: string }) {
           multiple={false}
           type="file"
           name="file"
-          id="feedFile"
+          id="commentFile"
           accept=".jpg, .jpeg, .png, .webp, .gif, .svg, .ico, .tiff, .bmp"
           onChange={(e) => e.target.files && setImage(e.target.files[0])}
         />
-        <label htmlFor="feedFile" className={clsx(image && s.imageAdded)}>
+        <label htmlFor="commentFile" className={clsx(image && s.imageAdded)}>
           <ToolTip title="Photo" reverse>
             <FontAwesomeIcon icon={faImage} />
           </ToolTip>
