@@ -392,8 +392,17 @@
     }
   }
 
-  .postImages {
+  .commentImage {
+    border-radius: 15px;
+    max-height: 300px;
+    width: fit-content;
+    height: 100%;
+    object-fit: contain;
+    max-width: 100%;
+    margin-top: 5px;
+  }
 
+  .postImages {
     img {
       border-radius: 15px;
       max-height: 500px;

@@ -109,7 +109,16 @@ function Comment({ comment }: { comment: iComment }) {
               </div>
             </form>
           ) : (
-            <p>{comment.text}</p>
+            <>
+              {comment.image && (
+                <img
+                  className={s.commentImage}
+                  src={API_URL + comment.image}
+                  alt="comment"
+                />
+              )}
+              <p>{comment.text}</p>
+            </>
           )}
           <div className={s.commentFooter}>
             <span>{timeAgo}</span>
