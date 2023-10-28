@@ -178,7 +178,9 @@ const userSlice = createSlice({
       state.id = action.payload.user.id;
       state.posts = action.payload.user.posts;
       localStorage.setItem("token", action.payload.token);
-      window.location.href = "/chats";
+      setTimeout(() => {
+        window.location.href = "/chats";
+      }, 1500);
     });
 
     // -------------------------- //
@@ -203,7 +205,9 @@ const userSlice = createSlice({
       state.id = action.payload.user.id;
       state.posts = action.payload.user.posts;
       localStorage.setItem("token", action.payload.token);
-      window.location.href = "/chats";
+      setTimeout(() => {
+        window.location.href = "/chats";
+      }, 1500);
     });
 
     // -------------------------- //
