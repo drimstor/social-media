@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import s from "components/Home/HomeFeed/HomeFeed.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,11 +10,12 @@ import { useAppSelector } from "hooks/redux";
 import ToolTip from "components/Helpers/ToolTip";
 import clsx from "clsx";
 import { useAddPostMutation } from "store/API/postsAPI";
-import { API_URL } from "config";
+import { CachedAvatarContext } from "contexts/CacheAvatarContextProvider";
 
 function HomeCreatePost() {
   const [image, setImage] = useState<File | null>(null);
   const user = useAppSelector((state) => state.user);
+  const { avatar } = useContext(CachedAvatarContext);
   const [addPost] = useAddPostMutation();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -56,7 +57,7 @@ function HomeCreatePost() {
       <div className={s.createPostBox}>
         <div className={clsx(s.postImage, user.avatar && s.bordered)}>
           {user.avatar ? (
-            <img src={API_URL + user.avatar} alt="avatar" />
+            <img src={avatar} alt="avatar" />
           ) : (
             <FontAwesomeIcon icon={faUserCircle} />
           )}

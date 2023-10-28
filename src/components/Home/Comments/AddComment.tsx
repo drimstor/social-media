@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import clsx from "clsx";
 import s from "components/Home/HomeFeed/HomeFeed.module.scss";
 import { useAppSelector } from "hooks/redux";
@@ -9,11 +9,12 @@ import {
   faPaperPlane,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { API_URL } from "config";
 import { useAddCommentMutation } from "store/API/commentsAPI";
+import { CachedAvatarContext } from "contexts/CacheAvatarContextProvider";
 
 function AddComment({ postId }: { postId: string }) {
   const user = useAppSelector((state) => state.user);
+  const { avatar } = useContext(CachedAvatarContext);
   const [addComment] = useAddCommentMutation();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [image, setImage] = useState<File | null>(null);
@@ -57,7 +58,7 @@ function AddComment({ postId }: { postId: string }) {
     <div className={s.postComment}>
       <div className={clsx(s.image, !user.avatar && s.withoutBorder)}>
         {user.avatar ? (
-          <img src={API_URL + user.avatar} alt="avatar" />
+          <img src={avatar} alt="avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}

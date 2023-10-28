@@ -6,20 +6,21 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import SideBarLayout from "components/Layouts/SideBarLayout";
+import { CachedAvatarProvider } from "contexts/CacheAvatarContextProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <SideBarLayout>
+  <BrowserRouter>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <SideBarLayout>
+          <CachedAvatarProvider>
             <App />
-          </SideBarLayout>
-        </PersistGate>
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+          </CachedAvatarProvider>
+        </SideBarLayout>
+      </PersistGate>
+    </Provider>
+  </BrowserRouter>
 );

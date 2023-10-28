@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import s from "components/Home/Home.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
@@ -8,12 +8,14 @@ import {
   selectSideBarIndex,
   selectSideBarItem,
 } from "store/slices/sideBarSlice";
-import { API_URL } from "config";
+import { CachedAvatarContext } from "contexts/CacheAvatarContextProvider";
 
 function HomeUserInfo() {
+  const { avatar } = useContext(CachedAvatarContext);
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const clickOnItem = () => {
     dispatch(selectSideBarItem("profile"));
     dispatch(selectSideBarIndex(1));
@@ -32,7 +34,7 @@ function HomeUserInfo() {
             <p>Followers</p>
           </div>
           {user.avatar ? (
-            <img src={API_URL + user.avatar} alt="avatar" />
+            <img src={avatar} alt="avatar" />
           ) : (
             <FontAwesomeIcon icon={faUserCircle} />
           )}

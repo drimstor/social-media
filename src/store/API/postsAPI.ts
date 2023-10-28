@@ -7,7 +7,7 @@ export const postsAPI = createApi({
   reducerPath: "postsAPI",
   tagTypes: ["Posts"],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${API_URL}api/posts`,
+    baseUrl: `${DEV_API_URL}api/posts`,
   }),
   endpoints: (build) => ({
     getPosts: build.query<iPost[], number>({

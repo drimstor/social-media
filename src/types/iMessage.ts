@@ -1,10 +1,7 @@
 export interface iMessage {
-  id: string;
+  _id: string;
   senderId: string;
   text: string;
   img?: string;
-  date: {
-    nanoseconds: number;
-    seconds: number;
-  };
+  date: number;
 }

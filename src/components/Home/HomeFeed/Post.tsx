@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import s from "components/Home/HomeFeed/HomeFeed.module.scss";
 import approval from "img/approval.png";
@@ -21,8 +21,12 @@ import Comments from "../Comments/Comments";
 import { useAppSelector } from "hooks/redux";
 import { API_URL } from "config";
 import { calculateTimeAgo } from "components/Helpers/calculateTimeAgo";
+import useOpenUserProfile from "components/Helpers/openUserProfile";
+import { CachedAvatarContext } from "contexts/CacheAvatarContextProvider";
 
 function HomePost({ post }: { post: iPost }) {
+  const { avatar } = useContext(CachedAvatarContext);
+  const openUserProfile = useOpenUserProfile();
   const user = useAppSelector((state) => state.user);
   const popupButtonRef = useRef<SVGSVGElement>(null);
   const [deletePost] = useDeletePostMutation();
@@ -96,30 +100,46 @@ function HomePost({ post }: { post: iPost }) {
     };
   }, []);
 
+  const openProfile = () => {
+    openUserProfile({
+      name: post.name,
+      avatar: post.avatar,
+      id: post.user,
+    });
+  };
+
   return (
     <div className={s.post}>
       <div className={s.postHeader}>
-        <div className={clsx(s.image, !post.avatar && s.bordered)}>
+        <div
+          className={clsx(s.image, !post.avatar && s.bordered)}
+          onClick={openProfile}
+        >
           {post.avatar ? (
-            <img src={API_URL + post.avatar} alt="avatar" />
+            <img
+              src={post.avatar === user.avatar ? avatar : API_URL + post.avatar}
+              alt="avatar"
+            />
           ) : (
             <FontAwesomeIcon icon={faUserCircle} />
           )}
         </div>
-        <div className={s.postInfo}>
+        <div className={s.postInfo} onClick={openProfile}>
           <div className={s.nickname}>
             @nickname <img src={approval} alt="approval" />{" "}
             <span className={s.time}>⦁ {timeAgo}</span>
           </div>
           <div className={s.name}>
-            {post.name} <span>⦁ {timeAgo}</span>
+            <h4>{post.name}</h4> <span>⦁ {timeAgo}</span>
           </div>
         </div>
-        <FontAwesomeIcon
-          icon={faEllipsisVertical}
-          ref={popupButtonRef}
-          onClick={() => setVisibleHeaderPopup(!visibleHeaderPopup)}
-        />
+        {post.user === user.id && (
+          <FontAwesomeIcon
+            icon={faEllipsisVertical}
+            ref={popupButtonRef}
+            onClick={() => setVisibleHeaderPopup(!visibleHeaderPopup)}
+          />
+        )}
         <div className={clsx(s.postHeaderPopup, visibleHeaderPopup && s.show)}>
           <div onClick={handleDeletePost} className={s.postHeaderPopupItem}>
             <FontAwesomeIcon icon={faTrash} />

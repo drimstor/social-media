@@ -10,7 +10,7 @@ function HomeFeed() {
   const newScroll = useRef<HTMLDivElement | any>(null);
   const newScrollContent = useRef<HTMLDivElement | any>(null);
 
-  const { data = [], isFetching } = useGetPostsQuery(5);
+  const { data = [], isFetching } = useGetPostsQuery(15);
 
   const handleScroll = () => {
     newScroll.current.scrollTop = oldScroll.current?.scrollTop;

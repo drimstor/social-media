@@ -1,20 +1,24 @@
-import React from "react";
-import { useAppSelector } from "hooks/redux";
+import { useEffect } from "react";
 import s from "components/Home/HomeFeed/HomeFeed.module.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import HomeUserBarItem from "../HomeUserBarItem";
 import useMediaQuery from "hooks/useMediaQuery";
+import { useLazySearchUserQuery } from "store/API/chatApi";
 
 function HomeUsersSlider() {
-  const user = useAppSelector((state) => state.user);
   const matches = useMediaQuery("(max-width:425px)");
+  const [getSearchUsers, searchResults] = useLazySearchUserQuery();
+
+  useEffect(() => {
+    getSearchUsers("getAllUsers");
+  }, []);
 
   let breakpointsInit = 1700;
   let breakpointsArray = [];
 
-  for (let i = 8; i >= 4; i--) {
+  for (let i = 9; i >= 4; i--) {
     const obj = {
       breakpoint: breakpointsInit,
       settings: {
@@ -30,7 +34,7 @@ function HomeUsersSlider() {
     arrows: true,
     infinite: false,
     speed: 500,
-    slidesToShow: matches ? 3 : 9,
+    slidesToShow: matches ? 3 : 10,
     slidesToScroll: 1,
     easing: "ease-in-out",
     touchMove: false,
@@ -39,23 +43,16 @@ function HomeUsersSlider() {
   };
 
   return (
-    <Slider className={s.usersBarSlider} {...settings}>
-      <HomeUserBarItem user={user} active />
-      <HomeUserBarItem user={user} />
-      <HomeUserBarItem user={user} />
-      <HomeUserBarItem user={user} active />
-      <HomeUserBarItem user={user} />
-      <HomeUserBarItem user={user} />
-      <HomeUserBarItem user={user} active />
-      <HomeUserBarItem user={user} />
-      <HomeUserBarItem user={user} />
-      <HomeUserBarItem user={user} active />
-      <HomeUserBarItem user={user} />
-      <HomeUserBarItem user={user} />
-      <HomeUserBarItem user={user} active />
-      <HomeUserBarItem user={user} />
-      <HomeUserBarItem user={user} />
-    </Slider>
+    <div className={s.userSliderContainer}>
+      {searchResults.data && (
+        <Slider className={s.usersBarSlider} {...settings}>
+          {searchResults.data?.length &&
+            searchResults.data.map((user, index) => (
+              <HomeUserBarItem user={user} active={!!(index % 3)} key={index} />
+            ))}
+        </Slider>
+      )}
+    </div>
   );
 }
 

@@ -3,6 +3,7 @@ import axios from "axios";
 import { iLoginUser, iUserState } from "types/iUser";
 import { API_URL, DEV_API_URL } from "config";
 import { setShowSnackbar } from "./messageSlice";
+import { selectSideBarIndex, selectSideBarItem } from "./sideBarSlice";
 
 const initialState: iUserState = {
   name: "",
@@ -11,6 +12,7 @@ const initialState: iUserState = {
   id: "",
   token: "",
   posts: undefined,
+  anotherUserProfile: null,
 };
 
 // ------------ Async Reducers ------------- //
@@ -29,6 +31,8 @@ export const registration = createAsyncThunk(
           message: "User created",
         })
       );
+      dispatch(selectSideBarItem("chats"));
+      dispatch(selectSideBarIndex(2));
       return response.data;
     } catch (error: any) {
       return dispatch(
@@ -57,6 +61,8 @@ export const login = createAsyncThunk(
           message: "Welcome!",
         })
       );
+      dispatch(selectSideBarItem("chats"));
+      dispatch(selectSideBarIndex(2));
       return response.data;
     } catch (error: any) {
       return dispatch(
@@ -153,7 +159,14 @@ const userSlice = createSlice({
       state.id = "";
       state.token = "";
       state.posts = undefined;
+      state.anotherUserProfile = null;
       localStorage.removeItem("token");
+    },
+    viewAnotherUserProfile(state, action) {
+      state.anotherUserProfile = action.payload;
+    },
+    resetViewAnotherUserProfile(state) {
+      state.anotherUserProfile = null;
     },
   },
   extraReducers: (builder) => {
@@ -165,6 +178,7 @@ const userSlice = createSlice({
       state.id = action.payload.user.id;
       state.posts = action.payload.user.posts;
       localStorage.setItem("token", action.payload.token);
+      window.location.href = "/chats";
     });
 
     // -------------------------- //
@@ -189,6 +203,7 @@ const userSlice = createSlice({
       state.id = action.payload.user.id;
       state.posts = action.payload.user.posts;
       localStorage.setItem("token", action.payload.token);
+      window.location.href = "/chats";
     });
 
     // -------------------------- //
@@ -215,6 +230,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { logout, viewAnotherUserProfile, resetViewAnotherUserProfile } =
+  userSlice.actions;
 
 export default userSlice.reducer;

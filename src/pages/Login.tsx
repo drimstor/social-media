@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import s from "styles/authentication.module.scss";
 import BackdropLayout from "components/Layouts/BackdropLayout";
 import { login } from "store/slices/userSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "hooks/redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -50,8 +50,6 @@ export default function Login() {
       dispatch(
         login({ email: formFields.email, password: formFields.password })
       );
-      dispatch(selectSideBarItem("chats"));
-      dispatch(selectSideBarIndex(2));
     }
   }, [isNoError]);
 

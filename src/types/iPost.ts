@@ -1,6 +1,6 @@
 export interface iPost {
   _id: string;
-  userId: string;
+  user: string;
   nickname: string;
   name: string;
   avatar: string;

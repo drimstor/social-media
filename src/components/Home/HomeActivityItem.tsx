@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import s from "components/Home/Home.module.scss";
 import { iUserState } from "types/iUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,9 +9,10 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
-import { API_URL } from "config";
+import { CachedAvatarContext } from "contexts/CacheAvatarContextProvider";
 
 function HomeActivityItem({ user }: { user: iUserState }) {
+  const { avatar } = useContext(CachedAvatarContext);
   const [del, setDel] = useState(false);
   const [like, setLike] = useState(false);
   const item = useRef<HTMLDivElement>(null);
@@ -30,7 +31,7 @@ function HomeActivityItem({ user }: { user: iUserState }) {
     >
       <div className={s.image}>
         {user.avatar ? (
-          <img src={API_URL + user.avatar} alt="avatar" />
+          <img src={avatar} alt="avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}

@@ -88,7 +88,7 @@
   height: 100%;
   display: flex;
   overflow: hidden;
-  border-radius: 15px;
+  border-radius: 10px;
 
   @include mobile {
     border-radius: 0;
@@ -205,7 +205,7 @@
   border-radius: 5px;
   color: $monoChrome;
   visibility: hidden;
-  z-index: 3;
+  z-index: 99999;
   white-space: nowrap;
   text-transform: capitalize;
 
@@ -317,6 +317,7 @@
     overflow: hidden;
     transition: all 0.3s;
 
+
     @include tablet {
       display: none;
     }
@@ -326,7 +327,7 @@
       letter-spacing: 1px;
       @extend %fontTitle;
       margin-left: 2px;
-      font-weight: 400;
+      font-weight: 300;
     }
 
     span {

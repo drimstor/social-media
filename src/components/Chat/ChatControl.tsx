@@ -10,12 +10,23 @@ import {
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { API_URL } from "config";
+import useOpenUserProfile from "components/Helpers/openUserProfile";
 
 function ChatControl() {
   const user = useAppSelector((state) => state.chat.user);
+  const openUserProfile = useOpenUserProfile();
+
+  const openProfile = () => {
+    openUserProfile({
+      name: user.name,
+      avatar: user.avatar ?? "",
+      id: user.id,
+    });
+  };
+
   return (
     <div className={s.control}>
-      <div className={s.controlProfile}>
+      <div className={s.controlProfile} onClick={openProfile}>
         {user && user.avatar ? (
           <img src={API_URL + user.avatar} alt="Profile avatar" />
         ) : (

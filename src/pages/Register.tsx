@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import s from "styles/authentication.module.scss";
 import BackdropLayout from "components/Layouts/BackdropLayout";
 import { registration, uploadAvatar } from "store/slices/userSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "hooks/redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,6 +15,10 @@ import {
 import useValidation from "hooks/useValidatiton/useValidation";
 import Input from "components/UI-Kit/Input/Input";
 import FileInput from "components/UI-Kit/Input/FileInput";
+import {
+  selectSideBarIndex,
+  selectSideBarItem,
+} from "store/slices/sideBarSlice";
 
 const formInputs = [
   {
@@ -106,7 +110,6 @@ export default function Register() {
       await dispatch(registration(formFields));
       if (!!formFields.file) await dispatch(uploadAvatar(formFields.file));
     }
-
 
     if (isNoError && formFields.password === formFields.confirmPassword) {
       signUp();

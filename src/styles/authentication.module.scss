@@ -19,7 +19,7 @@
     width: 100%;
     max-width: 400px;
     background: $grey;
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border: 1px solid $black;
     padding: 40px 30px 20px;
@@ -221,12 +221,12 @@
     width: 80%;
     height: 30px;
     border: 3px solid $white;
-    border-radius: 15px;
+    border-radius: 10px;
     position: relative;
   }
   .loadingBar {
     position: absolute;
-    border-radius: 15px;
+    border-radius: 10px;
     top: 2px;
     left: 2px;
     background: $pink;

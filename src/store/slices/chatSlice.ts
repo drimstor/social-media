@@ -1,20 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { iUserState } from "types/iUser";
+import { iChangeChatPayload, iChat } from "types/iUser";
 
 interface initialStateProps {
-  chatId: string;
-  user: iUserState;
+  user: iChat;
   selectedChat?: string;
 }
 
 const initialState: initialStateProps = {
-  chatId: "",
   user: {
-    avatar: null,
+    avatar: "",
     name: "",
-    email: "",
     id: "",
-    token: "",
   },
   selectedChat: "",
 };
@@ -23,13 +19,11 @@ const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    changeUser(state, action: PayloadAction<iUserState[]>) {
-      state.user = action.payload[1];
-      state.chatId =
-        action.payload[0].id > action.payload[1].id
-          ? action.payload[0].id + action.payload[1].id
-          : action.payload[1].id + action.payload[0].id;
-      state.selectedChat = action.payload[1].id;
+    changeUser(state, action: PayloadAction<iChangeChatPayload>) {
+      state.user.avatar = action.payload.avatar;
+      state.user.name = action.payload.name;
+      state.user.id = action.payload.id;
+      state.selectedChat = action.payload.chatId;
     },
   },
 });

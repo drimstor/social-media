@@ -16,11 +16,12 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import { chatApi } from "./API/chatApi";
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["postsAPI", "commentsAPI", "messages"],
+  blacklist: ["postsAPI", "commentsAPI", "messages", "chatApi"],
 };
 
 export const rootReducer = combineReducers({
@@ -30,6 +31,7 @@ export const rootReducer = combineReducers({
   messages: messageSlice,
   [postsAPI.reducerPath]: postsAPI.reducer,
   [commentsAPI.reducerPath]: commentsAPI.reducer,
+  [chatApi.reducerPath]: chatApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -43,7 +45,8 @@ export const store = configureStore({
       },
     })
       .concat(postsAPI.middleware)
-      .concat(commentsAPI.middleware),
+      .concat(commentsAPI.middleware)
+      .concat(chatApi.middleware),
 });
 
 export const persistor = persistStore(store);

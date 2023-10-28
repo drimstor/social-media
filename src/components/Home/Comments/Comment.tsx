@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import clsx from "clsx";
 import s from "components/Home/HomeFeed/HomeFeed.module.scss";
 import { iComment } from "types/iPost";
@@ -19,11 +19,15 @@ import {
   useUpdateCommentMutation,
 } from "store/API/commentsAPI";
 import { calculateTimeAgo } from "components/Helpers/calculateTimeAgo";
+import useOpenUserProfile from "components/Helpers/openUserProfile";
+import { CachedAvatarContext } from "contexts/CacheAvatarContextProvider";
 
 function Comment({ comment }: { comment: iComment }) {
   const user = useAppSelector((state) => state.user);
+  const openUserProfile = useOpenUserProfile();
   const timeAgo = calculateTimeAgo(comment.date);
   const [deleteComment] = useDeleteCommentMutation();
+  const { avatar } = useContext(CachedAvatarContext);
   const [updateComment, { isLoading }] = useUpdateCommentMutation();
   const [isLiked, setIsLiked] = useState(comment.liked.includes(user.id));
   const [sumLike, setSumLike] = useState<number>(comment.liked.length);
@@ -35,6 +39,7 @@ function Comment({ comment }: { comment: iComment }) {
   const handleDeleteComment = async () => {
     await deleteComment(comment._id).unwrap();
   };
+
   const handleUpdateComment = async (isLike?: boolean) => {
     await updateComment({
       text: editCommentValue,
@@ -80,18 +85,36 @@ function Comment({ comment }: { comment: iComment }) {
     }
   };
 
+  const openProfile = () => {
+    openUserProfile({
+      name: comment.name,
+      avatar: comment.avatar,
+      id: comment.user,
+    });
+  };
+
   return (
     <>
       <div className={s.commentBox}>
-        <div className={clsx(s.image, !comment.avatar && s.withoutBorder)}>
+        <div
+          className={clsx(s.image, !comment.avatar && s.withoutBorder)}
+          onClick={openProfile}
+        >
           {comment.avatar ? (
-            <img src={API_URL + comment.avatar} alt="avatar" />
+            <img
+              src={
+                comment.avatar === user.avatar
+                  ? avatar
+                  : API_URL + comment.avatar
+              }
+              alt="avatar"
+            />
           ) : (
             <FontAwesomeIcon icon={faUserCircle} />
           )}
         </div>
         <div className={s.commentBody}>
-          <h3>{comment.name}</h3>
+          <h3 onClick={openProfile}>{comment.name}</h3>
           {editComment ? (
             <form className={s.editComment} onSubmit={handleEditClick}>
               <textarea
@@ -126,7 +149,11 @@ function Comment({ comment }: { comment: iComment }) {
                 icon={faReply}
               />
               <div
-                className={clsx(s.like, isLiked && s.liked)}
+                className={clsx(
+                  s.like,
+                  isLiked && s.liked,
+                  sumLike > 0 && s.alreadyLiked
+                )}
                 onClick={handleLikeClick}
               >
                 <FontAwesomeIcon icon={faHeart} />

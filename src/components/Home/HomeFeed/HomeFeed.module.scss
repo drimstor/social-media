@@ -22,9 +22,17 @@
 
   .usersBarSlider {
     display: flex;
-    height: 100px;
+    min-height: 102px;
+    height: 102px;
     padding: 0 10px;
     transition: 0.3s;
+  }
+
+  .userBarItemBox {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    height: 102px;
 
     h2 {
       text-align: center;
@@ -41,6 +49,8 @@
     min-width: 80px !important;
     width: 80px !important;
     height: 80px !important;
+    min-width: 80px !important;
+    min-height: 80px !important;
     margin: 0 auto;
     padding: 2px;
     border: 2px solid $lightgrey;
@@ -71,7 +81,7 @@
 
   .createPost {
     margin-top: 35px;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 20px;
     background: $mainMono;
     border: 1px solid rgba(44, 44, 44, 0.06);
@@ -92,7 +102,7 @@
       width: 100%;
       min-height: 55px;
       height: auto;
-      border-radius: 15px;
+      border-radius: 10px;
       outline: none;
       border: none;
       padding: 12px 120px 10px 20px;
@@ -239,7 +249,7 @@
   }
 
   .post {
-    border-radius: 15px;
+    border-radius: 10px;
     background: $mainMono;
     padding: 20px;
     border: 1px solid rgba(44, 44, 44, 0.06);
@@ -281,10 +291,19 @@
       color: $monoChrome;
       font-weight: 500;
       @extend %f2;
+      cursor: pointer;
+
+      &:hover h4 {
+        text-decoration: underline;
+      }
 
       @include tablet {
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      h4 {
+        font-weight: 500;
       }
 
       span {
@@ -350,6 +369,8 @@
     padding: 2px;
     border: 2px solid $lightgrey;
     border-radius: 22px;
+    cursor: pointer;
+    transition: border 0.3s ease-in-out;
 
     &.bordered {
       border-radius: 50%;
@@ -357,6 +378,10 @@
 
     &.withoutBorder {
       border-color: transparent;
+    }
+
+    &:hover {
+      border-color: $mainColor;
     }
 
     img {
@@ -393,7 +418,7 @@
   }
 
   .commentImage {
-    border-radius: 15px;
+    border-radius: 10px;
     max-height: 300px;
     margin-right: auto;
     object-fit: contain;
@@ -407,7 +432,7 @@
 
   .postImages {
     img {
-      border-radius: 15px;
+      border-radius: 10px;
       max-height: 500px;
       width: fit-content;
       height: 100%;
@@ -545,6 +570,11 @@
     h3 {
       @extend %f2;
       font-weight: 300;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -674,10 +704,12 @@
         }
       }
 
-      &.liked {
+      &.alreadyLiked {
         visibility: visible;
         opacity: 1;
+      }
 
+      &.liked {
         svg,
         p {
           color: rgb(192, 34, 34) !important;
@@ -826,4 +858,9 @@
   border: 2px solid $monoChrome !important;
   padding-left: 8px !important;
   padding-top: 6px !important;
+}
+
+.userSliderContainer {
+  height: 102px;
+  min-height: 102px;
 }

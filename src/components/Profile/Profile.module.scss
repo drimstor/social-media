@@ -15,7 +15,7 @@
 .profileImage {
   min-width: 425px;
   flex: 0.3;
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 0px 2px 9px 0px rgba(63, 63, 63, 0.2);
   background: url(../../img/background.png),
     linear-gradient(0deg, $background 55%, $mainColor);
@@ -208,12 +208,12 @@
   height: 35%;
   box-shadow: 0px 2px 9px 0px rgba(63, 63, 63, 0.2);
   background: $input;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 .profileBlog {
   height: calc(65% - 45px);
   box-shadow: 0px 2px 9px 0px rgba(63, 63, 63, 0.2);
   background: $input;
-  border-radius: 15px;
+  border-radius: 10px;
 }

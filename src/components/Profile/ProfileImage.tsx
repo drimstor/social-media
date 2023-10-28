@@ -1,25 +1,60 @@
-import React from "react";
+import React, { useContext } from "react";
 import s from "./Profile.module.scss";
 import flag from "img/flag-russia.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { useAppSelector } from "hooks/redux";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { API_URL } from "config";
+import { useNavigate } from "react-router-dom";
+import { changeUser } from "store/slices/chatSlice";
+import {
+  selectSideBarIndex,
+  selectSideBarItem,
+} from "store/slices/sideBarSlice";
+import { CachedAvatarContext } from "contexts/CacheAvatarContextProvider";
 
 export default function ProfileImage() {
   const user = useAppSelector((state) => state.user);
+  const { avatar } = useContext(CachedAvatarContext);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const openChat = () => {
+    if (user.anotherUserProfile) {
+      dispatch(
+        changeUser({
+          avatar: user.anotherUserProfile.avatar ?? "",
+          name: user.anotherUserProfile.name,
+          id: user.anotherUserProfile.id ?? "",
+          chatId: user.id + user.anotherUserProfile.id,
+        })
+      );
+      dispatch(selectSideBarItem("chats"));
+      dispatch(selectSideBarIndex(2));
+      navigate("/chats");
+    }
+  };
 
   return (
     <div className={s.profileImage}>
       <div className={s.image}>
-        {user.avatar ? (
-          <img src={API_URL + user.avatar} alt="Profile" />
+        {user.anotherUserProfile ? (
+          user.anotherUserProfile?.avatar ? (
+            <img
+              src={API_URL + user.anotherUserProfile?.avatar}
+              alt="Profile"
+            />
+          ) : (
+            <FontAwesomeIcon icon={faUserCircle} />
+          )
+        ) : user.avatar ? (
+          <img src={avatar} alt="avatar" />
         ) : (
           <FontAwesomeIcon icon={faUserCircle} />
         )}
       </div>
       <div className={s.information}>
-        <h1>{user.name}</h1>
+        <h1>{user.anotherUserProfile?.name ?? user.name}</h1>
 
         <div className={s.infoBoxWrapper}>
           <span className={s.nickName}>@nickname</span>
@@ -51,7 +86,7 @@ export default function ProfileImage() {
           </div>
           <div className={s.buttons}>
             <button>Follow</button>
-            <button>Message</button>
+            <button onClick={openChat}>Message</button>
           </div>
         </div>
       </div>

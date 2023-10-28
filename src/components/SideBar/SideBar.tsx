@@ -5,7 +5,7 @@ import ToolTip from "../Helpers/ToolTip";
 import useTheme from "hooks/useTheme";
 import Switch from "../Switch/Switch";
 import { useNavigate } from "react-router-dom";
-import { logout } from "store/slices/userSlice";
+import { logout, resetViewAnotherUserProfile } from "store/slices/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import {
@@ -58,6 +58,8 @@ export default function SideBar() {
   const { theme } = useTheme();
 
   const clickOnItem = (title: string, index: number) => {
+    if (title === "profile") dispatch(resetViewAnotherUserProfile());
+
     dispatch(selectSideBarItem(title));
     dispatch(selectSideBarIndex(index));
     navigate(`/${title}`);
@@ -83,7 +85,7 @@ export default function SideBar() {
       </div>
 
       <div className={s.title}>
-        <FontAwesomeIcon icon={faEarth} /> <h1>Chat</h1>
+        <FontAwesomeIcon icon={faEarth} /> <h1>Social</h1>
       </div>
 
       <div className={s.sidebarWrapper}>

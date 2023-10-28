@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { iNotification } from "components/UI-Kit/Notification/Notification";
 import { iSnackbar } from "components/UI-Kit/Snackbar/Snackbar";
 
 interface iInitialState {
@@ -17,6 +18,7 @@ interface iInitialState {
     variant: "fileOptions" | "folderOptions";
   };
   showSnackbar: iSnackbar[];
+  showNotifications: iNotification[];
   showLoader: boolean;
   showUploader: {
     isShowUploader: boolean;
@@ -29,6 +31,7 @@ const initialState: iInitialState = {
   showSidebarPreview: null,
   showContextMenu: null,
   showSnackbar: [],
+  showNotifications: [],
   showLoader: false,
   showUploader: {
     isShowUploader: false,
@@ -60,6 +63,15 @@ const messageSlice = createSlice({
     },
     setRemoveSnackbar(state) {
       state.showSnackbar = [...state.showSnackbar.slice(1)];
+    },
+    setShowNotification(state, action) {
+      state.showNotifications = [
+        ...state.showNotifications,
+        { ...action.payload, _id: Date.now() },
+      ];
+    },
+    setRemoveNotification(state) {
+      state.showNotifications = [...state.showNotifications.slice(1)];
     },
     setToggleShowUploader(state, action) {
       state.showUploader.isShowUploader = action.payload;
@@ -99,6 +111,8 @@ export const {
   setToggleShowUploader,
   setClearUploadFiles,
   setShowLoader,
+  setShowNotification,
+  setRemoveNotification,
 } = messageSlice.actions;
 
 export default messageSlice.reducer;
