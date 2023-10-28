@@ -56,7 +56,7 @@ export default function Message({ message }: { message: iMessage }) {
       <div className={s.messageContent}>
         <div className={s.tail}></div>
         {message.text && <p>{message.text}</p>}
-        {message.img && <img src={message.img} alt="" />}
+        {message.image && <img src={API_URL + message.image} alt="" />}
       </div>
     </div>
   );
