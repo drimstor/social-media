@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { API_URL, DEV_API_URL } from "config";
+import { API_URL } from "config";
 import { setShowSnackbar } from "store/slices/messageSlice";
 import { iAddPost, iComment } from "types/iPost";
 
@@ -7,7 +7,7 @@ export const commentsAPI = createApi({
   reducerPath: "commentsAPI",
   tagTypes: ["Comment"],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${DEV_API_URL}api/comments`,
+    baseUrl: `${API_URL}api/comments`,
   }),
   endpoints: (build) => ({
     getComments: build.query<iComment[], any[]>({

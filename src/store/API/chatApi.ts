@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { DEV_API_URL } from "config";
+import { API_URL } from "config";
 import { setShowSnackbar } from "store/slices/messageSlice";
 import { iMessage } from "types/iMessage";
 import { iAddPost } from "types/iPost";
@@ -8,7 +8,7 @@ import { iChat, iUser } from "types/iUser";
 export const chatApi = createApi({
   reducerPath: "chatApi",
   tagTypes: ["Messages", "PreviewChats"],
-  baseQuery: fetchBaseQuery({ baseUrl: `${DEV_API_URL}api/messages` }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${API_URL}api/messages` }),
   endpoints: (build) => ({
     // Sidebar Preview
     searchUser: build.query<iUser[], any>({

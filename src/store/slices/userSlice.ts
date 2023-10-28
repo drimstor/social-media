@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { iLoginUser, iUserState } from "types/iUser";
-import { API_URL, DEV_API_URL } from "config";
+import { API_URL } from "config";
 import { setShowSnackbar } from "./messageSlice";
 import { selectSideBarIndex, selectSideBarItem } from "./sideBarSlice";
 
