@@ -93,8 +93,9 @@
 
     @media screen and (max-width: 766px) {
       gap: 12px;
-      height: auto;
-      margin-bottom: 30px;
+      height: 100%;
+      bottom: initial;
+      top: 230px;
     }
 
     .infoBoxWrapper {
